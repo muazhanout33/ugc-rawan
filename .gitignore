@@ -1,0 +1,103 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+
+# ============================================
+# Local audit and verification files
+# ============================================
+
+*.log
+*.txt
+*-REPORT.md
+
+
+# ============================================
+# Screenshots and verification folders
+# ============================================
+
+screenshots/
+fix-verification/
+mobile-polish-verification/
+portfolio-redesign-verification/
+skills-fold-verification/
+trustedby-verification/
+queen-clinic-verification/
+sky-logo-verification/
+
+
+# ============================================
+# Local verification scripts
+# ============================================
+
+audit-screenshots.mjs
+capture.mjs
+capture-after.mjs
+check-playback.mjs
+final-check.mjs
+hero-check.mjs
+hero-dump.mjs
+hero-trace.mjs
+ig-probe.mjs
+ig-probe2.mjs
+layout-audit.mjs
+measure-fljs.mjs
+measure-touch.mjs
+probe-blue-dot.mjs
+probe-utilities.mjs
+screenshot.js
+sky-logo-check.mjs
+verify-issues.mjs
+verify-portfolio-redesign.mjs
+verify-skills-fold.mjs
+verify-trustedby-after.mjs
+viewport-check.mjs
+vp-debug.mjs
+walkthrough-before.mjs
+
+# Local audit files
+lighthouse-*.json
+rendered.html
+server-*.err
+
+# AI agent instructions
+AGENTS.md
+CLAUDE.md
