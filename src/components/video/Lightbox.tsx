@@ -7,6 +7,7 @@ import {
   useState,
   type MouseEvent as ReactMouseEvent,
 } from "react";
+import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import {
   Play,
@@ -278,7 +279,7 @@ export default function Lightbox({
     }
     setIsLoading(false);
     setCurrentTime(0);
-    el.play().catch(() => {});
+    // No autoplay — video stays paused until the user taps Play.
   }, []);
 
   /* ── Swipe navigation (mobile) ── */
@@ -307,21 +308,29 @@ export default function Lightbox({
   const progress =
     duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0;
 
-  return (
+  return createPortal(
     <motion.div
-      className="fixed inset-0 z-[200] flex items-center justify-center overflow-y-auto bg-[rgba(5,5,8,0.88)] backdrop-blur-md select-none"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      className="fixed inset-0 z-[200] flex items-center justify-center overflow-y-auto select-none"
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label="Portfolio video lightbox"
     >
+      {/* ── Background layer: bg + blur, fades in (0.3s) ── */}
+      <motion.div
+        className="absolute inset-0 bg-[rgba(5,5,8,0.88)] backdrop-blur-md"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        aria-hidden="true"
+      />
+
+      {/* ── Content layer: visible immediately (no opacity fade) ── */}
       <div
         ref={contentRef}
-        className="relative flex flex-col lg:flex-row items-center lg:items-center justify-center gap-7 lg:gap-12 w-full max-w-5xl px-4 py-8 lg:py-12 my-auto"
+        className="relative z-10 flex flex-col lg:flex-row items-center lg:items-center justify-center gap-7 lg:gap-12 w-full max-w-5xl px-4 py-8 lg:py-12 my-auto"
         onClick={(e) => e.stopPropagation()}
         onMouseMove={handleMouseMove}
         onTouchStart={handleTouchStart}
@@ -551,6 +560,7 @@ export default function Lightbox({
           </p>
         </div>
       </div>
-    </motion.div>
+    </motion.div>,
+    document.body
   );
 }

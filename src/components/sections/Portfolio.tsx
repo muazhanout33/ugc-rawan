@@ -82,7 +82,7 @@ export default function Portfolio() {
                   </>
                 ) : (
                   <>
-                    View All Videos
+                    See All Work
                     <ArrowRight
                       size={15}
                       className="transition-transform duration-300 group-hover:translate-x-0.5"
@@ -117,14 +117,16 @@ export default function Portfolio() {
           </div>
         </div>
 
-        {/* Grid */}
+        {/* Mobile: horizontal carousel | sm+: grid */}
         <motion.div
           layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7"
+          className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-7 lg:overflow-visible lg:snap-none lg:pb-0"
         >
           <AnimatePresence mode="popLayout">
             {displayedItems.map((item) => (
-              <PortfolioCard key={item.id} item={item} onOpen={handleOpen} />
+              <div key={item.id} className="shrink-0 w-[75vw] sm:w-auto">
+                <PortfolioCard item={item} onOpen={handleOpen} />
+              </div>
             ))}
           </AnimatePresence>
         </motion.div>
