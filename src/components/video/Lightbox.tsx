@@ -328,10 +328,11 @@ export default function Lightbox({
         onTouchEnd={handleTouchEnd}
         style={{ touchAction: "pan-y" }}
       >
-        {/* ── Shared-element frame ── */}
+        {/* ── Video frame ── */}
         <motion.div
-          layoutId={`portfolio-frame-${openedId}`}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ scale: 0.92 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           className="relative w-full max-w-[420px] sm:max-w-[380px] lg:w-auto lg:max-w-none lg:h-[78vh] aspect-[9/16] shrink-0 rounded-[20px] overflow-hidden bg-black shadow-[0_40px_120px_rgba(0,0,0,0.7)]"
         >
           <video
