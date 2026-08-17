@@ -379,6 +379,9 @@ html.lenis body {
   animation: twinkle 3s ease-in-out infinite;
   pointer-events: none;
 }
+[data-paused="1"] .star {
+  animation-play-state: paused;
+}
 
 /* ============================================================
    GRADIENT LINE DIVIDER

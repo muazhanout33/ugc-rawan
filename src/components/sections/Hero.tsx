@@ -54,12 +54,28 @@ const InstagramIcon = () => (
 export default function Hero() {
   const [titleIndex, setTitleIndex] = useState(0);
   const ref = useRef<HTMLElement>(null);
+  const starsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setTitleIndex((prev) => (prev + 1) % HERO_TITLES.length);
     }, 3000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Pause star animations when Hero is off-screen to save GPU compositor work
+  useEffect(() => {
+    const section = ref.current;
+    const stars = starsRef.current;
+    if (!section || !stars) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        stars.dataset.paused = entry.isIntersecting ? "0" : "1";
+      },
+      { rootMargin: "100px 0px" }
+    );
+    io.observe(section);
+    return () => io.disconnect();
   }, []);
 
   const scrollToWork = useCallback(() => {
@@ -136,7 +152,7 @@ export default function Hero() {
       />
 
       {/* Stars — CSS-only, will-change for GPU */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{ contain: "strict" }}>
+      <div ref={starsRef} className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{ contain: "strict" }}>
         {starsHtml.map((style, i) => (
           <div
             key={i}
