@@ -70,7 +70,7 @@ export default function Navbar() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
           scrolled
-            ? "py-3 bg-[rgba(15,10,25,0.88)] backdrop-blur-2xl border-b border-[rgba(139,92,246,0.12)] shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
+            ? "py-3 bg-[rgba(15,10,25,0.88)] backdrop-blur-md border-b border-[rgba(139,92,246,0.12)] shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
             : "py-5 bg-transparent"
         )}
       >
@@ -195,7 +195,7 @@ export default function Navbar() {
             className="fixed inset-0 z-40 lg:hidden"
           >
             <div
-              className="absolute inset-0 bg-[#0F0A19]/95 backdrop-blur-2xl"
+              className="absolute inset-0 bg-[#0F0A19]/95 backdrop-blur-md"
               onClick={() => setMobileOpen(false)}
             />
             <nav className="relative z-10 flex flex-col items-center justify-center h-full gap-1 pb-24">
