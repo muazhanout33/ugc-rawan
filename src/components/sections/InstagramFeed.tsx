@@ -14,10 +14,10 @@ import { SITE_META } from "@/lib/constants";
 import Image from "next/image";
 
 const INSTAGRAM_POSTS = [
-  { id: 1, image: "/assets/aroma-center.jpg", caption: "Skincare transformation" },
-  { id: 2, image: "/assets/elqaser-center.png", caption: "Brand reveal" },
-  { id: 5, image: "/assets/scalaryx.jpeg", caption: "Agency promo" },
-  { id: 6, image: "/assets/sky-center.png", caption: "Laser treatment" },
+  { id: 1, image: "/assets/aroma-center.jpg", caption: "Skincare transformation", instagram: "https://www.instagram.com/aroma.center1/" },
+  { id: 2, image: "/assets/elqaser-center.png", caption: "Brand reveal", instagram: "https://www.instagram.com/elqaser.center/" },
+  { id: 5, image: "/assets/scalaryx.jpeg", caption: "Agency promo", instagram: "https://www.instagram.com/scalary_x/" },
+  { id: 6, image: "/assets/sky-center.png", caption: "Laser treatment", instagram: "https://www.instagram.com/sky_center2025/" },
   { id: 7, image: "/assets/queen-clinic.jpeg", caption: "Queen Clinic skincare" },
 ];
 
@@ -179,7 +179,7 @@ export default function InstagramSection() {
           {INSTAGRAM_POSTS.map((post, index) => (
             <motion.a
               key={post.id}
-              href={SITE_META.instagram}
+              href={post.instagram || SITE_META.instagram}
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, scale: 0.9 }}
