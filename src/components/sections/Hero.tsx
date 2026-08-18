@@ -9,7 +9,7 @@ import Image from "next/image";
 const FLOATING_BADGES = [
   { icon: MapPin, text: "Shebeen El-Kom, Egypt", color: "#C4B5FD" },
   { icon: Star, text: "Premium UGC", color: "#E9D5FF" },
-  { icon: Play, text: "~400 Reels", color: "#C4B5FD" },
+  { icon: Play, text: "~400 Reels", color: "#F59E0B" },
 ];
 
 interface StarData {
@@ -124,20 +124,10 @@ export default function Hero() {
         />
       <div className="absolute inset-0 grid-pattern opacity-30 z-0 pointer-events-none mix-blend-overlay" />
 
-      {/* Glow orbs */}
+      {/* Glow orb — single, subtle */}
       <div
         className="glow-orb glow-orb-primary pointer-events-none"
-        style={{ width: 600, height: 600, top: "-15%", left: "-12%", opacity: 0.16, willChange: "transform" }}
-        aria-hidden="true"
-      />
-      <div
-        className="glow-orb glow-orb-accent pointer-events-none"
-        style={{ width: 450, height: 450, bottom: "-8%", right: "-8%", opacity: 0.13, willChange: "transform" }}
-        aria-hidden="true"
-      />
-      <div
-        className="glow-orb glow-orb-secondary pointer-events-none"
-        style={{ width: 300, height: 300, top: "35%", right: "8%", opacity: 0.1, willChange: "transform" }}
+        style={{ width: 500, height: 500, top: "-10%", left: "-10%", opacity: 0.06, filter: "blur(100px)", willChange: "transform" }}
         aria-hidden="true"
       />
 
@@ -287,11 +277,11 @@ export default function Hero() {
             transition={{ delay: 0.45, duration: 0.5 }}
             className="font-inter text-white/55 text-base sm:text-lg md:text-xl max-w-lg leading-relaxed mb-8 text-pretty self-center lg:self-start"
           >
-            Crafting cinematic stories for{" "}
+            Video content for{" "}
             <span className="text-white/80 font-medium">
               medical clinics, healthcare centers,{" "}
             </span>
-            and premium brands across Egypt.
+            and brands across Egypt.
           </motion.p>
 
           {/* CTA — Learn more pill button */}
@@ -303,7 +293,7 @@ export default function Hero() {
           >
             <button
               onClick={scrollToAbout}
-              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-white/[0.08] border border-white/[0.12] text-white/90 font-inter text-[15px] font-medium transition-all duration-300 hover:bg-white/[0.14] hover:border-white/[0.2] hover:shadow-[0_0_30px_rgba(196,181,253,0.15)] cursor-pointer"
+              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-white/[0.08] border border-white/[0.12] text-white/90 font-inter text-[15px] font-medium transition-all duration-300 hover:bg-[rgba(245,158,11,0.08)] hover:border-[rgba(245,158,11,0.35)] hover:shadow-[0_0_24px_rgba(245,158,11,0.12)] cursor-pointer"
             >
               Learn more
               <ArrowDown size={14} className="transition-transform duration-300 group-hover:translate-y-0.5" />

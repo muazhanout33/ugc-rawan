@@ -19,7 +19,7 @@ export default function Contact() {
     <section id="contact" className="relative bg-[#0F0A19] overflow-hidden">
       <div className="gradient-line" />
 
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#C4B5FD] rounded-full blur-[180px] opacity-[0.04] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-[#C4B5FD] rounded-full blur-[200px] opacity-[0.02] pointer-events-none" />
 
       <div className="section-container py-20 lg:py-28">
         {/* ── Main 3-Column Grid ── */}

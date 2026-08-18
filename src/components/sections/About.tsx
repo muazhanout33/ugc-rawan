@@ -110,19 +110,18 @@ export default function About() {
 
               <p className="font-inter text-white/60 text-base sm:text-lg leading-relaxed">
                 I&apos;m Rewan — a UGC creator and videographer based in Shebeen El-Kom,
-                Egypt. I craft{" "}
+                Egypt. I make{" "}
                 <strong className="text-white font-medium">
-                  cinematic, high-converting video
+                  short-form video content
                 </strong>{" "}
-                for medical clinics, healthcare centers, and premium lifestyle
-                brands. I also partner with fellow content creators to manage the
-                full production pipeline — concept to final cut, trend-aware and
-                built to engage.
+                for medical clinics, healthcare centers, and lifestyle
+                brands. I also work with fellow content creators on the
+                full production pipeline — concept to final cut.
               </p>
 
               <p className="font-inter text-white/50 text-sm sm:text-base leading-relaxed mt-4">
-                Specialized in crafting launch-ready UGC and video content for
-                healthcare clinics, beauty brands, tech startups, and personal brands.
+                Focused on video content for healthcare clinics, beauty brands,
+                tech startups, and personal brands.
               </p>
 
               {/* Thin divider */}

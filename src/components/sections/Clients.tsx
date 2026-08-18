@@ -96,7 +96,7 @@ export default function TrustedBy() {
     >
       {/* Background aesthetics */}
       <div className="absolute top-0 left-0 right-0 gradient-line" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[40%] bg-[#C4B5FD] rounded-full blur-[160px] opacity-[0.04] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50%] h-[35%] bg-[#C4B5FD] rounded-full blur-[180px] opacity-[0.02] pointer-events-none" />
 
       <div className="section-container relative z-10">
         {/* ─── Main Section Header ─── */}
@@ -106,11 +106,13 @@ export default function TrustedBy() {
             Trusted By
           </div>
           <h2 className="font-heading text-section mb-5 text-balance">
-            Trusted by <span className="text-gradient-primary">industry leaders</span>.
+            Working with{" "}
+            <span className="text-gradient-primary">clinics and brands</span>{" "}
+            across Egypt.
           </h2>
           <p className="font-inter text-white/50 text-base sm:text-lg text-pretty leading-relaxed">
-            Partnering with top medical centers, renowned doctors, and innovative
-            brands across Egypt.
+            Medical centers, specialist doctors, and companies I&apos;ve
+            created content for.
           </p>
         </ScrollReveal>
 
@@ -151,7 +153,7 @@ export default function TrustedBy() {
               <h3 className="font-sora font-semibold text-white text-lg leading-snug">
                 Doctors & Specialists
               </h3>
-              <p className="font-inter text-white/40 text-xs mt-0.5">Renowned medical professionals</p>
+              <p className="font-inter text-white/40 text-xs mt-0.5">Specialists & doctors</p>
             </div>
           </div>
 

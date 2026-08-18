@@ -53,10 +53,10 @@ export default function Portfolio() {
               <Sparkles size={14} className="text-[#E9D5FF]" />
               {viewAll ? "Complete Portfolio" : "Selected Work"}
             </div>
-            <h2 className="font-heading text-section text-balance">
-              Stories that{" "}
-              <span className="text-gradient-primary">stop the scroll</span>.
-            </h2>
+              <h2 className="font-heading text-section text-balance">
+                Selected{" "}
+                <span className="text-gradient-primary">work</span>.
+              </h2>
           </ScrollReveal>
 
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 lg:gap-6">

@@ -107,8 +107,6 @@ export default function InstagramSection() {
     <section id="instagram" className="relative section-padding bg-[#0F0A19] overflow-hidden">
       <div className="absolute top-0 left-0 right-0 gradient-line" />
 
-      <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-[#C4B5FD] rounded-[100%] blur-[150px] opacity-[0.04] pointer-events-none" />
-
       <div className="section-container relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
           {/* Left Content */}
