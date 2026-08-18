@@ -15,12 +15,8 @@ export const SITE_META = {
 
 export const NAV_LINKS = [
   { label: "Home", href: "#home" },
-  { label: "Client", href: "#clients" },
-  { label: "Work", href: "#portfolio" },
-  { label: "Industries", href: "#industries" },
-  { label: "Instagram", href: "#instagram" },
-  { label: "Contact", href: "#contact" },
   { label: "About", href: "/about" },
+  { label: "Client", href: "#clients" },
 ];
 
 export const HERO_TITLES = [
@@ -140,33 +136,6 @@ export const SKILLS = {
 };
 
 export const TOOLS = ["Adobe Premiere Pro", "CapCut"];
-
-export const INDUSTRIES = [
-  {
-    id: "healthcare-medical",
-    title: "Healthcare & Medical",
-    description: "Content for dermatology, aesthetic, and specialty clinics that builds trust and attracts patients.",
-    icon: "Heart",
-  },
-  {
-    id: "beauty-lifestyle",
-    title: "Beauty & Lifestyle",
-    description: "Premium video for beauty centers, skincare, and lifestyle brands.",
-    icon: "Sparkles",
-  },
-  {
-    id: "tech-startups",
-    title: "Tech & Startups",
-    description: "Launch-ready content for AI startups and emerging tech brands.",
-    icon: "Rocket",
-  },
-  {
-    id: "personal-brands",
-    title: "Personal Brands",
-    description: "Personal brand content for physicians, entrepreneurs, and creators.",
-    icon: "Crown",
-  },
-];
 
 export type PortfolioItem = (typeof PORTFOLIO_ITEMS)[number];
 
