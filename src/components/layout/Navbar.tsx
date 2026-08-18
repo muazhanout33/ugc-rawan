@@ -71,6 +71,11 @@ export default function Navbar() {
         window.location.href = href;
         return;
       }
+      // If on /about page, navigate to home then scroll to section
+      if (window.location.pathname === "/about") {
+        window.location.href = `/${href}`;
+        return;
+      }
       const el = document.querySelector(href);
       if (el) el.scrollIntoView({ behavior: "smooth" });
     },
@@ -172,10 +177,9 @@ export default function Navbar() {
               href="https://www.instagram.com/rewan__reel__ugc_creator/?hl=en"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary text-sm px-7 py-2.5"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-transparent border border-[rgba(196,181,253,0.4)] text-white text-[13px] font-medium font-inter shadow-[0_0_20px_rgba(196,181,253,0.15)] transition-all duration-300 hover:border-[rgba(196,181,253,0.6)] hover:shadow-[0_0_28px_rgba(196,181,253,0.25)]"
               whileHover={{
                 scale: 1.03,
-                boxShadow: "0 0 30px rgba(196,181,253,0.5)",
               }}
               whileTap={{ scale: 0.97 }}
             >
@@ -251,7 +255,7 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.4 }}
-                className="btn-primary mt-8"
+                className="inline-flex items-center gap-2 px-5 py-2.5 mt-8 rounded-full bg-transparent border border-[rgba(196,181,253,0.4)] text-white text-[13px] font-medium font-inter shadow-[0_0_20px_rgba(196,181,253,0.15)]"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
                   <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>

@@ -15,10 +15,12 @@ export const SITE_META = {
 
 export const NAV_LINKS = [
   { label: "Home", href: "#home" },
-  { label: "About", href: "/about" },
+  { label: "Client", href: "#clients" },
   { label: "Work", href: "#portfolio" },
   { label: "Industries", href: "#industries" },
+  { label: "Instagram", href: "#instagram" },
   { label: "Contact", href: "#contact" },
+  { label: "About", href: "/about" },
 ];
 
 export const HERO_TITLES = [

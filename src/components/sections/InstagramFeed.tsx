@@ -104,7 +104,7 @@ function PhoneMockup() {
 
 export default function InstagramSection() {
   return (
-    <section className="relative section-padding bg-[#0F0A19] overflow-hidden">
+    <section id="instagram" className="relative section-padding bg-[#0F0A19] overflow-hidden">
       <div className="absolute top-0 left-0 right-0 gradient-line" />
 
       <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-[#C4B5FD] rounded-[100%] blur-[150px] opacity-[0.04] pointer-events-none" />
