@@ -9,9 +9,7 @@ import { SKILLS, TOOLS } from "@/lib/constants";
 
 const TOOL_LOGOS: Record<string, string> = {
   "Adobe Premiere Pro": "/assets/premiere-pro-logo.png",
-  "Final Cut Pro": "/assets/final-cut-logo.svg",
-  "Adobe After Effects": "/assets/after-effects-logo.svg",
-  "Adobe Photoshop": "/assets/photoshop-logo.svg",
+  CapCut: "/assets/capcut-logo.png",
 };
 
 const StatCard = memo(function StatCard({
