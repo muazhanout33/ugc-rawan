@@ -137,8 +137,8 @@ export default function InstagramSection() {
                 href={SITE_META.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary inline-flex max-w-full"
-                whileHover={{ scale: 1.03, boxShadow: "0 0 40px rgba(196,181,253,0.5)" }}
+                className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-[rgba(10,6,20,0.85)] border border-[rgba(196,181,253,0.35)] text-white font-inter text-base font-medium shadow-[0_0_16px_rgba(196,181,253,0.1)] transition-all duration-300 hover:bg-[rgba(15,10,30,0.95)] hover:border-[rgba(196,181,253,0.55)] hover:shadow-[0_0_28px_rgba(196,181,253,0.2)] cursor-pointer max-w-full"
+                whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
                 <InstagramIcon size={18} />

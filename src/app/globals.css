@@ -304,7 +304,31 @@ html.lenis body {
 ============================================================ */
 .marquee-track {
   display: flex;
+  width: max-content;
   will-change: transform;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee-scroll var(--marquee-duration, 40s) linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
 }
 
 /* ============================================================
