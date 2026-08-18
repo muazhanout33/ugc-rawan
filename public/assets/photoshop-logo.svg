@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="psBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A2A3A"/>
+      <stop offset="100%" style="stop-color:#061820"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="26" fill="url(#psBg)"/>
+  <rect x="4" y="4" width="112" height="112" rx="24" fill="none" stroke="#38BDF8" stroke-width="3"/>
+  <text x="60" y="72" text-anchor="middle" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="42" font-weight="700" fill="#38BDF8" letter-spacing="-1">Ps</text>
+</svg>

@@ -9,7 +9,9 @@ import { SKILLS, TOOLS } from "@/lib/constants";
 
 const TOOL_LOGOS: Record<string, string> = {
   "Adobe Premiere Pro": "/assets/premiere-pro-logo.png",
-  CapCut: "/assets/capcut-logo.png",
+  "Final Cut Pro": "/assets/final-cut-logo.svg",
+  "Adobe After Effects": "/assets/after-effects-logo.svg",
+  "Adobe Photoshop": "/assets/photoshop-logo.svg",
 };
 
 const StatCard = memo(function StatCard({
@@ -128,7 +130,7 @@ export default function About() {
               {/* Thin divider */}
               <div className="h-px w-full bg-gradient-to-r from-transparent via-[rgba(196,181,253,0.4)] to-transparent mt-8 mb-7" />
 
-              {/* Skills & Tools pill tags */}
+              {/* Skills pill tags */}
               <div className="flex flex-wrap gap-2">
                 {[...SKILLS.creative, ...SKILLS.production].map((skill) => (
                   <span
@@ -138,27 +140,47 @@ export default function About() {
                     {skill.name}
                   </span>
                 ))}
-                {TOOLS.map((tool) => (
-                  <span
-                    key={tool}
-                    className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[13px] font-inter font-medium leading-none bg-transparent border border-dashed border-white/25 text-white/50"
-                  >
-                    {TOOL_LOGOS[tool] && (
-                      <Image
-                        src={TOOL_LOGOS[tool]}
-                        alt={`${tool} logo`}
-                        width={20}
-                        height={20}
-                        className="shrink-0"
-                      />
-                    )}
-                    {tool}
-                  </span>
-                ))}
               </div>
             </ScrollReveal>
           </div>
         </div>
+
+        {/* ─── Execution Stack ─── */}
+        <ScrollReveal animation="fadeUp" delay={0.1}>
+          <div className="mt-24 lg:mt-32">
+            <h2 className="font-serif text-section text-center mb-16 text-balance" style={{ fontWeight: 700 }}>
+              Execution Stack
+            </h2>
+
+            <div className="flex flex-wrap items-center justify-center gap-y-12 gap-x-12 sm:gap-x-16 lg:gap-x-20">
+              {TOOLS.map((tool, index) => (
+                <motion.div
+                  key={tool}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="flex flex-col items-center gap-5"
+                >
+                  <div className="w-[90px] h-[90px] sm:w-[100px] sm:h-[100px] lg:w-[110px] lg:h-[110px] rounded-[22px] sm:rounded-[26px] lg:rounded-[28px] overflow-hidden bg-[#150D28] border border-[rgba(196,181,253,0.12)] flex items-center justify-center shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+                    {TOOL_LOGOS[tool] && (
+                      <Image
+                        src={TOOL_LOGOS[tool]}
+                        alt={`${tool} logo`}
+                        width={110}
+                        height={110}
+                        className="w-full h-full object-contain"
+                      />
+                    )}
+                  </div>
+                  <span className="font-inter text-white font-medium text-[15px] sm:text-[16px] lg:text-[17px] text-center whitespace-nowrap">
+                    {tool}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

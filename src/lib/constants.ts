@@ -140,7 +140,12 @@ export const SKILLS = {
   ],
 };
 
-export const TOOLS = ["Adobe Premiere Pro", "CapCut"];
+export const TOOLS = [
+  "Adobe Premiere Pro",
+  "Final Cut Pro",
+  "Adobe After Effects",
+  "Adobe Photoshop",
+];
 
 export type PortfolioItem = (typeof PORTFOLIO_ITEMS)[number];
 

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="fcBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2D2D2D"/>
+      <stop offset="100%" style="stop-color:#1A1A1A"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="26" fill="url(#fcBg)"/>
+  <!-- Clapperboard top -->
+  <rect x="28" y="30" width="64" height="8" rx="2" fill="#FFFFFF"/>
+  <rect x="28" y="30" width="12" height="8" rx="1" fill="#333"/>
+  <rect x="44" y="30" width="12" height="8" rx="1" fill="#333"/>
+  <rect x="60" y="30" width="12" height="8" rx="1" fill="#333"/>
+  <rect x="76" y="30" width="12" height="8" rx="1" fill="#333"/>
+  <!-- Clapperboard body -->
+  <rect x="28" y="40" width="64" height="44" rx="4" fill="#444"/>
+  <!-- Rainbow stripes -->
+  <rect x="28" y="40" width="64" height="8.8" rx="4" fill="#FF3B30"/>
+  <rect x="28" y="48.8" width="64" height="8.8" fill="#FF9500"/>
+  <rect x="28" y="57.6" width="64" height="8.8" fill="#FFCC00"/>
+  <rect x="28" y="66.4" width="64" height="8.8" fill="#34C759"/>
+  <rect x="28" y="75.2" width="64" height="8.8" rx="4" fill="#007AFF"/>
+</svg>
