@@ -110,12 +110,12 @@ const MedicalCenterCard = memo(function MedicalCenterCard({
       <div className="relative rounded-2xl bg-white/[0.03] backdrop-blur-md border border-white/10 p-7 flex flex-col items-center text-center h-full hover:border-[#C4B5FD]/50 hover:bg-white/[0.05] transition-all duration-400 hover:shadow-[0_12px_40px_rgba(196,181,253,0.15)] hover:-translate-y-1">
         <div className="absolute inset-0 bg-gradient-to-b from-[#C4B5FD]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
         <div className="relative z-10 w-full flex flex-col items-center">
-          <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/15 p-3 mb-5 group-hover:border-[#C4B5FD]/40 group-hover:scale-105 transition-all duration-400 relative overflow-hidden flex items-center justify-center shadow-lg">
+          <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-white/5 border border-white/15 p-3.5 sm:p-4 mb-5 group-hover:border-[#C4B5FD]/40 group-hover:scale-105 transition-all duration-400 relative overflow-hidden flex items-center justify-center shadow-lg">
             <Image
               src={center.logo}
               alt={center.name}
               fill
-              sizes="80px"
+              sizes="(max-width: 640px) 112px, 128px"
               loading="lazy"
               className="object-contain p-2"
             />
@@ -292,12 +292,12 @@ export default function TrustedBy() {
                   className="group relative"
                 >
                   <div className="rounded-2xl bg-white/[0.03] backdrop-blur-md border border-white/10 p-7 flex flex-col items-center text-center h-full hover:border-[#C4B5FD]/50 hover:bg-white/[0.05] transition-all duration-400 hover:shadow-[0_12px_40px_rgba(196,181,253,0.15)] hover:-translate-y-1">
-                    <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/15 p-3 mb-5 group-hover:border-[#C4B5FD]/40 group-hover:scale-105 transition-all duration-400 relative overflow-hidden flex items-center justify-center shadow-lg">
+                    <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-white/5 border border-white/15 p-3.5 sm:p-4 mb-5 group-hover:border-[#C4B5FD]/40 group-hover:scale-105 transition-all duration-400 relative overflow-hidden flex items-center justify-center shadow-lg">
                       <Image
                         src={brand.logo}
                         alt={brand.name}
                         fill
-                        sizes="80px"
+                        sizes="(max-width: 640px) 112px, 128px"
                         loading="lazy"
                         className="object-contain p-2"
                       />

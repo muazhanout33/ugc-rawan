@@ -7,7 +7,6 @@ import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/sections/Hero";
 import TrustedBy from "@/components/sections/Clients";
 import Contact from "@/components/sections/Contact";
-import Footer from "@/components/layout/Footer";
 import LenisProvider from "@/components/layout/LenisProvider";
 
 /* Heavy media sections dynamically imported to defer chunk loading */
@@ -26,7 +25,6 @@ export default function Home() {
         <InstagramFeed />
         <Contact />
       </main>
-      <Footer />
     </>
   );
 }

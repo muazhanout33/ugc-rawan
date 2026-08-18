@@ -5,7 +5,7 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import About from "@/components/sections/About";
-import Footer from "@/components/layout/Footer";
+import Contact from "@/components/sections/Contact";
 import LenisProvider from "@/components/layout/LenisProvider";
 import { SITE_META } from "@/lib/constants";
 
@@ -30,7 +30,7 @@ export default function AboutPage() {
       <main className="flex flex-col min-h-screen pt-20">
         <About />
       </main>
-      <Footer />
+      <Contact />
     </>
   );
 }

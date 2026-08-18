@@ -17,6 +17,7 @@ export const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "About", href: "/about" },
   { label: "Client", href: "#clients" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export const HERO_TITLES = [
