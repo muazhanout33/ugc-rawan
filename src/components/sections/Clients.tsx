@@ -1,8 +1,7 @@
 "use client";
 
-import { memo, useState, useSyncExternalStore } from "react";
-import { motion } from "framer-motion";
-import { Star, Stethoscope, ChevronDown } from "lucide-react";
+import { memo } from "react";
+import { Star, Stethoscope } from "lucide-react";
 import {
   TRUSTED_MEDICAL_CENTERS,
   TRUSTED_DOCTORS,
@@ -10,37 +9,6 @@ import {
 } from "@/lib/constants";
 import Image from "next/image";
 import { ScrollReveal } from "@/components/animations";
-
-/* ───────── Responsive default doctors count ───────── */
-
-const DOCTORS_DEFAULT = {
-  mobile: 4,
-  desktop: 8,
-};
-
-const desktopQuery = () =>
-  typeof window !== "undefined"
-    ? window.matchMedia("(min-width: 1024px)")
-    : null;
-
-function getDoctorCountSnapshot(): number {
-  return desktopQuery()?.matches ? DOCTORS_DEFAULT.desktop : DOCTORS_DEFAULT.mobile;
-}
-
-function subscribeDoctorCount(callback: () => void): () => void {
-  const mq = desktopQuery();
-  if (!mq) return () => {};
-  mq.addEventListener("change", callback);
-  return () => mq.removeEventListener("change", callback);
-}
-
-function useDefaultDoctorCount(): number {
-  return useSyncExternalStore(
-    subscribeDoctorCount,
-    getDoctorCountSnapshot,
-    () => DOCTORS_DEFAULT.mobile
-  );
-}
 
 /* ───────── Marquee Logo Item ───────── */
 
@@ -50,8 +18,8 @@ const MarqueeLogoItem = memo(function MarqueeLogoItem({
   item: { name: string; logo: string; industry?: string };
 }) {
   return (
-    <div className="flex-shrink-0 flex items-center gap-4 px-6 py-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#C4B5FD]/40 hover:bg-white/[0.05] transition-all duration-300 group mx-3">
-      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-white/5 border border-white/15 p-2.5 group-hover:border-[#C4B5FD]/40 transition-all duration-300 relative overflow-hidden flex items-center justify-center flex-shrink-0">
+    <div className="flex-shrink-0 flex items-center gap-4 px-6 py-4 rounded-2xl bg-[rgba(27,18,48,0.4)] border border-white/[0.06] hover:border-[#C4B5FD]/40 hover:bg-[rgba(27,18,48,0.6)] transition-all duration-300 group mx-3">
+      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-white/[0.04] border border-white/[0.08] p-2.5 group-hover:border-[#C4B5FD]/40 transition-all duration-300 relative overflow-hidden flex items-center justify-center flex-shrink-0">
         <Image
           src={item.logo}
           alt={item.name}
@@ -75,56 +43,33 @@ const MarqueeLogoItem = memo(function MarqueeLogoItem({
   );
 });
 
-/* ───────── Doctor Card ───────── */
+/* ───────── Marquee Doctor Item ───────── */
 
-const DoctorCard = memo(function DoctorCard({
+const MarqueeDoctorItem = memo(function MarqueeDoctorItem({
   doctor,
-  index,
 }: {
   doctor: (typeof TRUSTED_DOCTORS)[0];
-  index: number;
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-20px" }}
-      transition={{ duration: 0.35, delay: index * 0.04 }}
-      className="group relative"
-    >
-      <div className="rounded-xl bg-white/[0.03] backdrop-blur-md border border-white/10 px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#C4B5FD]/40 hover:bg-white/[0.06] transition-all duration-300 hover:shadow-[0_4px_20px_rgba(196,181,253,0.1)] hover:-translate-y-0.5">
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C4B5FD] group-hover:bg-[#E9D5FF] transition-colors flex-shrink-0" />
-            <p className="font-sora font-semibold text-white text-sm leading-snug truncate">
-              {doctor.name}
-            </p>
-          </div>
-          {doctor.specialty && (
-            <p className="font-inter text-white/40 text-xs pl-3.5 mt-0.5 leading-snug pr-1">
-              {doctor.specialty}
-            </p>
-          )}
-        </div>
+    <div className="flex-shrink-0 flex items-center gap-3 px-5 py-3.5 rounded-xl bg-[rgba(27,18,48,0.4)] border border-white/[0.06] hover:border-[#C4B5FD]/30 hover:bg-[rgba(27,18,48,0.6)] transition-all duration-300 mx-2.5">
+      <span className="w-1.5 h-1.5 rounded-full bg-[#C4B5FD] flex-shrink-0" />
+      <div className="min-w-0">
+        <p className="font-sora font-semibold text-white text-sm leading-snug whitespace-nowrap">
+          {doctor.name}
+        </p>
+        {doctor.specialty && (
+          <p className="font-inter text-white/40 text-xs mt-0.5 leading-snug whitespace-nowrap pr-2">
+            {doctor.specialty}
+          </p>
+        )}
       </div>
-    </motion.div>
+    </div>
   );
 });
 
 /* ───────── Main Component ───────── */
 
 export default function TrustedBy() {
-  const defaultDoctorCount = useDefaultDoctorCount();
-  const [showAllDoctors, setShowAllDoctors] = useState(false);
-
-  const visibleDoctors = showAllDoctors
-    ? TRUSTED_DOCTORS
-    : TRUSTED_DOCTORS.slice(0, defaultDoctorCount);
-
-  const handleToggleDoctors = () => {
-    setShowAllDoctors((v) => !v);
-  };
-
   const allLogos = [...TRUSTED_MEDICAL_CENTERS, ...TRUSTED_BRANDS];
 
   return (
@@ -152,7 +97,7 @@ export default function TrustedBy() {
           </p>
         </ScrollReveal>
 
-        {/* ─── Client Logo Marquee ─── */}
+        {/* ─── Client Logo Marquee (RIGHT → LEFT) ─── */}
         <div className="relative mb-20">
           {/* Fade edges */}
           <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-r from-[#0F0A19] to-transparent z-10 pointer-events-none" />
@@ -163,11 +108,9 @@ export default function TrustedBy() {
               className="marquee-track animate-marquee"
               style={{ "--marquee-duration": "35s" } as React.CSSProperties}
             >
-              {/* First set */}
               {allLogos.map((item) => (
                 <MarqueeLogoItem key={item.id} item={item} />
               ))}
-              {/* Duplicate set for seamless loop */}
               {allLogos.map((item) => (
                 <MarqueeLogoItem key={`dup-${item.id}`} item={item} />
               ))}
@@ -175,7 +118,7 @@ export default function TrustedBy() {
           </div>
         </div>
 
-        {/* ─── Doctors & Specialists ─── */}
+        {/* ─── Doctors & Specialists Marquee (LEFT → RIGHT) ─── */}
         <div>
           <div className="flex items-center gap-3.5 mb-8">
             <div
@@ -195,35 +138,24 @@ export default function TrustedBy() {
             </div>
           </div>
 
-          <motion.div
-            layout
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5"
-          >
-            {visibleDoctors.map((doctor, index) => (
-              <DoctorCard key={doctor.id} doctor={doctor} index={index} />
-            ))}
-          </motion.div>
+          <div className="relative">
+            {/* Fade edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-[#0F0A19] to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-[#0F0A19] to-transparent z-10 pointer-events-none" />
 
-          {/* Show All / Show Less toggle */}
-          <div className="mt-6 flex justify-center">
-            <button
-              onClick={handleToggleDoctors}
-              className="group inline-flex items-center gap-2.5 font-inter text-sm font-medium text-white/80 hover:text-white transition-colors duration-250"
-              aria-expanded={showAllDoctors}
-              aria-controls="doctors-grid"
-            >
-              <span className="w-px h-4 bg-[#E9D5FF] transition-all duration-300 group-hover:w-4 group-hover:bg-gradient-to-r group-hover:from-[#E9D5FF] group-hover:to-[#DDD6FE]" />
-              {showAllDoctors
-                ? "Show Less"
-                : `Show All Doctors (${TRUSTED_DOCTORS.length})`}
-              <ChevronDown
-                size={15}
-                className={`transition-transform duration-300 ${
-                  showAllDoctors ? "rotate-180" : ""
-                }`}
-              />
-            </button>
+            <div className="overflow-hidden">
+              <div
+                className="marquee-track animate-marquee-reverse"
+                style={{ "--marquee-duration": "50s" } as React.CSSProperties}
+              >
+                {TRUSTED_DOCTORS.map((doctor) => (
+                  <MarqueeDoctorItem key={doctor.id} doctor={doctor} />
+                ))}
+                {TRUSTED_DOCTORS.map((doctor) => (
+                  <MarqueeDoctorItem key={`dup-${doctor.id}`} doctor={doctor} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
