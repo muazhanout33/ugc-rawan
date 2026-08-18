@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Heart } from "lucide-react";
+import { Mail, Phone, Heart } from "lucide-react";
 import Link from "next/link";
 import { NAV_LINKS, SITE_META } from "@/lib/constants";
 import { ScrollReveal } from "@/components/animations";
@@ -84,6 +84,14 @@ export default function Contact() {
               >
                 <Mail size={16} className="text-[#C4B5FD] flex-shrink-0" />
                 {SITE_META.email}
+              </a>
+
+              <a
+                href="tel:+201040217670"
+                className="font-inter text-white font-semibold text-[16px] transition-colors duration-200 flex items-center gap-3 underline underline-offset-4 decoration-white/20 hover:text-[#C4B5FD] hover:decoration-[#C4B5FD]/40"
+              >
+                <Phone size={16} className="text-[#C4B5FD] flex-shrink-0" />
+                +20 10 40217670
               </a>
 
               <a

@@ -106,9 +106,10 @@ export default function Navbar() {
             className="shrink-0"
             whileHover={{ scale: 1.02 }}
           >
-            <span className="font-sora font-bold text-white text-[15px] tracking-tight">
-              Created by Rewan Abdrabou{" "}
-              <span className="text-white/40 font-medium">| UGC Creator &amp; Visual Storyteller</span>
+            <span className="font-sora font-bold text-white tracking-tight">
+              <span className="text-[13px] md:text-[15px]">Rewan Abdrabou</span>
+              <span className="text-[11px] md:text-[15px] text-white/40 font-medium">{" "} | UGC Creator</span>
+              <span className="hidden md:inline text-[15px] text-white/40 font-medium"> &amp; Visual Storyteller</span>
             </span>
           </motion.a>
 
