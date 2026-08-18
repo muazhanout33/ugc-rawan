@@ -6,7 +6,6 @@ import dynamic from "next/dynamic";
 import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/sections/Hero";
 import TrustedBy from "@/components/sections/Clients";
-import About from "@/components/sections/About";
 import Industries from "@/components/sections/Industries";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
@@ -25,7 +24,6 @@ export default function Home() {
         <Hero />
         <TrustedBy />
         <Portfolio />
-        <About />
         <Industries />
         <InstagramFeed />
         <Contact />

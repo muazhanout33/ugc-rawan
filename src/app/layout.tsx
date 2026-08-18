@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Sora, Inter } from "next/font/google";
+import { Sora, Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { SITE_META } from "@/lib/constants";
 import { CustomCursor } from "@/components/animations";
@@ -15,6 +15,12 @@ const sora = Sora({
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-cormorant",
   display: "swap",
 });
 
@@ -68,7 +74,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sora.variable} ${inter.variable}`}
+      className={`${sora.variable} ${inter.variable} ${cormorant.variable}`}
       suppressHydrationWarning
     >
       <body className="bg-[#0F0A19] text-white overflow-x-hidden">

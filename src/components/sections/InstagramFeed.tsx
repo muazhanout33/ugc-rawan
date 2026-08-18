@@ -25,7 +25,7 @@ function PhoneMockup() {
   return (
     <div className="relative mx-auto" style={{ maxWidth: "320px" }}>
       {/* iPhone Frame */}
-      <div className="relative bg-[#1A1A1A] rounded-[50px] p-3 shadow-[0_0_60px_rgba(139,92,246,0.2),0_20px_60px_rgba(0,0,0,0.5)] border-2 border-[#2A2A2A]">
+      <div className="relative bg-[#1A1A1A] rounded-[50px] p-3 shadow-[0_0_60px_rgba(196,181,253,0.2),0_20px_60px_rgba(0,0,0,0.5)] border-2 border-[#2A2A2A]">
         {/* Notch */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[120px] h-[30px] bg-[#1A1A1A] rounded-b-2xl z-20" />
         
@@ -44,7 +44,7 @@ function PhoneMockup() {
           {/* Instagram Header */}
           <div className="bg-black px-4 py-2 flex items-center justify-between border-b border-white/10">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#F472B6] p-[2px]">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#C4B5FD] to-[#E9D5FF] p-[2px]">
                 <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
                   <span className="text-[8px] font-bold text-white">R</span>
                 </div>
@@ -107,7 +107,7 @@ export default function InstagramSection() {
     <section className="relative section-padding bg-[#0F0A19] overflow-hidden">
       <div className="absolute top-0 left-0 right-0 gradient-line" />
 
-      <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-[#8B5CF6] rounded-[100%] blur-[150px] opacity-[0.04] pointer-events-none" />
+      <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-[#C4B5FD] rounded-[100%] blur-[150px] opacity-[0.04] pointer-events-none" />
 
       <div className="section-container relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
@@ -120,7 +120,7 @@ export default function InstagramSection() {
               transition={{ duration: 0.6 }}
             >
               <div className="section-label">
-                <InstagramIcon size={14} className="text-[#F472B6]" />
+                <InstagramIcon size={14} className="text-[#E9D5FF]" />
                 Instagram
               </div>
 
@@ -138,7 +138,7 @@ export default function InstagramSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary inline-flex max-w-full"
-                whileHover={{ scale: 1.03, boxShadow: "0 0 40px rgba(139,92,246,0.5)" }}
+                whileHover={{ scale: 1.03, boxShadow: "0 0 40px rgba(196,181,253,0.5)" }}
                 whileTap={{ scale: 0.97 }}
               >
                 <InstagramIcon size={18} />

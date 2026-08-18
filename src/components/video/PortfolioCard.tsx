@@ -114,7 +114,7 @@ export default function PortfolioCard({ item, onOpen }: PortfolioCardProps) {
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
         className="relative w-full"
       >
-        <div className="relative w-full aspect-[9/16] rounded-[20px] overflow-hidden bg-[#130D22] cursor-pointer transition-all duration-500 ease-out will-change-transform group-hover:scale-[1.02] group-hover:shadow-[0_24px_70px_rgba(0,0,0,0.55),0_0_0_1px_rgba(139,92,246,0.12)]">
+        <div className="relative w-full aspect-[9/16] rounded-[20px] overflow-hidden bg-[#130D22] cursor-pointer transition-all duration-500 ease-out will-change-transform group-hover:scale-[1.02] group-hover:shadow-[0_24px_70px_rgba(0,0,0,0.55),0_0_0_1px_rgba(196,181,253,0.12)]">
           {isVideo ? (
             mounted ? (
               <video
@@ -171,7 +171,7 @@ export default function PortfolioCard({ item, onOpen }: PortfolioCardProps) {
                 }}
                 onMouseEnter={handleEnter}
                 onMouseLeave={handleLeave}
-                className="absolute inset-0 z-10 w-full h-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]/70"
+                className="absolute inset-0 z-10 w-full h-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C4B5FD]/70"
               />
             </>
           )}

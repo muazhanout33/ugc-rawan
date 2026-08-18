@@ -407,7 +407,7 @@ export default function Lightbox({
             <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
               <button
                 onClick={togglePlay}
-                className="w-20 h-20 rounded-full bg-white/15 backdrop-blur-md border border-white/25 flex items-center justify-center shadow-[0_0_60px_rgba(139,92,246,0.5)] transition-all duration-300 hover:scale-110 hover:bg-white/25 cursor-pointer pointer-events-auto"
+                className="w-20 h-20 rounded-full bg-white/15 backdrop-blur-md border border-white/25 flex items-center justify-center shadow-[0_0_60px_rgba(196,181,253,0.5)] transition-all duration-300 hover:scale-110 hover:bg-white/25 cursor-pointer pointer-events-auto"
                 aria-label={isPlaying ? "Pause" : "Play"}
               >
                 <Play className="fill-white text-white ml-1.5" size={30} />
@@ -437,7 +437,7 @@ export default function Lightbox({
               >
                 <div className="absolute inset-x-0 h-[4px] group-hover/seek:h-[6px] transition-all duration-150 rounded-full overflow-hidden bg-white/20">
                   <div
-                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#8B5CF6] to-[#D946EF] rounded-full transition-none"
+                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#C4B5FD] to-[#DDD6FE] rounded-full transition-none"
                     style={{ width: `${progress}%` }}
                   />
                 </div>

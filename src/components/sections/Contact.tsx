@@ -9,13 +9,13 @@ export default function Contact() {
     <section id="contact" className="relative section-padding bg-[#130D22] overflow-hidden">
       <div className="absolute top-0 left-0 right-0 gradient-line" />
 
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#F472B6] rounded-[100%] blur-[150px] opacity-[0.08] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#E9D5FF] rounded-[100%] blur-[150px] opacity-[0.08] pointer-events-none" />
 
       <div className="section-container relative z-10 max-w-3xl mx-auto">
         <ScrollReveal animation="fadeUp">
           <div className="text-center mb-14">
             <div className="section-label justify-center">
-              <span className="text-[#F472B6]">✦</span>
+              <span className="text-[#E9D5FF]">✦</span>
               Get In Touch
             </div>
             <h2 className="font-heading text-section mb-6 text-balance">
@@ -31,9 +31,9 @@ export default function Contact() {
           <StaggerItem>
             <a
               href={`mailto:${SITE_META.email}`}
-              className="flex items-center gap-4 md:gap-6 p-5 rounded-2xl hover:bg-[rgba(139,92,246,0.05)] border border-[rgba(139,92,246,0.12)] hover:border-[rgba(139,92,246,0.3)] transition-all duration-300 group"
+              className="flex items-center gap-4 md:gap-6 p-5 rounded-2xl hover:bg-[rgba(196,181,253,0.05)] border border-[rgba(196,181,253,0.12)] hover:border-[rgba(196,181,253,0.3)] transition-all duration-300 group"
             >
-              <div className="w-12 h-12 rounded-full bg-[rgba(139,92,246,0.1)] flex items-center justify-center text-[#C084FC] group-hover:scale-110 group-hover:bg-[#8B5CF6] group-hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(139,92,246,0.2)] flex-shrink-0">
+              <div className="w-12 h-12 rounded-full bg-[rgba(196,181,253,0.1)] flex items-center justify-center text-[#DDD6FE] group-hover:scale-110 group-hover:bg-[#C4B5FD] group-hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(196,181,253,0.2)] flex-shrink-0">
                 <Mail size={20} />
               </div>
               <div className="flex-1 min-w-0 overflow-hidden">
@@ -48,9 +48,9 @@ export default function Contact() {
               href={`https://wa.me/${SITE_META.whatsapp.replace(/\+/g, '')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 md:gap-6 p-5 rounded-2xl hover:bg-[rgba(244,114,182,0.05)] border border-[rgba(244,114,182,0.12)] hover:border-[rgba(244,114,182,0.3)] transition-all duration-300 group"
+              className="flex items-center gap-4 md:gap-6 p-5 rounded-2xl hover:bg-[rgba(233,213,255,0.05)] border border-[rgba(233,213,255,0.12)] hover:border-[rgba(233,213,255,0.3)] transition-all duration-300 group"
             >
-              <div className="w-12 h-12 rounded-full bg-[rgba(244,114,182,0.1)] flex items-center justify-center text-[#F472B6] group-hover:scale-110 group-hover:bg-[#F472B6] group-hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(244,114,182,0.2)] flex-shrink-0">
+              <div className="w-12 h-12 rounded-full bg-[rgba(233,213,255,0.1)] flex items-center justify-center text-[#E9D5FF] group-hover:scale-110 group-hover:bg-[#E9D5FF] group-hover:text-[#0F0A19] transition-all duration-300 shadow-[0_0_20px_rgba(233,213,255,0.2)] flex-shrink-0">
                 <MessageCircle size={20} />
               </div>
               <div className="flex-1 min-w-0 overflow-hidden">
@@ -65,9 +65,9 @@ export default function Contact() {
               href={SITE_META.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 md:gap-6 p-5 rounded-2xl hover:bg-[rgba(139,92,246,0.05)] border border-[rgba(139,92,246,0.12)] hover:border-[rgba(139,92,246,0.3)] transition-all duration-300 group"
+              className="flex items-center gap-4 md:gap-6 p-5 rounded-2xl hover:bg-[rgba(196,181,253,0.05)] border border-[rgba(196,181,253,0.12)] hover:border-[rgba(196,181,253,0.3)] transition-all duration-300 group"
             >
-              <div className="w-12 h-12 rounded-full bg-[rgba(139,92,246,0.1)] flex items-center justify-center text-[#C084FC] group-hover:scale-110 group-hover:bg-[#8B5CF6] group-hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(139,92,246,0.2)] flex-shrink-0">
+              <div className="w-12 h-12 rounded-full bg-[rgba(196,181,253,0.1)] flex items-center justify-center text-[#DDD6FE] group-hover:scale-110 group-hover:bg-[#C4B5FD] group-hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(196,181,253,0.2)] flex-shrink-0">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
                   <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
                   <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>

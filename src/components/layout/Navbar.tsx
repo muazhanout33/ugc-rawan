@@ -11,6 +11,13 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("#home");
 
+  // Detect /about page for active state
+  useEffect(() => {
+    if (window.location.pathname === "/about") {
+      setActiveSection("/about");
+    }
+  }, []);
+
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
@@ -27,7 +34,11 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const sections = NAV_LINKS.map((l) => l.href.replace("#", ""));
+    // Only observe hash-based sections (skip /about route)
+    const sections = NAV_LINKS
+      .map((l) => l.href)
+      .filter((href) => href.startsWith("#"))
+      .map((href) => href.replace("#", ""));
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -55,6 +66,11 @@ export default function Navbar() {
   const handleNavClick = useCallback(
     (href: string) => {
       setMobileOpen(false);
+      // For external routes (like /about), navigate directly
+      if (href.startsWith("/")) {
+        window.location.href = href;
+        return;
+      }
       const el = document.querySelector(href);
       if (el) el.scrollIntoView({ behavior: "smooth" });
     },
@@ -70,7 +86,7 @@ export default function Navbar() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
           scrolled
-            ? "py-3 bg-[rgba(15,10,25,0.88)] backdrop-blur-md border-b border-[rgba(139,92,246,0.12)] shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
+            ? "py-3 bg-[rgba(15,10,25,0.88)] backdrop-blur-md border-b border-[rgba(196,181,253,0.12)] shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
             : "py-5 bg-transparent"
         )}
       >
@@ -85,7 +101,7 @@ export default function Navbar() {
             className="flex items-center gap-3 group shrink-0"
             whileHover={{ scale: 1.02 }}
           >
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#8B5CF6] to-[#F472B6] flex items-center justify-center shadow-[0_0_20px_rgba(139,92,246,0.5)] transition-shadow duration-300 group-hover:shadow-[0_0_28px_rgba(139,92,246,0.7)]">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#C4B5FD] to-[#E9D5FF] flex items-center justify-center shadow-[0_0_20px_rgba(196,181,253,0.5)] transition-shadow duration-300 group-hover:shadow-[0_0_28px_rgba(196,181,253,0.7)]">
               <span className="font-sora font-bold text-white text-sm">R</span>
             </div>
             <div className="flex flex-col leading-tight">
@@ -122,8 +138,8 @@ export default function Navbar() {
                     className={cn(
                       "absolute inset-0 rounded-lg transition-all duration-300",
                       isActive
-                        ? "bg-[rgba(139,92,246,0.12)]"
-                        : "bg-transparent group-hover:bg-[rgba(139,92,246,0.08)]"
+                        ? "bg-[rgba(196,181,253,0.12)]"
+                        : "bg-transparent group-hover:bg-[rgba(196,181,253,0.08)]"
                     )}
                   />
                   {/* Active indicator dot */}
@@ -131,7 +147,7 @@ export default function Navbar() {
                     className={cn(
                       "absolute top-1 right-1.5 w-1 h-1 rounded-full transition-all duration-300",
                       isActive
-                        ? "bg-[#8B5CF6] opacity-100 scale-100"
+                        ? "bg-[#C4B5FD] opacity-100 scale-100"
                         : "opacity-0 scale-0"
                     )}
                   />
@@ -140,8 +156,8 @@ export default function Navbar() {
                     className={cn(
                       "absolute bottom-0 left-5 right-5 h-[2px] rounded-full origin-left transition-all duration-400",
                       isActive
-                        ? "bg-gradient-to-r from-[#8B5CF6] to-[#C084FC] scale-x-100"
-                        : "bg-gradient-to-r from-[#8B5CF6] to-[#C084FC] scale-x-0 group-hover:scale-x-100"
+                        ? "bg-gradient-to-r from-[#C4B5FD] to-[#DDD6FE] scale-x-100"
+                        : "bg-gradient-to-r from-[#C4B5FD] to-[#DDD6FE] scale-x-0 group-hover:scale-x-100"
                     )}
                   />
                   <span className="relative z-10">{link.label}</span>
@@ -159,7 +175,7 @@ export default function Navbar() {
               className="btn-primary text-sm px-7 py-2.5"
               whileHover={{
                 scale: 1.03,
-                boxShadow: "0 0 30px rgba(139,92,246,0.5)",
+                boxShadow: "0 0 30px rgba(196,181,253,0.5)",
               }}
               whileTap={{ scale: 0.97 }}
             >
@@ -174,7 +190,7 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <motion.button
-            className="lg:hidden p-2.5 rounded-xl border border-[rgba(139,92,246,0.2)] text-white/70 hover:text-white hover:border-[rgba(139,92,246,0.4)] hover:bg-[rgba(139,92,246,0.08)] transition-all duration-300"
+            className="lg:hidden p-2.5 rounded-xl border border-[rgba(196,181,253,0.2)] text-white/70 hover:text-white hover:border-[rgba(196,181,253,0.4)] hover:bg-[rgba(196,181,253,0.08)] transition-all duration-300"
             onClick={() => setMobileOpen(!mobileOpen)}
             whileTap={{ scale: 0.95 }}
             aria-label="Toggle mobile menu"
@@ -220,8 +236,8 @@ export default function Navbar() {
                     className={cn(
                       "text-2xl font-sora font-semibold transition-all duration-300 py-3.5 px-8 rounded-xl w-[260px] text-center",
                       isActive
-                        ? "text-white bg-[rgba(139,92,246,0.15)]"
-                        : "text-white/50 hover:text-white hover:bg-[rgba(139,92,246,0.08)]"
+                        ? "text-white bg-[rgba(196,181,253,0.15)]"
+                        : "text-white/50 hover:text-white hover:bg-[rgba(196,181,253,0.08)]"
                     )}
                   >
                     {link.label}

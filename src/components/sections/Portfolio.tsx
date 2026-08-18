@@ -50,7 +50,7 @@ export default function Portfolio() {
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16">
           <ScrollReveal animation="fadeRight" className="max-w-2xl">
             <div className="section-label">
-              <Sparkles size={14} className="text-[#F472B6]" />
+              <Sparkles size={14} className="text-[#E9D5FF]" />
               {viewAll ? "Complete Portfolio" : "Selected Work"}
             </div>
             <h2 className="font-heading text-section text-balance">
@@ -71,7 +71,7 @@ export default function Portfolio() {
                 className="group inline-flex items-center gap-2.5 font-inter text-sm font-medium text-white/80 hover:text-white transition-colors duration-250"
                 aria-pressed={viewAll}
               >
-                <span className="w-px h-4 bg-[#8B5CF6] transition-all duration-300 group-hover:w-4 group-hover:bg-gradient-to-r group-hover:from-[#8B5CF6] group-hover:to-[#D946EF]" />
+                <span className="w-px h-4 bg-[#C4B5FD] transition-all duration-300 group-hover:w-4 group-hover:bg-gradient-to-r group-hover:from-[#C4B5FD] group-hover:to-[#DDD6FE]" />
                 {viewAll ? (
                   <>
                     Selected Work
@@ -105,8 +105,8 @@ export default function Portfolio() {
                     onClick={() => setActiveFilter(filter)}
                     className={`px-4 py-2 rounded-full font-inter text-sm font-medium transition-all duration-250 ${
                       activeFilter === filter
-                        ? "bg-[#8B5CF6] text-white shadow-[0_0_20px_rgba(139,92,246,0.35)]"
-                        : "bg-[rgba(27,18,48,0.6)] text-white/50 border border-[rgba(139,92,246,0.15)] hover:text-white hover:border-[rgba(139,92,246,0.4)]"
+                        ? "bg-[#C4B5FD] text-white shadow-[0_0_20px_rgba(196,181,253,0.35)]"
+                        : "bg-[rgba(27,18,48,0.6)] text-white/50 border border-[rgba(196,181,253,0.15)] hover:text-white hover:border-[rgba(196,181,253,0.4)]"
                     }`}
                   >
                     {filter}

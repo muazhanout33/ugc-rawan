@@ -410,7 +410,7 @@ const VideoPlayer = memo(function VideoPlayer({
       ref={containerRef}
       className={`relative group bg-black overflow-hidden select-none outline-none transition-all duration-500 cursor-pointer ${
         isPlaying || isHovered
-          ? "ring-1 ring-[#8B5CF6]/50 shadow-[0_0_30px_rgba(139,92,246,0.3)]"
+          ? "ring-1 ring-[#C4B5FD]/50 shadow-[0_0_30px_rgba(196,181,253,0.3)]"
           : ""
       } ${className}`}
       style={{ aspectRatio: "9/16" }}
@@ -488,8 +488,8 @@ const VideoPlayer = memo(function VideoPlayer({
       {!isPlaying && !isLoading && !error && (
         <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
           {/* Subtle pulse glow */}
-          <div className="absolute w-20 h-20 rounded-full bg-[#8B5CF6]/20 blur-lg animate-pulse" />
-          <div className="relative w-14 h-14 rounded-full bg-white/15 backdrop-blur-md border border-white/25 flex items-center justify-center shadow-[0_0_30px_rgba(139,92,246,0.5)] transition-all duration-300 group-hover:scale-110 group-hover:bg-white/25 group-hover:shadow-[0_0_50px_rgba(139,92,246,0.8)]">
+          <div className="absolute w-20 h-20 rounded-full bg-[#C4B5FD]/20 blur-lg animate-pulse" />
+          <div className="relative w-14 h-14 rounded-full bg-white/15 backdrop-blur-md border border-white/25 flex items-center justify-center shadow-[0_0_30px_rgba(196,181,253,0.5)] transition-all duration-300 group-hover:scale-110 group-hover:bg-white/25 group-hover:shadow-[0_0_50px_rgba(196,181,253,0.8)]">
             <Play className="fill-white text-white ml-1" size={20} />
           </div>
         </div>
@@ -537,7 +537,7 @@ const VideoPlayer = memo(function VideoPlayer({
               />
               {/* Progress */}
               <div
-                className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#8B5CF6] to-[#D946EF] rounded-full transition-none"
+                className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#C4B5FD] to-[#DDD6FE] rounded-full transition-none"
                 style={{ width: `${displayProgress}%` }}
               />
             </div>

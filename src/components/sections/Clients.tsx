@@ -62,7 +62,7 @@ function CategoryHeader({
   icon: Icon,
   title,
   subtitle,
-  accentColor = "139, 92, 246",
+  accentColor = "196, 181, 253",
 }: {
   icon: typeof Building2;
   title: string;
@@ -107,10 +107,10 @@ const MedicalCenterCard = memo(function MedicalCenterCard({
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="group relative"
     >
-      <div className="relative rounded-2xl bg-white/[0.03] backdrop-blur-md border border-white/10 p-7 flex flex-col items-center text-center h-full hover:border-[#8B5CF6]/50 hover:bg-white/[0.05] transition-all duration-400 hover:shadow-[0_12px_40px_rgba(139,92,246,0.15)] hover:-translate-y-1">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#8B5CF6]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
+      <div className="relative rounded-2xl bg-white/[0.03] backdrop-blur-md border border-white/10 p-7 flex flex-col items-center text-center h-full hover:border-[#C4B5FD]/50 hover:bg-white/[0.05] transition-all duration-400 hover:shadow-[0_12px_40px_rgba(196,181,253,0.15)] hover:-translate-y-1">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#C4B5FD]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
         <div className="relative z-10 w-full flex flex-col items-center">
-          <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/15 p-3 mb-5 group-hover:border-[#8B5CF6]/40 group-hover:scale-105 transition-all duration-400 relative overflow-hidden flex items-center justify-center shadow-lg">
+          <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/15 p-3 mb-5 group-hover:border-[#C4B5FD]/40 group-hover:scale-105 transition-all duration-400 relative overflow-hidden flex items-center justify-center shadow-lg">
             <Image
               src={center.logo}
               alt={center.name}
@@ -123,7 +123,7 @@ const MedicalCenterCard = memo(function MedicalCenterCard({
           <h4 className="font-sora font-semibold text-white text-base mb-1.5 leading-snug">
             {center.name}
           </h4>
-          <span className="inline-block px-3 py-1 rounded-full bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 font-inter text-[#C084FC] text-[11px] font-medium tracking-wide">
+          <span className="inline-block px-3 py-1 rounded-full bg-[#C4B5FD]/10 border border-[#C4B5FD]/20 font-inter text-[#DDD6FE] text-[11px] font-medium tracking-wide">
             {center.industry}
           </span>
         </div>
@@ -149,10 +149,10 @@ const DoctorCard = memo(function DoctorCard({
       transition={{ duration: 0.35, delay: index * 0.04 }}
       className="group relative"
     >
-      <div className="rounded-xl bg-white/[0.03] backdrop-blur-md border border-white/10 px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#8B5CF6]/40 hover:bg-white/[0.06] transition-all duration-300 hover:shadow-[0_4px_20px_rgba(139,92,246,0.1)] hover:-translate-y-0.5">
+      <div className="rounded-xl bg-white/[0.03] backdrop-blur-md border border-white/10 px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#C4B5FD]/40 hover:bg-white/[0.06] transition-all duration-300 hover:shadow-[0_4px_20px_rgba(196,181,253,0.1)] hover:-translate-y-0.5">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6] group-hover:bg-[#F472B6] transition-colors flex-shrink-0" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C4B5FD] group-hover:bg-[#E9D5FF] transition-colors flex-shrink-0" />
             <p className="font-sora font-semibold text-white text-sm leading-snug truncate">
               {doctor.name}
             </p>
@@ -189,13 +189,13 @@ export default function TrustedBy() {
     >
       {/* Background aesthetics */}
       <div className="absolute top-0 left-0 right-0 gradient-line" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[40%] bg-[#8B5CF6] rounded-full blur-[160px] opacity-[0.04] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[40%] bg-[#C4B5FD] rounded-full blur-[160px] opacity-[0.04] pointer-events-none" />
 
       <div className="section-container relative z-10">
         {/* ─── Main Section Header ─── */}
         <ScrollReveal animation="fadeUp" className="text-center max-w-3xl mx-auto mb-20">
           <div className="section-label justify-center">
-            <Star size={14} className="text-[#F472B6]" />
+            <Star size={14} className="text-[#E9D5FF]" />
             Trusted By
           </div>
           <h2 className="font-heading text-section mb-5 text-balance">
@@ -216,7 +216,7 @@ export default function TrustedBy() {
               icon={Building2}
               title="Medical Centers"
               subtitle="Premium clinics & healthcare facilities"
-              accentColor="139, 92, 246"
+              accentColor="196, 181, 253"
             />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -234,7 +234,7 @@ export default function TrustedBy() {
               icon={Stethoscope}
               title="Doctors & Specialists"
               subtitle="Renowned medical professionals"
-              accentColor="244, 114, 182"
+              accentColor="233, 213, 255"
             />
 
             <motion.div
@@ -255,7 +255,7 @@ export default function TrustedBy() {
                 aria-expanded={showAllDoctors}
                 aria-controls="doctors-grid"
               >
-                <span className="w-px h-4 bg-[#F472B6] transition-all duration-300 group-hover:w-4 group-hover:bg-gradient-to-r group-hover:from-[#F472B6] group-hover:to-[#D946EF]" />
+                <span className="w-px h-4 bg-[#E9D5FF] transition-all duration-300 group-hover:w-4 group-hover:bg-gradient-to-r group-hover:from-[#E9D5FF] group-hover:to-[#DDD6FE]" />
                 {showAllDoctors
                   ? "Show Less"
                   : `Show All Doctors (${TRUSTED_DOCTORS.length})`}
@@ -277,7 +277,7 @@ export default function TrustedBy() {
               icon={Briefcase}
               title="Brands & Founders"
               subtitle="Innovative companies & agency leaders"
-              accentColor="139, 92, 246"
+              accentColor="196, 181, 253"
             />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -291,8 +291,8 @@ export default function TrustedBy() {
                   transition={{ duration: 0.5 }}
                   className="group relative"
                 >
-                  <div className="rounded-2xl bg-white/[0.03] backdrop-blur-md border border-white/10 p-7 flex flex-col items-center text-center h-full hover:border-[#8B5CF6]/50 hover:bg-white/[0.05] transition-all duration-400 hover:shadow-[0_12px_40px_rgba(139,92,246,0.15)] hover:-translate-y-1">
-                    <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/15 p-3 mb-5 group-hover:border-[#8B5CF6]/40 group-hover:scale-105 transition-all duration-400 relative overflow-hidden flex items-center justify-center shadow-lg">
+                  <div className="rounded-2xl bg-white/[0.03] backdrop-blur-md border border-white/10 p-7 flex flex-col items-center text-center h-full hover:border-[#C4B5FD]/50 hover:bg-white/[0.05] transition-all duration-400 hover:shadow-[0_12px_40px_rgba(196,181,253,0.15)] hover:-translate-y-1">
+                    <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/15 p-3 mb-5 group-hover:border-[#C4B5FD]/40 group-hover:scale-105 transition-all duration-400 relative overflow-hidden flex items-center justify-center shadow-lg">
                       <Image
                         src={brand.logo}
                         alt={brand.name}
@@ -305,7 +305,7 @@ export default function TrustedBy() {
                     <h4 className="font-sora font-semibold text-white text-base mb-1.5">
                       {brand.name}
                     </h4>
-                    <span className="inline-block px-3 py-1 rounded-full bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 font-inter text-[#C084FC] text-[11px] font-medium tracking-wide">
+                    <span className="inline-block px-3 py-1 rounded-full bg-[#C4B5FD]/10 border border-[#C4B5FD]/20 font-inter text-[#DDD6FE] text-[11px] font-medium tracking-wide">
                       {brand.industry}
                     </span>
                   </div>
@@ -322,14 +322,14 @@ export default function TrustedBy() {
                   transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
                   className="group relative"
                 >
-                  <div className="rounded-2xl bg-white/[0.03] backdrop-blur-md border border-white/10 p-7 flex flex-col items-center justify-center text-center h-full hover:border-[#8B5CF6]/40 hover:bg-white/[0.05] transition-all duration-400 hover:shadow-[0_12px_40px_rgba(139,92,246,0.12)] hover:-translate-y-1">
-                    <div className="w-10 h-10 rounded-xl bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center text-[#C084FC] mb-4 group-hover:scale-110 transition-transform">
+                  <div className="rounded-2xl bg-white/[0.03] backdrop-blur-md border border-white/10 p-7 flex flex-col items-center justify-center text-center h-full hover:border-[#C4B5FD]/40 hover:bg-white/[0.05] transition-all duration-400 hover:shadow-[0_12px_40px_rgba(196,181,253,0.12)] hover:-translate-y-1">
+                    <div className="w-10 h-10 rounded-xl bg-[#C4B5FD]/10 border border-[#C4B5FD]/20 flex items-center justify-center text-[#DDD6FE] mb-4 group-hover:scale-110 transition-transform">
                       <Award size={20} />
                     </div>
                     <h4 className="font-sora font-semibold text-white text-base mb-1">
                       {member.name}
                     </h4>
-                    <p className="font-inter text-[#C084FC] text-xs font-medium mb-1">
+                    <p className="font-inter text-[#DDD6FE] text-xs font-medium mb-1">
                       {member.role}
                     </p>
                     <span className="font-inter text-white/40 text-[11px]">

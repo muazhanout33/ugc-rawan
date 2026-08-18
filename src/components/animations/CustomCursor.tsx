@@ -41,7 +41,7 @@ export default function CustomCursor() {
     <>
       {/* Dot — snappy, follows cursor closely */}
       <motion.div
-        className="fixed top-0 left-0 w-3 h-3 bg-[#8B5CF6] rounded-full pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 w-3 h-3 bg-[#C4B5FD] rounded-full pointer-events-none z-[9999] mix-blend-difference"
         style={{
           x: dotX,
           y: dotY,
@@ -52,7 +52,7 @@ export default function CustomCursor() {
 
       {/* Ring — lags slightly for depth */}
       <motion.div
-        className="fixed top-0 left-0 w-9 h-9 border border-[rgba(139,92,246,0.5)] rounded-full pointer-events-none z-[9998]"
+        className="fixed top-0 left-0 w-9 h-9 border border-[rgba(196,181,253,0.5)] rounded-full pointer-events-none z-[9998]"
         style={{
           x: ringX,
           y: ringY,

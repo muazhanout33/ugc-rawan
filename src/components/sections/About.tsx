@@ -30,9 +30,9 @@ const StatCard = memo(function StatCard({
       viewport={{ once: true }}
       transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
       whileHover={{ x: -5, scale: 1.02 }}
-      className="glass-card px-4 py-3 rounded-xl flex items-center gap-3 bg-[#1B1230]/90 border-[rgba(139,92,246,0.3)] shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl cursor-default"
+      className="glass-card px-4 py-3 rounded-xl flex items-center gap-3 bg-[#1B1230]/90 border-[rgba(196,181,253,0.3)] shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl cursor-default"
     >
-      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#8B5CF6]/20 to-transparent flex items-center justify-center text-[#C084FC] flex-shrink-0">
+      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#C4B5FD]/20 to-transparent flex items-center justify-center text-[#DDD6FE] flex-shrink-0">
         <Icon size={14} />
       </div>
       <div className="min-w-[80px]">
@@ -63,7 +63,7 @@ export default function About() {
             <div className="overflow-visible">
               <ScrollReveal animation="scaleUp">
                 <div className="relative rounded-[32px] p-1">
-                  <div className="absolute -inset-6 bg-gradient-to-br from-[#8B5CF6]/20 via-[#F472B6]/10 to-transparent rounded-[48px] blur-2xl opacity-60 pointer-events-none" />
+                  <div className="absolute -inset-6 bg-gradient-to-br from-[#C4B5FD]/20 via-[#E9D5FF]/10 to-transparent rounded-[48px] blur-2xl opacity-60 pointer-events-none" />
                   <div className="relative rounded-[28px] overflow-hidden bg-[#1A0A2E]">
                     <div className="relative aspect-[4/5] overflow-hidden">
                       <Image
@@ -74,16 +74,16 @@ export default function About() {
                         className="object-cover object-top"
                       />
                       <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-[#0F0A19] via-[#0F0A19]/60 to-transparent" />
-                      <div className="absolute top-0 left-0 w-32 h-32 bg-[#8B5CF6] rounded-full blur-[60px] opacity-20 pointer-events-none" />
-                      <div className="absolute bottom-12 right-0 w-24 h-24 bg-[#F472B6] rounded-full blur-[50px] opacity-20 pointer-events-none" />
+                      <div className="absolute top-0 left-0 w-32 h-32 bg-[#C4B5FD] rounded-full blur-[60px] opacity-20 pointer-events-none" />
+                      <div className="absolute bottom-12 right-0 w-24 h-24 bg-[#E9D5FF] rounded-full blur-[50px] opacity-20 pointer-events-none" />
                     </div>
                   </div>
-                  <div className="absolute -top-4 -right-4 w-20 h-20 rounded-2xl bg-gradient-to-br from-[#8B5CF6]/30 to-[#F472B6]/20 backdrop-blur-md border border-[rgba(139,92,246,0.3)] flex items-center justify-center z-20 shadow-[0_8px_32px_rgba(139,92,246,0.3)]">
+                  <div className="absolute -top-4 -right-4 w-20 h-20 rounded-2xl bg-gradient-to-br from-[#C4B5FD]/30 to-[#E9D5FF]/20 backdrop-blur-md border border-[rgba(196,181,253,0.3)] flex items-center justify-center z-20 shadow-[0_8px_32px_rgba(196,181,253,0.3)]">
                     <Camera size={24} className="text-white/80" />
                   </div>
-                  <div className="absolute -bottom-3 -left-3 w-14 h-14 rounded-full bg-gradient-to-br from-[#F472B6]/40 to-[#8B5CF6]/30 backdrop-blur-md border border-[rgba(244,114,182,0.3)] z-20 shadow-[0_4px_20px_rgba(244,114,182,0.3)]" />
-                  <div className="absolute top-1/4 -right-6 w-16 h-16 rounded-full border-2 border-[rgba(139,92,246,0.2)] z-10" />
-                  <div className="absolute bottom-1/3 -left-4 w-3 h-3 rounded-full bg-[#8B5CF6] opacity-40 z-10" />
+                  <div className="absolute -bottom-3 -left-3 w-14 h-14 rounded-full bg-gradient-to-br from-[#E9D5FF]/40 to-[#C4B5FD]/30 backdrop-blur-md border border-[rgba(233,213,255,0.3)] z-20 shadow-[0_4px_20px_rgba(233,213,255,0.3)]" />
+                  <div className="absolute top-1/4 -right-6 w-16 h-16 rounded-full border-2 border-[rgba(196,181,253,0.2)] z-10" />
+                  <div className="absolute bottom-1/3 -left-4 w-3 h-3 rounded-full bg-[#C4B5FD] opacity-40 z-10" />
                 </div>
               </ScrollReveal>
               <div className="absolute right-4 md:-right-6 top-[15%] md:top-1/4 flex flex-col gap-3 md:gap-4 z-20">
@@ -98,11 +98,11 @@ export default function About() {
           <div className="w-full lg:w-1/2">
             <ScrollReveal animation="fadeRight" delay={0.2}>
               <div className="section-label">
-                <Sparkles size={14} className="text-[#F472B6]" />
+                <Sparkles size={14} className="text-[#E9D5FF]" />
                 About Me
               </div>
 
-              <h2 className="font-heading text-section mb-6 text-balance">
+              <h2 className="font-serif text-section mb-6 text-balance" style={{ fontWeight: 700 }}>
                 The{" "}
                 <span className="text-gradient-primary">creative force</span>{" "}
                 behind premium content.
@@ -126,14 +126,14 @@ export default function About() {
               </p>
 
               {/* Thin divider */}
-              <div className="h-px w-full bg-gradient-to-r from-transparent via-[rgba(139,92,246,0.4)] to-transparent mt-8 mb-7" />
+              <div className="h-px w-full bg-gradient-to-r from-transparent via-[rgba(196,181,253,0.4)] to-transparent mt-8 mb-7" />
 
               {/* Skills & Tools pill tags */}
               <div className="flex flex-wrap gap-2">
                 {[...SKILLS.creative, ...SKILLS.production].map((skill) => (
                   <span
                     key={skill.name}
-                    className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-inter font-medium leading-none bg-[rgba(139,92,246,0.18)] border border-[rgba(139,92,246,0.35)] text-[#C084FC]"
+                    className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-inter font-medium leading-none bg-[rgba(196,181,253,0.18)] border border-[rgba(196,181,253,0.35)] text-[#DDD6FE]"
                   >
                     {skill.name}
                   </span>

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Mail, Heart } from "lucide-react";
+import Link from "next/link";
 import { NAV_LINKS, SITE_META } from "@/lib/constants";
 
 const TikTokIcon = () => (
@@ -37,13 +38,13 @@ export default function Footer() {
     <footer className="relative bg-[#0F0A19] overflow-hidden">
       <div className="gradient-line" />
 
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#8B5CF6] rounded-full blur-[120px] opacity-10 pointer-events-none" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#C4B5FD] rounded-full blur-[120px] opacity-10 pointer-events-none" />
 
       <div className="section-container py-16 lg:py-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 lg:gap-12 mb-10">
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#8B5CF6] to-[#F472B6] flex items-center justify-center shadow-[0_0_20px_rgba(139,92,246,0.4)]">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#C4B5FD] to-[#E9D5FF] flex items-center justify-center shadow-[0_0_20px_rgba(196,181,253,0.4)]">
                 <span className="font-sora font-bold text-white">R</span>
               </div>
               <span className="font-sora font-bold text-white text-lg">
@@ -61,7 +62,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-9 h-9 rounded-lg border border-[rgba(139,92,246,0.2)] flex items-center justify-center text-white/40 hover:text-[#8B5CF6] hover:border-[rgba(139,92,246,0.5)] transition-all duration-200"
+                  className="w-9 h-9 rounded-lg border border-[rgba(196,181,253,0.2)] flex items-center justify-center text-white/40 hover:text-[#C4B5FD] hover:border-[rgba(196,181,253,0.5)] transition-all duration-200"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -76,13 +77,23 @@ export default function Footer() {
             <ul className="space-y-3">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="font-inter text-white/50 hover:text-white text-sm transition-colors duration-200 flex items-center gap-2 group"
-                  >
-                    <span className="w-0 group-hover:w-4 h-[1px] bg-[#8B5CF6] transition-all duration-300 rounded" />
-                    {link.label}
-                  </a>
+                  {link.href.startsWith("/") ? (
+                    <Link
+                      href={link.href}
+                      className="font-inter text-white/50 hover:text-white text-sm transition-colors duration-200 flex items-center gap-2 group"
+                    >
+                      <span className="w-0 group-hover:w-4 h-[1px] bg-[#C4B5FD] transition-all duration-300 rounded" />
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="font-inter text-white/50 hover:text-white text-sm transition-colors duration-200 flex items-center gap-2 group"
+                    >
+                      <span className="w-0 group-hover:w-4 h-[1px] bg-[#C4B5FD] transition-all duration-300 rounded" />
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -95,7 +106,7 @@ export default function Footer() {
                 href={`mailto:${SITE_META.email}`}
                 className="flex items-center gap-3 font-inter text-white/50 hover:text-white text-sm transition-colors duration-200 group w-full"
               >
-                <Mail size={16} className="text-[#8B5CF6] flex-shrink-0" />
+                <Mail size={16} className="text-[#C4B5FD] flex-shrink-0" />
                 <span className="flex-1 min-w-0 truncate">{SITE_META.email}</span>
               </a>
               <a
@@ -104,13 +115,13 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 font-inter text-white/50 hover:text-white text-sm transition-colors duration-200 group w-full"
               >
-                <div className="flex-shrink-0 text-[#F472B6]">
+                <div className="flex-shrink-0 text-[#E9D5FF]">
                   <InstagramIcon />
                 </div>
                 <span className="flex-1 min-w-0 truncate">@rewanabdrabou</span>
               </a>
               <p className="flex items-center gap-3 font-inter text-white/50 text-sm">
-                <span className="text-[#8B5CF6] flex-shrink-0">📍</span>
+                <span className="text-[#C4B5FD] flex-shrink-0">📍</span>
                 <span className="flex-1 min-w-0 truncate">Shebeen El-Kom, Egypt</span>
               </p>
             </div>
@@ -138,7 +149,7 @@ export default function Footer() {
             © {new Date().getFullYear()} Rewan Abdrabou. All rights reserved.
           </p>
           <p className="font-inter text-white/25 text-xs flex items-center gap-1.5">
-            Made with <Heart size={11} className="text-[#F472B6]" /> in Shebeen El-Kom, Egypt
+            Made with <Heart size={11} className="text-[#E9D5FF]" /> in Shebeen El-Kom, Egypt
           </p>
         </div>
       </div>

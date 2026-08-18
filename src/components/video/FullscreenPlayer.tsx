@@ -44,7 +44,7 @@ function SpeedMenu({
           }}
           className={`w-full px-4 py-2.5 text-left text-xs font-mono font-medium transition-colors ${
             s === current
-              ? "text-[#8B5CF6] bg-[#8B5CF6]/15"
+              ? "text-[#C4B5FD] bg-[#C4B5FD]/15"
               : "text-white/60 hover:text-white hover:bg-white/10"
           }`}
         >
@@ -542,8 +542,8 @@ export default function FullscreenPlayer({
       {/* ── Center Play/Pause Overlay (when paused) ── */}
       {!isPlaying && !isLoading && !error && (
         <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-          <div className="absolute w-28 h-28 rounded-full bg-[#8B5CF6]/20 blur-2xl animate-pulse" />
-          <div className="relative w-20 h-20 rounded-full bg-white/15 backdrop-blur-md border border-white/25 flex items-center justify-center shadow-[0_0_60px_rgba(139,92,246,0.6)] transition-all duration-300 hover:scale-110 hover:bg-white/25 hover:shadow-[0_0_80px_rgba(139,92,246,0.8)]">
+          <div className="absolute w-28 h-28 rounded-full bg-[#C4B5FD]/20 blur-2xl animate-pulse" />
+          <div className="relative w-20 h-20 rounded-full bg-white/15 backdrop-blur-md border border-white/25 flex items-center justify-center shadow-[0_0_60px_rgba(196,181,253,0.6)] transition-all duration-300 hover:scale-110 hover:bg-white/25 hover:shadow-[0_0_80px_rgba(196,181,253,0.8)]">
             <Play className="fill-white text-white ml-1.5" size={30} />
           </div>
         </div>
@@ -613,7 +613,7 @@ export default function FullscreenPlayer({
                   style={{ width: `${bufferProgress}%` }}
                 />
                 <div
-                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#8B5CF6] to-[#D946EF] rounded-full transition-none"
+                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#C4B5FD] to-[#DDD6FE] rounded-full transition-none"
                   style={{ width: `${displayProgress}%` }}
                 />
               </div>
