@@ -5,6 +5,7 @@ import { SITE_META } from "@/lib/constants";
 import { CustomCursor } from "@/components/animations";
 import { VideoProvider } from "@/components/video/VideoContext";
 import StructuredData from "@/components/seo/StructuredData";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -79,6 +80,7 @@ export default function RootLayout({
           <div className="noise-overlay" aria-hidden="true" />
           {children}
         </VideoProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
