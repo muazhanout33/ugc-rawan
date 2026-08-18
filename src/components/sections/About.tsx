@@ -30,7 +30,7 @@ const StatCard = memo(function StatCard({
       viewport={{ once: true }}
       transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
       whileHover={{ x: -5, scale: 1.02 }}
-      className="glass-card px-4 py-3 rounded-xl flex items-center gap-3 bg-[#1B1230]/90 border-[rgba(196,181,253,0.3)] shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl cursor-default"
+      className="glass-card px-4 py-3 rounded-xl flex items-center gap-3 bg-[#150D28]/90 border-[rgba(196,181,253,0.25)] shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-xl cursor-default"
     >
       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#C4B5FD]/20 to-transparent flex items-center justify-center text-[#DDD6FE] flex-shrink-0">
         <Icon size={14} />
@@ -54,7 +54,7 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="relative section-padding overflow-hidden">
+    <section id="about" className="relative section-padding bg-[#0F0A19] overflow-hidden">
       <div className="absolute top-0 left-0 right-0 gradient-line" />
       <div className="section-container relative z-10">
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">

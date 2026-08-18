@@ -91,32 +91,25 @@ export default function Navbar() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
           scrolled
-            ? "py-3 bg-[rgba(15,10,25,0.88)] backdrop-blur-md border-b border-[rgba(196,181,253,0.12)] shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
+            ? "py-3 bg-[rgba(12,8,22,0.92)] backdrop-blur-md border-b border-[rgba(196,181,253,0.1)] shadow-[0_4px_30px_rgba(0,0,0,0.4)]"
             : "py-5 bg-transparent"
         )}
       >
         <div className="section-container flex items-center justify-between">
-          {/* Logo */}
+          {/* Brand */}
           <motion.a
             href="#home"
             onClick={(e) => {
               e.preventDefault();
               handleNavClick("#home");
             }}
-            className="flex items-center gap-3 group shrink-0"
+            className="shrink-0"
             whileHover={{ scale: 1.02 }}
           >
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#C4B5FD] to-[#E9D5FF] flex items-center justify-center shadow-[0_0_20px_rgba(196,181,253,0.5)] transition-shadow duration-300 group-hover:shadow-[0_0_28px_rgba(196,181,253,0.7)]">
-              <span className="font-sora font-bold text-white text-sm">R</span>
-            </div>
-            <div className="flex flex-col leading-tight">
-              <span className="font-sora font-bold text-white text-[15px] tracking-tight">
-                Rewan<span className="text-gradient-primary"> Abdrabou</span>
-              </span>
-              <span className="text-[10px] text-white/40 font-inter tracking-widest uppercase">
-                UGC Creator
-              </span>
-            </div>
+            <span className="font-sora font-bold text-white text-[15px] tracking-tight">
+              Created by Rewan Abdrabou{" "}
+              <span className="text-white/40 font-medium">| UGC Creator &amp; Visual Storyteller</span>
+            </span>
           </motion.a>
 
           {/* Desktop Navigation */}
