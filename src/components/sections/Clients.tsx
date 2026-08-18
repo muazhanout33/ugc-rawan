@@ -15,10 +15,10 @@ import { ScrollReveal } from "@/components/animations";
 const MarqueeLogoItem = memo(function MarqueeLogoItem({
   item,
 }: {
-  item: { name: string; logo: string; industry?: string };
+  item: { name: string; logo: string; industry?: string; instagram?: string };
 }) {
-  return (
-    <div className="flex-shrink-0 flex items-center gap-4 px-6 py-4 rounded-2xl bg-[rgba(27,18,48,0.4)] border border-white/[0.06] hover:border-[#C4B5FD]/40 hover:bg-[rgba(27,18,48,0.6)] transition-all duration-300 group mx-3">
+  const inner = (
+    <>
       <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-white/[0.04] border border-white/[0.08] p-2.5 group-hover:border-[#C4B5FD]/40 transition-all duration-300 relative overflow-hidden flex items-center justify-center flex-shrink-0">
         <Image
           src={item.logo}
@@ -39,8 +39,25 @@ const MarqueeLogoItem = memo(function MarqueeLogoItem({
           </p>
         )}
       </div>
-    </div>
+    </>
   );
+
+  const className = "flex-shrink-0 flex items-center gap-4 px-6 py-4 rounded-2xl bg-[rgba(27,18,48,0.4)] border border-white/[0.06] hover:border-[#C4B5FD]/40 hover:bg-[rgba(27,18,48,0.6)] transition-all duration-300 group mx-3";
+
+  if (item.instagram) {
+    return (
+      <a
+        href={item.instagram}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+      >
+        {inner}
+      </a>
+    );
+  }
+
+  return <div className={className}>{inner}</div>;
 });
 
 /* ───────── Marquee Doctor Item ───────── */

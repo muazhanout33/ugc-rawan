@@ -68,12 +68,14 @@ export const TRUSTED_MEDICAL_CENTERS = [
     name: "ElQaser Center",
     logo: "/assets/elqaser-center.png",
     industry: "Beauty & Laser",
+    instagram: "https://www.instagram.com/elqaser.center/",
   },
   {
     id: "aroma",
     name: "Aroma Center",
     logo: "/assets/aroma-center.jpg",
     industry: "Beauty & Dermatology",
+    instagram: "https://www.instagram.com/aroma.center1/",
   },
 
   {
@@ -81,6 +83,7 @@ export const TRUSTED_MEDICAL_CENTERS = [
     name: "Sky Medical Center",
     logo: "/assets/sky-center.png",
     industry: "Dermatology & Laser",
+    instagram: "https://www.instagram.com/sky_center2025/",
   },
   {
     id: "queen",
@@ -112,6 +115,7 @@ export const TRUSTED_BRANDS = [
     name: "ScalaryX",
     logo: "/assets/scalaryx.jpeg",
     industry: "AI Automation & Marketing Services",
+    instagram: "https://www.instagram.com/scalary_x/",
   },
 ];
 
