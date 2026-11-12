@@ -53,14 +53,14 @@ const PortfolioCard = memo(function PortfolioCard({
 
         {/* Top-left: ID Tag */}
         <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 z-10">
-          <span className="inline-flex items-center px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-medium tracking-wider text-white/80 bg-black/50 backdrop-blur-md border border-white/10 shadow-sm">
+          <span className="inline-flex items-center px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-medium tracking-wider text-white/80 bg-black/70 border border-white/10 shadow-sm">
             {item.id}
           </span>
         </div>
 
         {/* Top-right: 9:16 Aspect Tag */}
         <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-10 opacity-70 group-hover:opacity-100 transition-opacity">
-          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] font-mono text-white/70 bg-black/40 backdrop-blur-md border border-white/10">
+          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] font-mono text-white/70 bg-black/60 border border-white/10">
             {item.aspectRatio}
           </span>
         </div>
@@ -72,7 +72,7 @@ const PortfolioCard = memo(function PortfolioCard({
             <div className="absolute w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#C4B5FD]/0 group-hover:bg-[#C4B5FD]/25 blur-xl transition-all duration-400" />
             
             {/* Play Button Icon */}
-            <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/45 backdrop-blur-md border border-white/25 flex items-center justify-center text-white shadow-[0_8px_24px_rgba(0,0,0,0.5)] transition-all duration-300 group-hover:scale-110 group-hover:bg-white group-hover:text-[#0F0A19] group-hover:border-white group-hover:shadow-[0_0_30px_rgba(196,181,253,0.7)]">
+            <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 border border-white/25 flex items-center justify-center text-white shadow-[0_8px_24px_rgba(0,0,0,0.5)] transition-all duration-300 group-hover:scale-110 group-hover:bg-white group-hover:text-[#0F0A19] group-hover:border-white group-hover:shadow-[0_0_30px_rgba(196,181,253,0.7)]">
               <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current ml-0.5 transition-transform duration-300 group-hover:scale-105" />
             </div>
           </div>
@@ -81,20 +81,17 @@ const PortfolioCard = memo(function PortfolioCard({
         {/* Bottom Watch prompt */}
         <div className="absolute bottom-2.5 inset-x-2.5 sm:bottom-3 sm:inset-x-3 z-10 flex items-center justify-between pointer-events-none">
           <span className="text-[10px] sm:text-[11px] font-inter font-medium text-white/70 group-hover:text-white transition-colors flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C4B5FD] animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C4B5FD]" />
             Watch Video
           </span>
         </div>
       </button>
 
       {/* ── Metadata below the card ── */}
-      <div className="mt-2.5 sm:mt-3 px-1 flex items-baseline justify-between">
+      <div className="mt-2.5 sm:mt-3 px-1">
         <h3 className="font-sora font-semibold text-white/90 text-xs sm:text-sm tracking-tight group-hover:text-white transition-colors">
           {item.title}
         </h3>
-        <span className="font-mono text-[10px] sm:text-[11px] text-white/40 tracking-wider">
-          Mux Stream
-        </span>
       </div>
     </motion.div>
   );

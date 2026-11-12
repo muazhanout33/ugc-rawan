@@ -124,10 +124,16 @@ export default function Hero() {
         />
       <div className="absolute inset-0 grid-pattern opacity-30 z-0 pointer-events-none mix-blend-overlay" />
 
-      {/* Glow orb — single, subtle */}
+      {/* Glow orb — pure CSS radial gradient, no expensive filter:blur */}
       <div
-        className="glow-orb glow-orb-primary pointer-events-none"
-        style={{ width: 500, height: 500, top: "-10%", left: "-10%", opacity: 0.06, filter: "blur(100px)", willChange: "transform" }}
+        className="absolute pointer-events-none rounded-full"
+        style={{
+          width: 500,
+          height: 500,
+          top: "-10%",
+          left: "-10%",
+          background: "radial-gradient(circle, rgba(196,181,253,0.12) 0%, transparent 70%)",
+        }}
         aria-hidden="true"
       />
 
@@ -137,7 +143,7 @@ export default function Hero() {
           <div
             key={i}
             className="star absolute rounded-full"
-            style={{ ...parseStyleString(style), willChange: "opacity" }}
+            style={parseStyleString(style)}
           />
         ))}
       </div>

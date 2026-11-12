@@ -35,13 +35,15 @@ export default function Portfolio() {
     >
       <div className="absolute top-0 left-0 right-0 gradient-line" />
 
-      {/* Subtle ambient background glow */}
+      {/* Subtle ambient background glow without GPU filter:blur overhead */}
       <div
-        className="glow-orb glow-orb-primary w-[380px] h-[380px] -top-32 -right-32 opacity-20 pointer-events-none"
+        className="absolute rounded-full w-[380px] h-[380px] -top-32 -right-32 pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(196,181,253,0.12) 0%, transparent 70%)" }}
         aria-hidden="true"
       />
       <div
-        className="glow-orb glow-orb-accent w-[340px] h-[340px] -bottom-24 -left-24 opacity-15 pointer-events-none"
+        className="absolute rounded-full w-[340px] h-[340px] -bottom-24 -left-24 pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(233,213,255,0.08) 0%, transparent 70%)" }}
         aria-hidden="true"
       />
 

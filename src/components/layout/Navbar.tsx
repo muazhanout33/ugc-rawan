@@ -9,21 +9,24 @@ import { cn } from "@/lib/utils";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("#home");
-
-  // Detect /about page for active state
-  useEffect(() => {
-    if (window.location.pathname === "/about") {
-      setActiveSection("/about");
+  const [activeSection, setActiveSection] = useState(() => {
+    if (typeof window !== "undefined" && window.location.pathname === "/about") {
+      return "/about";
     }
-  }, []);
+    return "#home";
+  });
 
   useEffect(() => {
+    let lastScrolled = false;
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setScrolled(window.scrollY > 40);
+          const isScrolled = window.scrollY > 40;
+          if (isScrolled !== lastScrolled) {
+            lastScrolled = isScrolled;
+            setScrolled(isScrolled);
+          }
           ticking = false;
         });
         ticking = true;

@@ -41,7 +41,7 @@ export default function CustomCursor() {
     <>
       {/* Dot — snappy, follows cursor closely */}
       <motion.div
-        className="fixed top-0 left-0 w-3 h-3 bg-[#C4B5FD] rounded-full pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 w-2.5 h-2.5 bg-[#C4B5FD] rounded-full pointer-events-none z-[9999] shadow-[0_0_8px_rgba(196,181,253,0.8)]"
         style={{
           x: dotX,
           y: dotY,

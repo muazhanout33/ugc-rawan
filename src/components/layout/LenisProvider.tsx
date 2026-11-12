@@ -10,10 +10,10 @@ import Lenis from "lenis";
 export default function LenisProvider() {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.0,
+      duration: 0.65,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      touchMultiplier: 1.5,
+      touchMultiplier: 1.2,
     });
 
     let rafId: number;
