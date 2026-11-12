@@ -145,55 +145,91 @@ export const TOOLS = [
   "CapCut",
 ];
 
-export type PortfolioItem = (typeof PORTFOLIO_ITEMS)[number];
+export interface PortfolioVideo {
+  id: string;
+  playbackId: string;
+  videoUrl: string;
+  thumbnailUrl: string;
+  title: string;
+  aspectRatio: string;
+}
 
-export const PORTFOLIO_ITEMS = [
+export const PORTFOLIO_VIDEOS: PortfolioVideo[] = [
   {
-    id: 1,
-    title: "Aroma Beauty — Skincare Reel",
-    client: "Aroma Center",
-    category: "Medical Reels",
-    thumbnail:
-      "https://res.cloudinary.com/dvpnxbxkl/video/upload/so_1/v1784565667/aroma_wwxxzy.jpg",
-    video:
-      "https://res.cloudinary.com/dvpnxbxkl/video/upload/v1784565667/aroma_wwxxzy.mp4",
+    id: "01",
+    playbackId: "eM6gIk022AsNrz1Im7KBbKcC7X02DNDr3FHzzW6GDrjPo",
+    videoUrl: "https://player.mux.com/eM6gIk022AsNrz1Im7KBbKcC7X02DNDr3FHzzW6GDrjPo",
+    thumbnailUrl: "https://image.mux.com/eM6gIk022AsNrz1Im7KBbKcC7X02DNDr3FHzzW6GDrjPo/thumbnail.jpg?time=2&width=600",
+    title: "Project 01",
+    aspectRatio: "9:16",
   },
   {
-    id: 2,
-    title: "Royal Palace — Brand Reveal",
-    client: "Royal Palace Center",
-    category: "Medical Reels",
-    thumbnail:
-      "https://res.cloudinary.com/dvpnxbxkl/video/upload/so_0/v1785017257/%D8%A7%D9%84%D9%82%D8%B5%D8%B1_%D8%A7%D9%84%D9%85%D9%84%D9%83%D9%8A1_n2vdr0.jpg",
-    video:
-      "https://res.cloudinary.com/dvpnxbxkl/video/upload/v1785017257/%D8%A7%D9%84%D9%82%D8%B5%D8%B1_%D8%A7%D9%84%D9%85%D9%84%D9%83%D9%8A1_n2vdr0.mp4",
+    id: "02",
+    playbackId: "n9uRJLxajkCxyeustRq4L02YAiuOHhDsK8RuhmTLFTxk",
+    videoUrl: "https://player.mux.com/n9uRJLxajkCxyeustRq4L02YAiuOHhDsK8RuhmTLFTxk",
+    thumbnailUrl: "https://image.mux.com/n9uRJLxajkCxyeustRq4L02YAiuOHhDsK8RuhmTLFTxk/thumbnail.jpg?time=2&width=600",
+    title: "Project 02",
+    aspectRatio: "9:16",
   },
   {
-    id: 3,
-    title: "ScalaryX — Agency Promo",
-    client: "ScalaryX",
-    category: "Business Content",
-    thumbnail:
-      "https://res.cloudinary.com/dvpnxbxkl/video/upload/so_0/v1785017214/scalaryx_sqfeqb.jpg",
-    video:
-      "https://res.cloudinary.com/dvpnxbxkl/video/upload/v1785017214/scalaryx_sqfeqb.mp4",
+    id: "03",
+    playbackId: "AcNIFwCzyypzm8SrDdrhYFVHMKdu1ihfeleSSDiQOSg",
+    videoUrl: "https://player.mux.com/AcNIFwCzyypzm8SrDdrhYFVHMKdu1ihfeleSSDiQOSg",
+    thumbnailUrl: "https://image.mux.com/AcNIFwCzyypzm8SrDdrhYFVHMKdu1ihfeleSSDiQOSg/thumbnail.jpg?time=3&width=600",
+    title: "Project 03",
+    aspectRatio: "9:16",
   },
   {
-    id: 4,
-    title: "Sky Center — Laser Treatment",
-    client: "Sky Center",
-    category: "Medical Reels",
-    thumbnail: "/assets/sky-center.png",
-    video: "",
+    id: "04",
+    playbackId: "U02vcDKD2TVWU7Oq4PLEsHoDiRPeLx401AjktEMBnBnM00",
+    videoUrl: "https://player.mux.com/U02vcDKD2TVWU7Oq4PLEsHoDiRPeLx401AjktEMBnBnM00",
+    thumbnailUrl: "https://image.mux.com/U02vcDKD2TVWU7Oq4PLEsHoDiRPeLx401AjktEMBnBnM00/thumbnail.jpg?time=1&width=600",
+    title: "Project 04",
+    aspectRatio: "9:16",
   },
   {
-    id: 5,
-    title: "Queen Clinic — Skincare Reel",
-    client: "Queen Clinic",
-    category: "Medical Reels",
-    thumbnail: "/assets/queen-clinic.jpeg",
-    video: "",
+    id: "05",
+    playbackId: "p1yqMcHR00w01VgL1to613yZrVt01ylwzso1bV6RVxI56Y",
+    videoUrl: "https://player.mux.com/p1yqMcHR00w01VgL1to613yZrVt01ylwzso1bV6RVxI56Y",
+    thumbnailUrl: "https://image.mux.com/p1yqMcHR00w01VgL1to613yZrVt01ylwzso1bV6RVxI56Y/thumbnail.jpg?time=2&width=600",
+    title: "Project 05",
+    aspectRatio: "9:16",
+  },
+  {
+    id: "06",
+    playbackId: "olmMwM9mZMhnYTUVt1uCuqPQ7saIfIty7ekZT7XxDGI",
+    videoUrl: "https://player.mux.com/olmMwM9mZMhnYTUVt1uCuqPQ7saIfIty7ekZT7XxDGI",
+    thumbnailUrl: "https://image.mux.com/olmMwM9mZMhnYTUVt1uCuqPQ7saIfIty7ekZT7XxDGI/thumbnail.jpg?time=2&width=600",
+    title: "Project 06",
+    aspectRatio: "9:16",
+  },
+  {
+    id: "07",
+    playbackId: "mhF6NEHe2waWxvwUwFa6CuLNEKxRqt5004eonChn3nYw",
+    videoUrl: "https://player.mux.com/mhF6NEHe2waWxvwUwFa6CuLNEKxRqt5004eonChn3nYw",
+    thumbnailUrl: "https://image.mux.com/mhF6NEHe2waWxvwUwFa6CuLNEKxRqt5004eonChn3nYw/thumbnail.jpg?time=2&width=600",
+    title: "Project 07",
+    aspectRatio: "9:16",
+  },
+  {
+    id: "08",
+    playbackId: "uA4xhBhmNqKa6Zu7S8BjvB9m7E013WoQcfkVKwMNaguY",
+    videoUrl: "https://player.mux.com/uA4xhBhmNqKa6Zu7S8BjvB9m7E013WoQcfkVKwMNaguY",
+    thumbnailUrl: "https://image.mux.com/uA4xhBhmNqKa6Zu7S8BjvB9m7E013WoQcfkVKwMNaguY/thumbnail.jpg?time=2&width=600",
+    title: "Project 08",
+    aspectRatio: "9:16",
+  },
+  {
+    id: "09",
+    playbackId: "b6MYG5DYlLD8uyhuYGJsEJ8fo8Gxdb01B9sHUly01zhxw",
+    videoUrl: "https://player.mux.com/b6MYG5DYlLD8uyhuYGJsEJ8fo8Gxdb01B9sHUly01zhxw",
+    thumbnailUrl: "https://image.mux.com/b6MYG5DYlLD8uyhuYGJsEJ8fo8Gxdb01B9sHUly01zhxw/thumbnail.jpg?time=2&width=600",
+    title: "Project 09",
+    aspectRatio: "9:16",
   },
 ];
+
+export const PORTFOLIO_ITEMS = PORTFOLIO_VIDEOS;
+export type PortfolioItem = PortfolioVideo;
 
 export const PORTFOLIO_FILTERS = ["All", "Medical Reels", "Business Content"];

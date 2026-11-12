@@ -1,190 +1,103 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { memo } from "react";
 import Image from "next/image";
 import { Play } from "lucide-react";
-import { useVideo } from "@/components/video/VideoContext";
-import type { PortfolioItem } from "@/lib/constants";
+import { motion } from "framer-motion";
+import type { PortfolioVideo } from "@/lib/constants";
 
 interface PortfolioCardProps {
-  item: PortfolioItem;
-  onOpen: (item: PortfolioItem) => void;
+  item: PortfolioVideo;
+  index: number;
+  onOpen: (item: PortfolioVideo) => void;
 }
 
-/**
- * Premium portfolio card — 9:16 video frame, no native controls ever.
- * Muted autoplay preview on hover (only one preview plays at a time via VideoContext).
- * Metadata (Client + Project Type) sits BELOW the card, never burned into the video.
- */
-export default function PortfolioCard({ item, onOpen }: PortfolioCardProps) {
-  const frameRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [mounted, setMounted] = useState(false);
-  const [hovering, setHovering] = useState(false);
-  const { register, notifyPlay, notifyPause } = useVideo();
-
-  const isVideo = Boolean(item.video);
-  const previewId = `portfolio-preview-${item.id}`;
-
-  // Lazy-mount the <video> when the card approaches the viewport
-  useEffect(() => {
-    const el = frameRef.current;
-    if (!el || !isVideo) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setMounted(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin: "600px 0px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [isVideo]);
-
-  // Register with VideoContext so only ONE preview plays at any time
-  useEffect(() => {
-    if (!isVideo) return;
-    const unregister = register(previewId, () => {
-      const v = videoRef.current;
-      if (v && !v.paused) {
-        v.pause();
-        v.currentTime = 0;
-      }
-    });
-    return unregister;
-  }, [isVideo, previewId, register]);
-
-  const playPreview = useCallback(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    notifyPlay(previewId);
-    v.muted = true;
-    v.currentTime = 0;
-    v.play().catch(() => {});
-  }, [previewId, notifyPlay]);
-
-  const stopPreview = useCallback(() => {
-    const v = videoRef.current;
-    if (v) {
-      v.pause();
-      v.currentTime = 0;
-    }
-    notifyPause(previewId);
-  }, [previewId, notifyPause]);
-
-  const handleEnter = useCallback(() => {
-    if (!isVideo) return;
-    setHovering(true);
-    if (hoverTimer.current) clearTimeout(hoverTimer.current);
-    // Tiny delay prevents flicker when sweeping across several cards
-    hoverTimer.current = setTimeout(playPreview, 90);
-  }, [isVideo, playPreview]);
-
-  const handleLeave = useCallback(() => {
-    setHovering(false);
-    if (hoverTimer.current) clearTimeout(hoverTimer.current);
-    stopPreview();
-  }, [stopPreview]);
-
-  useEffect(
-    () => () => {
-      if (hoverTimer.current) clearTimeout(hoverTimer.current);
-    },
-    []
-  );
-
+const PortfolioCard = memo(function PortfolioCard({
+  item,
+  index,
+  onOpen,
+}: PortfolioCardProps) {
   return (
     <motion.div
-      layout
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 12 }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-      className="group"
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{
+        duration: 0.45,
+        delay: Math.min(index * 0.04, 0.25),
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      className="group relative flex flex-col w-full"
       data-portfolio-card
     >
-      {/* ── Video / Image frame (shared layout element for the lightbox transition) ── */}
-      <motion.div
-        ref={frameRef}
-        layoutId={`portfolio-frame-${item.id}`}
-        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-        className="relative w-full"
+      {/* ── Video Frame & Button ── */}
+      <button
+        type="button"
+        onClick={() => onOpen(item)}
+        aria-label={`Play ${item.title}`}
+        className="relative w-full aspect-[9/16] rounded-[18px] sm:rounded-[22px] overflow-hidden bg-[#130D22] border border-[rgba(196,181,253,0.12)] text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C4B5FD] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F0A19] cursor-pointer transition-all duration-400 ease-out group-hover:border-[rgba(196,181,253,0.35)] group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.65),0_0_30px_rgba(196,181,253,0.14)] group-hover:-translate-y-1"
       >
-        <div className="relative w-full aspect-[9/16] rounded-[20px] overflow-hidden bg-[#130D22] cursor-pointer transition-all duration-500 ease-out will-change-transform group-hover:scale-[1.02] group-hover:shadow-[0_24px_70px_rgba(0,0,0,0.55),0_0_0_1px_rgba(196,181,253,0.12)]">
-          {isVideo ? (
-            mounted ? (
-              <video
-                ref={videoRef}
-                src={item.video}
-                poster={item.thumbnail}
-                preload="metadata"
-                muted
-                loop
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover"
-                onMouseEnter={handleEnter}
-                onMouseLeave={handleLeave}
-              />
-            ) : (
-              <Image
-                src={item.thumbnail}
-                alt={item.title}
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="object-cover"
-              />
-            )
-          ) : (
-            <Image
-              src={item.thumbnail}
-              alt={item.title}
-              fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              loading="lazy"
-              className="object-cover"
-            />
-          )}
+        {/* Mux Thumbnail */}
+        <Image
+          src={item.thumbnailUrl}
+          alt={item.title}
+          fill
+          sizes="(max-width: 360px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 380px"
+          priority={index < 2}
+          loading={index < 2 ? undefined : "lazy"}
+          className="object-cover transition-transform duration-600 ease-out group-hover:scale-105"
+        />
 
-          {isVideo && (
-            <>
-              {/* Subtle play affordance — fades out once hover preview starts */}
-              <div
-                className="absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-500"
-                style={{ opacity: hovering ? 0 : 1 }}
-              >
-                <div className="w-[52px] h-[52px] rounded-full bg-white/10 backdrop-blur-md border border-white/15 flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
-                  <Play size={16} className="fill-white text-white ml-0.5" />
-                </div>
-              </div>
+        {/* Ambient Gradient Overlays for depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0F0A19]/85 via-transparent to-black/25 pointer-events-none transition-opacity duration-300 group-hover:opacity-75" />
 
-              {/* Click to open lightbox */}
-              <button
-                type="button"
-                aria-label={`Open ${item.title}`}
-                onClick={() => {
-                  stopPreview();
-                  onOpen(item);
-                }}
-                onMouseEnter={handleEnter}
-                onMouseLeave={handleLeave}
-                className="absolute inset-0 z-10 w-full h-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C4B5FD]/70"
-              />
-            </>
-          )}
+        {/* Top-left: ID Tag */}
+        <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 z-10">
+          <span className="inline-flex items-center px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-medium tracking-wider text-white/80 bg-black/50 backdrop-blur-md border border-white/10 shadow-sm">
+            {item.id}
+          </span>
         </div>
-      </motion.div>
+
+        {/* Top-right: 9:16 Aspect Tag */}
+        <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-10 opacity-70 group-hover:opacity-100 transition-opacity">
+          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] font-mono text-white/70 bg-black/40 backdrop-blur-md border border-white/10">
+            {item.aspectRatio}
+          </span>
+        </div>
+
+        {/* Center: Play Button */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+          <div className="relative flex items-center justify-center">
+            {/* Glow on hover */}
+            <div className="absolute w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#C4B5FD]/0 group-hover:bg-[#C4B5FD]/25 blur-xl transition-all duration-400" />
+            
+            {/* Play Button Icon */}
+            <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/45 backdrop-blur-md border border-white/25 flex items-center justify-center text-white shadow-[0_8px_24px_rgba(0,0,0,0.5)] transition-all duration-300 group-hover:scale-110 group-hover:bg-white group-hover:text-[#0F0A19] group-hover:border-white group-hover:shadow-[0_0_30px_rgba(196,181,253,0.7)]">
+              <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current ml-0.5 transition-transform duration-300 group-hover:scale-105" />
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Watch prompt */}
+        <div className="absolute bottom-2.5 inset-x-2.5 sm:bottom-3 sm:inset-x-3 z-10 flex items-center justify-between pointer-events-none">
+          <span className="text-[10px] sm:text-[11px] font-inter font-medium text-white/70 group-hover:text-white transition-colors flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C4B5FD] animate-pulse" />
+            Watch Video
+          </span>
+        </div>
+      </button>
 
       {/* ── Metadata below the card ── */}
-      <div className="mt-3.5 px-0.5">
-        <p className="font-sora font-semibold text-white text-sm leading-tight">
-          {item.client}
-        </p>
-        <p className="font-inter text-white/40 text-xs mt-1">{item.category}</p>
+      <div className="mt-2.5 sm:mt-3 px-1 flex items-baseline justify-between">
+        <h3 className="font-sora font-semibold text-white/90 text-xs sm:text-sm tracking-tight group-hover:text-white transition-colors">
+          {item.title}
+        </h3>
+        <span className="font-mono text-[10px] sm:text-[11px] text-white/40 tracking-wider">
+          Mux Stream
+        </span>
       </div>
     </motion.div>
   );
-}
+});
+
+export default PortfolioCard;

@@ -5,112 +5,62 @@ import {
   useEffect,
   useRef,
   useState,
-  type MouseEvent as ReactMouseEvent,
 } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import {
-  Play,
-  Pause,
-  Volume2,
-  VolumeX,
   X,
   ChevronLeft,
   ChevronRight,
+  ExternalLink,
+  Sparkles,
 } from "lucide-react";
-import { useVideo, formatTime } from "./VideoContext";
-import type { PortfolioItem } from "@/lib/constants";
+import type { PortfolioVideo } from "@/lib/constants";
 
 interface LightboxProps {
-  items: PortfolioItem[];
-  /** id of the item whose card was clicked — drives the shared-element transition */
-  openedId: number;
+  items: PortfolioVideo[];
+  openedId: string;
   initialIndex: number;
   onClose: () => void;
 }
 
-/**
- * Custom in-page lightbox with its own controls (no native controls anywhere).
- * Uses a stable layoutId based on `openedId` so Prev/Next navigation never
- * re-triggers the shared-element scale animation.
- */
 export default function Lightbox({
   items,
-  openedId,
+  openedId: _openedId,
   initialIndex,
   onClose,
 }: LightboxProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const seekBarRef = useRef<HTMLDivElement>(null);
-  const volBarRef = useRef<HTMLDivElement>(null);
-  const controlsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const rafRef = useRef(0);
-  const seekDraggingRef = useRef(false);
-  const volumeDraggingRef = useRef(false);
+  const [index, setIndex] = useState(initialIndex);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
   const touchStartXRef = useRef<number | null>(null);
 
-  const [index, setIndex] = useState(initialIndex);
-  const item = items[index];
+  const item = items[index] || items[0];
 
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [showControls, setShowControls] = useState(true);
-  const [isMuted, setIsMuted] = useState(false);
-  const [volume, setVolumeState] = useState(1);
-
-  const { register, notifyPlay, notifyPause } = useVideo();
-
-  // Pause card previews while the lightbox video plays
+  // Lock body scroll while lightbox is open
   useEffect(() => {
-    const unregister = register(`lightbox-${openedId}`, () => {
-      const el = videoRef.current;
-      if (el && !el.paused) {
-        el.pause();
-      }
-    });
-    return unregister;
-  }, [openedId, register]);
-
-  // Smooth 60 FPS playback clock
-  useEffect(() => {
-    if (!isPlaying) {
-      cancelAnimationFrame(rafRef.current);
-      return;
-    }
-    const loop = () => {
-      const el = videoRef.current;
-      if (el && !el.paused) {
-        setCurrentTime(el.currentTime);
-        rafRef.current = requestAnimationFrame(loop);
-      }
-    };
-    rafRef.current = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [isPlaying]);
-
-  // Lock body scroll while open
-  useEffect(() => {
-    const prev = document.body.style.overflow;
+    const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = prev;
+      document.body.style.overflow = originalOverflow;
     };
   }, []);
 
-  // Keyboard navigation
   const goNext = useCallback(() => {
+    setIsLoading(true);
+    setHasError(false);
     setIndex((i) => (i + 1) % items.length);
   }, [items.length]);
+
   const goPrev = useCallback(() => {
+    setIsLoading(true);
+    setHasError(false);
     setIndex((i) => (i - 1 + items.length) % items.length);
   }, [items.length]);
 
+  // Keyboard navigation
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         e.preventDefault();
         onClose();
@@ -122,168 +72,11 @@ export default function Lightbox({
         goPrev();
       }
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onClose, goNext, goPrev]);
 
-  // Cleanup timers on unmount
-  useEffect(
-    () => () => {
-      if (controlsTimerRef.current) clearTimeout(controlsTimerRef.current);
-      cancelAnimationFrame(rafRef.current);
-    },
-    []
-  );
-
-  /* ── Controls ── */
-
-  const scheduleHideControls = useCallback(() => {
-    if (controlsTimerRef.current) clearTimeout(controlsTimerRef.current);
-    controlsTimerRef.current = setTimeout(() => {
-      if (!seekDraggingRef.current && !volumeDraggingRef.current) {
-        setShowControls(false);
-      }
-    }, 3500);
-  }, []);
-
-  const handleMouseMove = useCallback(() => {
-    setShowControls(true);
-    if (isPlaying) scheduleHideControls();
-  }, [isPlaying, scheduleHideControls]);
-
-  const togglePlay = useCallback(() => {
-    const el = videoRef.current;
-    if (!el) return;
-    if (el.paused) {
-      el.play().catch(() => {});
-    } else {
-      el.pause();
-    }
-  }, []);
-
-  const toggleMute = useCallback(() => {
-    const el = videoRef.current;
-    if (!el) return;
-    const next = !el.muted;
-    el.muted = next;
-    setIsMuted(next);
-  }, []);
-
-  const setVolume = useCallback((v: number) => {
-    const el = videoRef.current;
-    if (!el) return;
-    const clamped = Math.max(0, Math.min(1, v));
-    el.volume = clamped;
-    el.muted = clamped === 0;
-    setVolumeState(clamped);
-    setIsMuted(clamped === 0);
-  }, []);
-
-  const seekTo = useCallback(
-    (timeSeconds: number) => {
-      const el = videoRef.current;
-      if (!el) return;
-      const valid = duration > 0 ? duration : el.duration;
-      const target = valid && isFinite(valid) && valid > 0
-        ? Math.max(0, Math.min(valid, timeSeconds))
-        : Math.max(0, timeSeconds);
-      el.currentTime = target;
-      setCurrentTime(target);
-      if (el.paused && isPlaying) el.play().catch(() => {});
-    },
-    [duration, isPlaying]
-  );
-
-  const getSeekPct = useCallback((clientX: number): number => {
-    const bar = seekBarRef.current;
-    if (!bar) return 0;
-    const rect = bar.getBoundingClientRect();
-    if (rect.width <= 0) return 0;
-    return Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-  }, []);
-
-  const handleSeekMouseDown = useCallback(
-    (e: ReactMouseEvent) => {
-      e.stopPropagation();
-      e.preventDefault();
-      seekDraggingRef.current = true;
-      const valid = duration > 0 ? duration : 0;
-      const onMove = (me: MouseEvent) => {
-        if (valid > 0) setCurrentTime(getSeekPct(me.clientX) * valid);
-      };
-      const onUp = (me: MouseEvent) => {
-        seekDraggingRef.current = false;
-        if (valid > 0) seekTo(getSeekPct(me.clientX) * valid);
-        window.removeEventListener("mousemove", onMove);
-        window.removeEventListener("mouseup", onUp);
-      };
-      window.addEventListener("mousemove", onMove);
-      window.addEventListener("mouseup", onUp);
-    },
-    [duration, getSeekPct, seekTo]
-  );
-
-  const getVolPct = useCallback((clientX: number): number => {
-    const bar = volBarRef.current;
-    if (!bar) return 0;
-    const rect = bar.getBoundingClientRect();
-    if (rect.width <= 0) return 0;
-    return Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-  }, []);
-
-  const handleVolMouseDown = useCallback(
-    (e: ReactMouseEvent) => {
-      e.stopPropagation();
-      e.preventDefault();
-      volumeDraggingRef.current = true;
-      setVolume(getVolPct(e.clientX));
-      const onMove = (me: MouseEvent) => setVolume(getVolPct(me.clientX));
-      const onUp = (me: MouseEvent) => {
-        volumeDraggingRef.current = false;
-        setVolume(getVolPct(me.clientX));
-        window.removeEventListener("mousemove", onMove);
-        window.removeEventListener("mouseup", onUp);
-      };
-      window.addEventListener("mousemove", onMove);
-      window.addEventListener("mouseup", onUp);
-    },
-    [getVolPct, setVolume]
-  );
-
-  /* ── Video native handlers ── */
-
-  const handlePlayEvent = useCallback(() => {
-    setIsPlaying(true);
-    notifyPlay(`lightbox-${openedId}`);
-    scheduleHideControls();
-  }, [openedId, notifyPlay, scheduleHideControls]);
-
-  const handlePauseEvent = useCallback(() => {
-    setIsPlaying(false);
-    notifyPause(`lightbox-${openedId}`);
-    setShowControls(true);
-  }, [openedId, notifyPause]);
-
-  const handleEndedEvent = useCallback(() => {
-    setIsPlaying(false);
-    setCurrentTime(0);
-    notifyPause(`lightbox-${openedId}`);
-    setShowControls(true);
-  }, [openedId, notifyPause]);
-
-  const handleLoadedMetadata = useCallback(() => {
-    const el = videoRef.current;
-    if (!el) return;
-    if (el.duration && isFinite(el.duration) && el.duration > 0) {
-      setDuration(el.duration);
-    }
-    setIsLoading(false);
-    setCurrentTime(0);
-    // No autoplay — video stays paused until the user taps Play.
-  }, []);
-
-  /* ── Swipe navigation (mobile) ── */
-
+  // Touch swipe support for mobile
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartXRef.current = e.touches[0].clientX;
   }, []);
@@ -293,272 +86,172 @@ export default function Lightbox({
       const startX = touchStartXRef.current;
       if (startX === null) return;
       touchStartXRef.current = null;
-      const delta = e.changedTouches[0].clientX - startX;
-      if (Math.abs(delta) > 60) {
-        if (delta < 0) goNext();
-        else goPrev();
+      const deltaX = e.changedTouches[0].clientX - startX;
+      if (Math.abs(deltaX) > 60) {
+        if (deltaX < 0) {
+          goNext();
+        } else {
+          goPrev();
+        }
       }
     },
     [goNext, goPrev]
   );
 
-  /* ── Derived ── */
-
-  const controlsVisible = showControls || !isPlaying;
-  const progress =
-    duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0;
-
   return createPortal(
     <motion.div
-      className="fixed inset-0 z-[200] flex items-center justify-center overflow-y-auto select-none"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      onClick={onClose}
+      className="fixed inset-0 z-[200] flex flex-col items-center justify-center select-none overflow-hidden"
       role="dialog"
       aria-modal="true"
-      aria-label="Portfolio video lightbox"
+      aria-label={`Video player for ${item.title}`}
+      onClick={onClose}
     >
-      {/* ── Background layer: bg + blur, fades in (0.3s) ── */}
-      <motion.div
-        className="absolute inset-0 bg-[rgba(5,5,8,0.88)] backdrop-blur-md"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        aria-hidden="true"
-      />
+      {/* ── Backdrop ── */}
+      <div className="absolute inset-0 bg-[#07040D]/90 backdrop-blur-xl" />
 
-      {/* ── Content layer: visible immediately (no opacity fade) ── */}
+      {/* ── Top Header Controls Bar ── */}
       <div
-        ref={contentRef}
-        className="relative z-10 flex flex-col lg:flex-row items-center lg:items-center justify-center gap-7 lg:gap-12 w-full max-w-5xl px-4 py-8 lg:py-12 my-auto"
+        className="relative z-10 w-full max-w-4xl px-4 sm:px-6 pt-4 pb-2 flex items-center justify-between pointer-events-auto"
         onClick={(e) => e.stopPropagation()}
-        onMouseMove={handleMouseMove}
+      >
+        {/* Project Info Pill */}
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
+            <Sparkles size={13} className="text-[#C4B5FD]" />
+            <span className="font-sora text-xs sm:text-sm font-semibold text-white tracking-tight">
+              {item.title}
+            </span>
+            <span className="text-white/30 text-xs">|</span>
+            <span className="font-mono text-[11px] text-[#C4B5FD] font-medium">
+              {item.id} / 0{items.length}
+            </span>
+          </div>
+        </div>
+
+        {/* Top-Right: Close Button */}
+        <button
+          type="button"
+          onClick={onClose}
+          className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 border border-white/20 flex items-center justify-center text-white/90 hover:text-white transition-all duration-200 shadow-lg cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C4B5FD]"
+          aria-label="Close video player"
+        >
+          <X size={19} />
+        </button>
+      </div>
+
+      {/* ── Center Stage: Video Container & Navigation ── */}
+      <div
+        className="relative z-10 flex items-center justify-center w-full px-4 py-2 my-auto"
+        onClick={(e) => e.stopPropagation()}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
-        style={{ touchAction: "pan-y" }}
       >
-        {/* ── Video frame ── */}
-        <motion.div
-          initial={{ scale: 0.92 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full max-w-[420px] sm:max-w-[380px] lg:w-auto lg:max-w-none lg:h-[78vh] aspect-[9/16] shrink-0 rounded-[20px] overflow-hidden bg-black shadow-[0_40px_120px_rgba(0,0,0,0.7)]"
+        {/* Previous Button (Desktop) */}
+        <button
+          type="button"
+          onClick={goPrev}
+          className="hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 active:scale-90 border border-white/15 text-white/80 hover:text-white transition-all duration-200 mr-4 lg:mr-8 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C4B5FD] shadow-xl"
+          aria-label="Previous video"
         >
-          <video
-            key={item.id}
-            ref={videoRef}
-            src={item.video}
-            poster={item.thumbnail}
-            preload="auto"
-            playsInline
-            muted={isMuted}
-            className="absolute inset-0 w-full h-full object-cover"
-            onPlay={handlePlayEvent}
-            onPause={handlePauseEvent}
-            onEnded={handleEndedEvent}
-            onLoadedMetadata={handleLoadedMetadata}
-            onTimeUpdate={() => setCurrentTime(videoRef.current?.currentTime ?? 0)}
-            onWaiting={() => setIsLoading(true)}
-            onCanPlay={() => setIsLoading(false)}
-            onPlaying={() => setIsLoading(false)}
+          <ChevronLeft size={22} />
+        </button>
+
+        {/* 9:16 Video Frame */}
+        <motion.div
+          key={item.id}
+          initial={{ scale: 0.96, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.96, opacity: 0 }}
+          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          className="relative w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[410px] aspect-[9/16] max-h-[76vh] sm:max-h-[78vh] rounded-[20px] sm:rounded-[24px] overflow-hidden bg-black shadow-[0_25px_80px_rgba(0,0,0,0.85),0_0_40px_rgba(196,181,253,0.18)] border border-[rgba(196,181,253,0.2)]"
+        >
+          {/* Loading Spinner */}
+          {isLoading && (
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm pointer-events-none">
+              <div className="relative w-12 h-12 mb-3">
+                <div className="absolute inset-0 rounded-full border-2 border-white/15" />
+                <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-[#C4B5FD] animate-spin" />
+              </div>
+              <span className="text-xs font-inter text-white/60">Loading Mux stream...</span>
+            </div>
+          )}
+
+          {/* Error Message */}
+          {hasError && (
+            <div className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 text-center bg-black/90">
+              <p className="text-sm font-inter text-white/80 mb-4">
+                Video playback could not load directly.
+              </p>
+              <a
+                href={item.videoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C4B5FD] text-[#0F0A19] text-xs font-semibold hover:bg-white transition-colors"
+              >
+                Watch on Mux <ExternalLink size={13} />
+              </a>
+            </div>
+          )}
+
+          {/* Mux Hosted Player Embed */}
+          <iframe
+            src={`${item.videoUrl}?autoplay=muted`}
+            title={`Video: ${item.title}`}
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full border-0 block bg-black"
+            onLoad={() => setIsLoading(false)}
             onError={() => {
               setIsLoading(false);
-              setError(true);
+              setHasError(true);
             }}
           />
-
-          {/* Cinematic vignette */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(0,0,0,0.55)_100%)] pointer-events-none" />
-
-          {/* Loading spinner */}
-          {isLoading && (
-            <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none">
-              <div className="relative w-14 h-14">
-                <div className="absolute inset-0 rounded-full border-2 border-white/10" />
-                <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-white animate-spin" />
-              </div>
-            </div>
-          )}
-
-          {/* Error */}
-          {error && (
-            <div className="absolute inset-0 z-30 flex flex-col items-center justify-center pointer-events-none">
-              <p className="text-white/70 text-sm font-inter">Failed to load video</p>
-            </div>
-          )}
-
-          {/* Close button */}
-          <div
-            className={`absolute top-0 left-0 right-0 z-40 flex items-center justify-end px-3 pt-3 pb-12 bg-gradient-to-b from-black/70 to-transparent pointer-events-none transition-opacity duration-300 ${
-              controlsVisible ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <button
-              onClick={onClose}
-              className="pointer-events-auto w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/25 active:scale-95 transition-all duration-150 shadow-lg"
-              aria-label="Close video"
-            >
-              <X size={18} />
-            </button>
-          </div>
-
-          {/* Center play overlay (paused) */}
-          {!isPlaying && !isLoading && !error && (
-            <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-              <button
-                onClick={togglePlay}
-                className="w-20 h-20 rounded-full bg-white/15 backdrop-blur-md border border-white/25 flex items-center justify-center shadow-[0_0_60px_rgba(196,181,253,0.5)] transition-all duration-300 hover:scale-110 hover:bg-white/25 cursor-pointer pointer-events-auto"
-                aria-label={isPlaying ? "Pause" : "Play"}
-              >
-                <Play className="fill-white text-white ml-1.5" size={30} />
-              </button>
-            </div>
-          )}
-
-          {/* ── Controls bottom bar ── */}
-          <div
-            className={`absolute bottom-0 left-0 right-0 z-40 pointer-events-none transition-opacity duration-300 ${
-              controlsVisible ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
-            <div className="relative px-4 pt-8 pb-4">
-              {/* Seek bar */}
-              <div
-                ref={seekBarRef}
-                className="relative w-full cursor-pointer group/seek mb-3 pointer-events-auto"
-                style={{ height: "20px", display: "flex", alignItems: "center" }}
-                onMouseDown={handleSeekMouseDown}
-                role="slider"
-                aria-label="Seek"
-                aria-valuemin={0}
-                aria-valuemax={duration}
-                aria-valuenow={currentTime}
-              >
-                <div className="absolute inset-x-0 h-[4px] group-hover/seek:h-[6px] transition-all duration-150 rounded-full overflow-hidden bg-white/20">
-                  <div
-                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#C4B5FD] to-[#DDD6FE] rounded-full transition-none"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
-                <div
-                  className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-lg opacity-0 group-hover/seek:opacity-100 transition-opacity pointer-events-none"
-                  style={{ left: `calc(${progress}% - 8px)` }}
-                />
-              </div>
-
-              {/* Bottom row */}
-              <div className="flex items-center justify-between gap-3 pointer-events-auto">
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      togglePlay();
-                    }}
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-white/20 active:scale-95 transition-all duration-150"
-                    aria-label={isPlaying ? "Pause" : "Play"}
-                  >
-                    {isPlaying ? (
-                      <Pause size={20} className="fill-white" />
-                    ) : (
-                      <Play size={20} className="fill-white ml-0.5" />
-                    )}
-                  </button>
-
-                  {/* Volume */}
-                  <div className="flex items-center gap-1.5">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleMute();
-                      }}
-                      className="w-10 h-10 rounded-full flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 active:scale-95 transition-all duration-150"
-                      aria-label={isMuted ? "Unmute" : "Mute"}
-                    >
-                      {isMuted || volume === 0 ? (
-                        <VolumeX size={18} />
-                      ) : (
-                        <Volume2 size={18} />
-                      )}
-                    </button>
-                    <div
-                      ref={volBarRef}
-                      className="relative w-20 cursor-pointer group/vol"
-                      style={{ height: "20px", display: "flex", alignItems: "center" }}
-                      onMouseDown={handleVolMouseDown}
-                    >
-                      <div className="absolute inset-x-0 h-[4px] group-hover/vol:h-[5px] transition-all rounded-full overflow-hidden bg-white/20">
-                        <div
-                          className="absolute top-0 left-0 h-full bg-white rounded-full"
-                          style={{ width: `${(isMuted ? 0 : volume) * 100}%` }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <span className="text-sm text-white/80 font-mono tabular-nums ml-1">
-                    {formatTime(currentTime)}{" "}
-                    <span className="text-white/40">/</span>{" "}
-                    {formatTime(duration)}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
         </motion.div>
 
-        {/* ── Info panel + navigation ── */}
-        <div className="w-full lg:w-72 shrink-0 text-left">
-          <p className="font-inter text-white/40 text-[11px] uppercase tracking-[0.2em] mb-1.5">
-            Client
-          </p>
-          <p className="font-sora font-semibold text-white text-lg leading-snug">
-            {item.client}
-          </p>
+        {/* Next Button (Desktop) */}
+        <button
+          type="button"
+          onClick={goNext}
+          className="hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 active:scale-90 border border-white/15 text-white/80 hover:text-white transition-all duration-200 ml-4 lg:ml-8 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C4B5FD] shadow-xl"
+          aria-label="Next video"
+        >
+          <ChevronRight size={22} />
+        </button>
+      </div>
 
-          <div className="mt-5">
-            <p className="font-inter text-white/40 text-[11px] uppercase tracking-[0.2em] mb-1.5">
-              Project
-            </p>
-            <p className="font-inter text-white/80 text-sm leading-relaxed">
-              {item.title}
-            </p>
-          </div>
-
-          <div className="mt-5">
-            <p className="font-inter text-white/40 text-[11px] uppercase tracking-[0.2em] mb-1.5">
-              Project Type
-            </p>
-            <p className="font-inter text-white/80 text-sm">{item.category}</p>
-          </div>
-
-          <div className="mt-7 flex items-center gap-3">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                goPrev();
-              }}
-              className="flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 hover:border-white/25 transition-all duration-200 text-xs font-inter font-medium"
-            >
-              <ChevronLeft size={15} /> Previous
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                goNext();
-              }}
-              className="flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 hover:border-white/25 transition-all duration-200 text-xs font-inter font-medium"
-            >
-              Next <ChevronRight size={15} />
-            </button>
-          </div>
-
-          <p className="mt-5 font-inter text-white/30 text-[11px] hidden lg:block">
-            <span className="font-mono">←</span> /{" "}
-            <span className="font-mono">→</span> navigate &nbsp;·&nbsp;{" "}
-            <span className="font-mono">Esc</span> close
-          </p>
+      {/* ── Bottom Controls (Mobile prev/next buttons + hint) ── */}
+      <div
+        className="relative z-10 w-full max-w-sm px-4 pt-2 pb-4 flex flex-col items-center gap-2 pointer-events-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Mobile Navigation Buttons */}
+        <div className="flex md:hidden items-center justify-center gap-3 w-full">
+          <button
+            type="button"
+            onClick={goPrev}
+            className="flex-1 py-2.5 px-4 rounded-full bg-white/10 active:bg-white/20 border border-white/15 text-white text-xs font-inter font-medium flex items-center justify-center gap-1.5 shadow"
+          >
+            <ChevronLeft size={16} /> Prev Video
+          </button>
+          <button
+            type="button"
+            onClick={goNext}
+            className="flex-1 py-2.5 px-4 rounded-full bg-white/10 active:bg-white/20 border border-white/15 text-white text-xs font-inter font-medium flex items-center justify-center gap-1.5 shadow"
+          >
+            Next Video <ChevronRight size={16} />
+          </button>
         </div>
+
+        {/* Keyboard / Swipe tip */}
+        <p className="font-inter text-white/30 text-[11px] text-center hidden md:block">
+          Use <kbd className="px-1.5 py-0.5 rounded bg-white/10 font-mono text-[10px] text-white/60">←</kbd>{" "}
+          <kbd className="px-1.5 py-0.5 rounded bg-white/10 font-mono text-[10px] text-white/60">→</kbd> to navigate ·{" "}
+          <kbd className="px-1.5 py-0.5 rounded bg-white/10 font-mono text-[10px] text-white/60">Esc</kbd> to close
+        </p>
       </div>
     </motion.div>,
     document.body
