@@ -2,7 +2,7 @@ export const SITE_META = {
   name: "Rewan Abdrabou",
   title: "Rewan Abdrabou | Professional UGC Creator & Videographer — Egypt",
   description:
-    "Rewan Abdrabou is Egypt's premier UGC creator, videographer, and video editor. Specializing in high-converting cinematic content for medical clinics, healthcare centers, beauty brands, and lifestyle businesses in Shebeen El-Kom.",
+    "Rewan Abdrabou is a UGC creator, videographer, and video editor based in Shebeen El-Kom, Egypt, creating engaging visual content for medical clinics, beauty and laser centers, bloggers, influencers, and brands.",
   keywords:
     "UGC Creator Egypt, Rewan Abdrabou, Reel Creator Egypt, Video Editor Shebeen El-Kom, Content Creator Egypt, Medical Content Creator, Healthcare Videographer",
   url: "https://rewanabdrabou.com",
@@ -89,7 +89,7 @@ export const TRUSTED_MEDICAL_CENTERS = [
     id: "queen",
     name: "Queen Clinic",
     logo: "/assets/queen-clinic.jpeg",
-    industry: "Specialty — TBD",
+    industry: "Beauty, Aesthetics & Laser Center",
   },
 ];
 
@@ -145,6 +145,16 @@ export const TOOLS = [
   "CapCut",
 ];
 
+export type VideoCategory = "Doctors & Clinics" | "Bloggers & Influencers";
+
+export const PORTFOLIO_CATEGORIES = [
+  "All",
+  "Doctors & Clinics",
+  "Bloggers & Influencers",
+] as const;
+
+export type PortfolioCategory = (typeof PORTFOLIO_CATEGORIES)[number];
+
 export interface PortfolioVideo {
   id: string;
   playbackId: string;
@@ -152,6 +162,7 @@ export interface PortfolioVideo {
   thumbnailUrl: string;
   title: string;
   aspectRatio: string;
+  category: VideoCategory;
 }
 
 export const PORTFOLIO_VIDEOS: PortfolioVideo[] = [
@@ -162,6 +173,7 @@ export const PORTFOLIO_VIDEOS: PortfolioVideo[] = [
     thumbnailUrl: "https://image.mux.com/eM6gIk022AsNrz1Im7KBbKcC7X02DNDr3FHzzW6GDrjPo/thumbnail.jpg?time=2&width=600",
     title: "Project 01",
     aspectRatio: "9:16",
+    category: "Doctors & Clinics",
   },
   {
     id: "02",
@@ -170,6 +182,7 @@ export const PORTFOLIO_VIDEOS: PortfolioVideo[] = [
     thumbnailUrl: "https://image.mux.com/n9uRJLxajkCxyeustRq4L02YAiuOHhDsK8RuhmTLFTxk/thumbnail.jpg?time=2&width=600",
     title: "Project 02",
     aspectRatio: "9:16",
+    category: "Doctors & Clinics",
   },
   {
     id: "03",
@@ -178,6 +191,7 @@ export const PORTFOLIO_VIDEOS: PortfolioVideo[] = [
     thumbnailUrl: "https://image.mux.com/AcNIFwCzyypzm8SrDdrhYFVHMKdu1ihfeleSSDiQOSg/thumbnail.jpg?time=3&width=600",
     title: "Project 03",
     aspectRatio: "9:16",
+    category: "Bloggers & Influencers",
   },
   {
     id: "04",
@@ -186,6 +200,7 @@ export const PORTFOLIO_VIDEOS: PortfolioVideo[] = [
     thumbnailUrl: "https://image.mux.com/U02vcDKD2TVWU7Oq4PLEsHoDiRPeLx401AjktEMBnBnM00/thumbnail.jpg?time=1&width=600",
     title: "Project 04",
     aspectRatio: "9:16",
+    category: "Doctors & Clinics",
   },
   {
     id: "05",
@@ -194,6 +209,7 @@ export const PORTFOLIO_VIDEOS: PortfolioVideo[] = [
     thumbnailUrl: "https://image.mux.com/p1yqMcHR00w01VgL1to613yZrVt01ylwzso1bV6RVxI56Y/thumbnail.jpg?time=2&width=600",
     title: "Project 05",
     aspectRatio: "9:16",
+    category: "Bloggers & Influencers",
   },
   {
     id: "06",
@@ -202,6 +218,7 @@ export const PORTFOLIO_VIDEOS: PortfolioVideo[] = [
     thumbnailUrl: "https://image.mux.com/olmMwM9mZMhnYTUVt1uCuqPQ7saIfIty7ekZT7XxDGI/thumbnail.jpg?time=2&width=600",
     title: "Project 06",
     aspectRatio: "9:16",
+    category: "Doctors & Clinics",
   },
   {
     id: "07",
@@ -210,6 +227,7 @@ export const PORTFOLIO_VIDEOS: PortfolioVideo[] = [
     thumbnailUrl: "https://image.mux.com/mhF6NEHe2waWxvwUwFa6CuLNEKxRqt5004eonChn3nYw/thumbnail.jpg?time=2&width=600",
     title: "Project 07",
     aspectRatio: "9:16",
+    category: "Doctors & Clinics",
   },
   {
     id: "08",
@@ -218,6 +236,7 @@ export const PORTFOLIO_VIDEOS: PortfolioVideo[] = [
     thumbnailUrl: "https://image.mux.com/uA4xhBhmNqKa6Zu7S8BjvB9m7E013WoQcfkVKwMNaguY/thumbnail.jpg?time=2&width=600",
     title: "Project 08",
     aspectRatio: "9:16",
+    category: "Doctors & Clinics",
   },
   {
     id: "09",
@@ -226,10 +245,29 @@ export const PORTFOLIO_VIDEOS: PortfolioVideo[] = [
     thumbnailUrl: "https://image.mux.com/b6MYG5DYlLD8uyhuYGJsEJ8fo8Gxdb01B9sHUly01zhxw/thumbnail.jpg?time=2&width=600",
     title: "Project 09",
     aspectRatio: "9:16",
+    category: "Doctors & Clinics",
+  },
+  {
+    id: "10",
+    playbackId: "MzgzENEnkO5WeDCOyylNJ01CchAEYnNGZ4y2vpecX6Q8",
+    videoUrl: "https://player.mux.com/watch/MzgzENEnkO5WeDCOyylNJ01CchAEYnNGZ4y2vpecX6Q8",
+    thumbnailUrl: "https://image.mux.com/MzgzENEnkO5WeDCOyylNJ01CchAEYnNGZ4y2vpecX6Q8/thumbnail.jpg?time=0.5",
+    title: "Project 10",
+    aspectRatio: "9:16",
+    category: "Bloggers & Influencers",
+  },
+  {
+    id: "11",
+    playbackId: "vESbTKF02qU1JGxY7ebX8yrNbbXH024PFhfK9OpotfCDI",
+    videoUrl: "https://player.mux.com/watch/vESbTKF02qU1JGxY7ebX8yrNbbXH024PFhfK9OpotfCDI",
+    thumbnailUrl: "https://image.mux.com/vESbTKF02qU1JGxY7ebX8yrNbbXH024PFhfK9OpotfCDI/thumbnail.jpg?time=0.5",
+    title: "Project 11",
+    aspectRatio: "9:16",
+    category: "Bloggers & Influencers",
   },
 ];
 
 export const PORTFOLIO_ITEMS = PORTFOLIO_VIDEOS;
 export type PortfolioItem = PortfolioVideo;
 
-export const PORTFOLIO_FILTERS = ["All", "Medical Reels", "Business Content"];
+export const PORTFOLIO_FILTERS = PORTFOLIO_CATEGORIES;
