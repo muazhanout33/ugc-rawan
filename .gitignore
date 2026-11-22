@@ -62,6 +62,7 @@ skills-fold-verification/
 trustedby-verification/
 queen-clinic-verification/
 sky-logo-verification/
+cinematic-redesign-verification/
 
 
 # ============================================
@@ -92,6 +93,7 @@ verify-trustedby-after.mjs
 viewport-check.mjs
 vp-debug.mjs
 walkthrough-before.mjs
+verify-clean-hero.mjs
 
 # Local audit files
 lighthouse-*.json

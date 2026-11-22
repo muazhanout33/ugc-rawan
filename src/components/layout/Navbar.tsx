@@ -113,8 +113,8 @@ export default function Navbar() {
               Rewan Abdrabou
             </span>
             <span className="text-[#443337] mx-2 sm:mx-2.5 font-light">|</span>
-            <span className="text-[11.5px] sm:text-[13px] text-[#B9ADAA] font-inter font-normal">
-              <span className="hidden xs:inline">UGC Creator &amp; </span>Visual Storyteller
+            <span className="text-[12px] sm:text-[13.5px] text-[#B9ADAA] font-inter font-normal">
+              <span className="hidden sm:inline">UGC Creator &amp; </span>Visual Storyteller
             </span>
           </motion.a>
 

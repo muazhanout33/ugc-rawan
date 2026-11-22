@@ -39,65 +39,59 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col justify-between bg-[#141112] overflow-hidden pt-24 pb-12 lg:pt-0 lg:pb-0"
+      className="relative min-h-screen flex flex-col justify-between bg-[#141112] overflow-hidden pt-24 pb-10 lg:pt-0 lg:pb-0"
     >
       {/* ── Desktop Left Photography Layer (Full-Bleed Editorial Composition) ── */}
-      <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-[53%] xl:w-[50%] z-0 overflow-hidden pointer-events-none select-none">
+      <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-[52%] xl:w-[49%] z-0 pointer-events-none select-none overflow-hidden">
         <Image
-          src="/assets/hero-rewan-clean@2x.jpg"
+          src="/assets/rewan-hero.png"
           alt="Rewan Abdrabou — Videographer & Visual Storyteller"
           fill
           priority
-          sizes="55vw"
+          sizes="50vw"
           className="object-cover object-left-top"
         />
-        {/* Soft edge feathering into dark background */}
-        <div className="absolute inset-y-0 right-0 w-32 xl:w-44 bg-gradient-to-r from-transparent to-[#141112]" />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#141112] to-transparent" />
-        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#141112]/60 to-transparent" />
       </div>
 
-      {/* ── Cinematic Atmosphere Textures on Right Side ── */}
-      {/* Right camera lens detail */}
-      <div className="absolute right-0 top-[18%] w-[260px] sm:w-[340px] lg:w-[420px] h-[480px] pointer-events-none opacity-20 lg:opacity-30 z-0">
-        <Image
-          src="/assets/hero-camera-lens.png"
-          alt=""
-          fill
-          className="object-contain object-right"
-          priority
-        />
-      </div>
+      {/* ── Atmospheric Ambient Lighting (Clean CSS, Zero Raster Artifacts) ── */}
+      {/* Deep Burgundy Corner Atmosphere */}
+      <div
+        className="absolute -right-20 -bottom-20 w-[420px] sm:w-[560px] lg:w-[680px] h-[340px] sm:h-[440px] pointer-events-none opacity-80 z-0"
+        style={{
+          background:
+            "radial-gradient(circle at 80% 85%, rgba(135,83,95,0.22) 0%, rgba(68,51,55,0.12) 45%, transparent 70%)",
+        }}
+        aria-hidden="true"
+      />
 
-      {/* Bottom right burgundy drapery */}
-      <div className="absolute right-0 bottom-0 w-[280px] sm:w-[380px] lg:w-[480px] h-[220px] sm:h-[280px] pointer-events-none opacity-45 lg:opacity-55 z-0">
-        <Image
-          src="/assets/hero-burgundy-corner.png"
-          alt=""
-          fill
-          className="object-contain object-right-bottom"
-          priority
-        />
-      </div>
+      {/* Subtle Warm Rose Glow Top-Right */}
+      <div
+        className="absolute right-0 top-1/4 w-[360px] lg:w-[480px] h-[360px] pointer-events-none opacity-40 z-0"
+        style={{
+          background:
+            "radial-gradient(circle at 75% 30%, rgba(183,125,137,0.08) 0%, transparent 65%)",
+        }}
+        aria-hidden="true"
+      />
 
       {/* ── Main Content Grid ── */}
-      <div className="section-container relative z-10 w-full max-w-[1400px] mx-auto my-auto py-8 lg:py-32">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center min-h-[600px] lg:min-h-[700px]">
+      <div className="section-container relative z-10 w-full max-w-[1400px] mx-auto my-auto py-8 lg:py-28">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[580px] lg:min-h-[660px]">
 
-          {/* ── Mobile / Tablet Photography (Visible on < lg screens) ── */}
-          <div className="lg:hidden w-full max-w-[480px] mx-auto relative rounded-2xl overflow-hidden bg-[#1C1719] border border-[#443337] shadow-[0_20px_50px_rgba(0,0,0,0.8)] aspect-[4/3] sm:aspect-[16/11]">
+          {/* ── Mobile / Tablet Photography (Clean portrait container on < lg) ── */}
+          <div className="lg:hidden w-full max-w-[420px] mx-auto relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden bg-[#1C1719] border border-[#443337] shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
             <Image
-              src="/assets/hero-rewan-clean@2x.jpg"
+              src="/assets/rewan-hero.png"
               alt="Rewan Abdrabou — Videographer & Visual Storyteller"
               fill
               priority
-              sizes="(max-width: 768px) 100vw, 480px"
-              className="object-cover object-center"
+              sizes="(max-width: 768px) 100vw, 420px"
+              className="object-cover object-left-top"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#141112]/80 via-transparent to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#141112]/75 via-transparent to-transparent pointer-events-none" />
           </div>
 
-          {/* Spacer on Desktop so Content aligns on Right half */}
+          {/* Spacer on Desktop to leave room for Left Photography */}
           <div className="hidden lg:block lg:col-span-6 xl:col-span-6 pointer-events-none" aria-hidden="true" />
 
           {/* ── Right Column — Typography & Editorial Content ── */}
@@ -167,7 +161,7 @@ export default function Hero() {
               <button
                 type="button"
                 onClick={scrollToWork}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#1C1719]/70 hover:bg-[#241D20] border border-[#443337] hover:border-[#B77D89]/60 text-[#F4EDE8] font-inter text-sm font-medium transition-all duration-200 cursor-pointer active:scale-98"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#1C1719]/80 hover:bg-[#241D20] border border-[#443337] hover:border-[#B77D89]/60 text-[#F4EDE8] font-inter text-sm font-medium transition-all duration-200 cursor-pointer active:scale-98"
               >
                 <Play size={13} className="fill-[#F4EDE8] text-[#F4EDE8]" />
                 <span>View My Work</span>
@@ -178,7 +172,7 @@ export default function Hero() {
                 href={SITE_META.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#1C1719]/70 hover:bg-[#241D20] border border-[#443337] hover:border-[#B77D89]/60 text-[#F4EDE8] font-inter text-sm font-medium transition-all duration-200 active:scale-98"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#1C1719]/80 hover:bg-[#241D20] border border-[#443337] hover:border-[#B77D89]/60 text-[#F4EDE8] font-inter text-sm font-medium transition-all duration-200 active:scale-98"
               >
                 <InstagramIcon />
                 <span>DM on Instagram</span>
@@ -208,7 +202,7 @@ export default function Hero() {
         <button
           type="button"
           onClick={scrollToWork}
-          className="hidden lg:flex flex-col items-center gap-1.5 absolute left-1/2 -translate-x-1/2 text-[#B9ADAA]/60 hover:text-[#B9ADAA] transition-colors cursor-pointer group"
+          className="hidden lg:flex flex-col items-center gap-1.5 absolute left-1/2 -translate-x-1/2 text-[#B9ADAA]/70 hover:text-[#F4EDE8] transition-colors cursor-pointer group"
           aria-label="Scroll to portfolio"
         >
           <span className="text-[10px] font-inter uppercase tracking-[0.24em] text-[#B9ADAA]/75 group-hover:text-[#F4EDE8]">
@@ -224,7 +218,6 @@ export default function Hero() {
           <div className="w-px h-4 bg-gradient-to-b from-[#443337] to-transparent" />
         </button>
 
-        {/* Empty right placeholder for balance */}
         <div className="hidden sm:block w-24" aria-hidden="true" />
       </div>
     </section>
