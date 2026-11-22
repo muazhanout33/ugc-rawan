@@ -1,7 +1,6 @@
 "use client";
 
 import { memo } from "react";
-import { Star, Stethoscope } from "lucide-react";
 import {
   TRUSTED_MEDICAL_CENTERS,
   TRUSTED_DOCTORS,
@@ -10,7 +9,7 @@ import {
 import Image from "next/image";
 import { ScrollReveal } from "@/components/animations";
 
-/* ───────── Marquee Logo Item ───────── */
+/* ───────── Logo Item ───────── */
 
 const MarqueeLogoItem = memo(function MarqueeLogoItem({
   item,
@@ -19,22 +18,22 @@ const MarqueeLogoItem = memo(function MarqueeLogoItem({
 }) {
   const inner = (
     <>
-      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-white/[0.04] border border-white/[0.08] p-2.5 group-hover:border-[#C4B5FD]/40 transition-all duration-300 relative overflow-hidden flex items-center justify-center flex-shrink-0">
+      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-[#141112] border border-[#443337] p-2 group-hover:border-[#B77D89]/50 transition-all duration-200 relative overflow-hidden flex items-center justify-center flex-shrink-0">
         <Image
           src={item.logo}
           alt={item.name}
           fill
-          sizes="96px"
+          sizes="80px"
           loading="lazy"
           className="object-contain p-1.5"
         />
       </div>
-      <div className="min-w-0">
-        <p className="font-sora font-semibold text-white text-sm sm:text-base leading-snug whitespace-nowrap">
+      <div className="min-w-0 text-left">
+        <p className="font-sora font-medium text-[#F4EDE8] text-sm sm:text-base leading-snug whitespace-nowrap group-hover:text-white transition-colors">
           {item.name}
         </p>
         {item.industry && (
-          <p className="font-inter text-white/40 text-xs mt-1 whitespace-nowrap">
+          <p className="font-inter text-[#B9ADAA] text-xs mt-0.5 whitespace-nowrap">
             {item.industry}
           </p>
         )}
@@ -42,7 +41,8 @@ const MarqueeLogoItem = memo(function MarqueeLogoItem({
     </>
   );
 
-  const className = "flex-shrink-0 flex items-center gap-4 px-6 py-4 rounded-2xl bg-[rgba(27,18,48,0.4)] border border-white/[0.06] hover:border-[#C4B5FD]/40 hover:bg-[rgba(27,18,48,0.6)] transition-all duration-300 group mx-3";
+  const className =
+    "flex-shrink-0 flex items-center gap-4 px-5 py-3.5 rounded-xl bg-[#1C1719] border border-[#443337] hover:border-[#B77D89]/60 hover:bg-[#241D20] transition-all duration-200 group mx-3 shadow-sm";
 
   if (item.instagram) {
     return (
@@ -60,7 +60,7 @@ const MarqueeLogoItem = memo(function MarqueeLogoItem({
   return <div className={className}>{inner}</div>;
 });
 
-/* ───────── Marquee Doctor Item ───────── */
+/* ───────── Doctor Item ───────── */
 
 const MarqueeDoctorItem = memo(function MarqueeDoctorItem({
   doctor,
@@ -68,14 +68,14 @@ const MarqueeDoctorItem = memo(function MarqueeDoctorItem({
   doctor: (typeof TRUSTED_DOCTORS)[0];
 }) {
   return (
-    <div className="flex-shrink-0 flex items-center gap-3 px-5 py-3.5 rounded-xl bg-[rgba(27,18,48,0.4)] border border-white/[0.06] hover:border-[#C4B5FD]/30 hover:bg-[rgba(27,18,48,0.6)] transition-all duration-300 mx-2.5">
-      <span className="w-1.5 h-1.5 rounded-full bg-[#C4B5FD] flex-shrink-0" />
+    <div className="flex-shrink-0 flex items-center gap-3 px-4 py-3 rounded-lg bg-[#1C1719] border border-[#443337] hover:border-[#B77D89]/50 hover:bg-[#241D20] transition-all duration-200 mx-2 text-left">
+      <span className="w-1.5 h-1.5 rounded-full bg-[#B77D89] flex-shrink-0" />
       <div className="min-w-0">
-        <p className="font-sora font-semibold text-white text-sm leading-snug whitespace-nowrap">
+        <p className="font-sora font-medium text-[#F4EDE8] text-xs sm:text-sm leading-snug whitespace-nowrap">
           {doctor.name}
         </p>
         {doctor.specialty && (
-          <p className="font-inter text-white/40 text-xs mt-0.5 leading-snug whitespace-nowrap pr-2">
+          <p className="font-inter text-[#B9ADAA] text-[11px] mt-0.5 leading-snug whitespace-nowrap pr-2">
             {doctor.specialty}
           </p>
         )}
@@ -92,35 +92,28 @@ export default function TrustedBy() {
   return (
     <section
       id="clients"
-      className="relative section-padding bg-[#0F0A19] overflow-hidden"
+      className="relative section-padding bg-[#141112] overflow-hidden border-t border-[#443337]"
     >
-      {/* Background aesthetics */}
-      <div className="absolute top-0 left-0 right-0 gradient-line" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50%] h-[35%] bg-[#C4B5FD] rounded-full blur-[180px] opacity-[0.02] pointer-events-none" />
-
       <div className="section-container relative z-10">
-        {/* ─── Main Section Header ─── */}
-        <ScrollReveal animation="fadeUp" className="text-center max-w-3xl mx-auto mb-16">
+        {/* Section Header */}
+        <ScrollReveal animation="fadeUp" className="text-center max-w-2xl mx-auto mb-14">
           <div className="section-label justify-center">
-            <Star size={14} className="text-[#E9D5FF]" />
-            Trusted By
+            <span className="w-1.5 h-1.5 rounded-full bg-[#B77D89]" />
+            Clients &amp; Collaborations
           </div>
-          <h2 className="font-heading text-section mb-5 text-balance">
-            Working with{" "}
-            <span className="text-gradient-primary">clinics and brands</span>{" "}
-            across Egypt.
+          <h2 className="font-serif text-section text-[#F4EDE8] font-normal mb-4 text-balance">
+            Trusted by healthcare clinics, specialists, and brands.
           </h2>
-          <p className="font-inter text-white/50 text-base sm:text-lg text-pretty leading-relaxed">
-            Medical centers, specialist doctors, and companies I&apos;ve
-            created content for.
+          <p className="font-inter text-[#B9ADAA] text-sm sm:text-base leading-relaxed text-pretty">
+            Medical centers, consultant physicians, and commercial partners
+            I have produced video content for.
           </p>
         </ScrollReveal>
 
-        {/* ─── Client Logo Marquee (RIGHT → LEFT) ─── */}
-        <div className="relative mb-20">
-          {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-r from-[#0F0A19] to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-l from-[#0F0A19] to-transparent z-10 pointer-events-none" />
+        {/* Client Logos Marquee */}
+        <div className="relative mb-16">
+          <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-36 bg-gradient-to-r from-[#141112] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-36 bg-gradient-to-l from-[#141112] to-transparent z-10 pointer-events-none" />
 
           <div className="overflow-hidden">
             <div
@@ -137,35 +130,22 @@ export default function TrustedBy() {
           </div>
         </div>
 
-        {/* ─── Doctors & Specialists Marquee (LEFT → RIGHT) ─── */}
+        {/* Doctors & Specialists Marquee */}
         <div>
-          <div className="flex items-center gap-3.5 mb-8">
-            <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-              style={{
-                background: "rgba(233, 213, 255, 0.1)",
-                border: "1px solid rgba(233, 213, 255, 0.25)",
-              }}
-            >
-              <Stethoscope size={18} style={{ color: "rgb(233, 213, 255)" }} />
-            </div>
-            <div>
-              <h3 className="font-sora font-semibold text-white text-lg leading-snug">
-                Doctors & Specialists
-              </h3>
-              <p className="font-inter text-white/40 text-xs mt-0.5">Specialists & doctors</p>
-            </div>
+          <div className="text-center mb-6">
+            <span className="font-inter text-xs uppercase tracking-[0.2em] text-[#B9ADAA] font-semibold">
+              Consultants &amp; Specialists
+            </span>
           </div>
 
           <div className="relative">
-            {/* Fade edges */}
-            <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-[#0F0A19] to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-[#0F0A19] to-transparent z-10 pointer-events-none" />
+            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-[#141112] to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-[#141112] to-transparent z-10 pointer-events-none" />
 
             <div className="overflow-hidden">
               <div
                 className="marquee-track animate-marquee-reverse"
-                style={{ "--marquee-duration": "50s" } as React.CSSProperties}
+                style={{ "--marquee-duration": "48s" } as React.CSSProperties}
               >
                 {TRUSTED_DOCTORS.map((doctor) => (
                   <MarqueeDoctorItem key={doctor.id} doctor={doctor} />

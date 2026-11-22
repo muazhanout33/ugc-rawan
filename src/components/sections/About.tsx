@@ -1,10 +1,9 @@
 "use client";
 
-import { memo } from "react";
 import { motion } from "framer-motion";
-import { Camera, Film, Sparkles } from "lucide-react";
 import Image from "next/image";
-import { ScrollReveal, Parallax } from "@/components/animations";
+import { Film } from "lucide-react";
+import { ScrollReveal } from "@/components/animations";
 import { SKILLS, TOOLS } from "@/lib/constants";
 
 const TOOL_LOGOS: Record<string, string> = {
@@ -12,165 +11,158 @@ const TOOL_LOGOS: Record<string, string> = {
   CapCut: "/assets/capcut-logo.png",
 };
 
-const StatCard = memo(function StatCard({
-  icon: Icon,
-  label,
-  value,
-  index,
-}: {
-  icon: typeof Film;
-  label: string;
-  value: string;
-  index: number;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: 20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
-      whileHover={{ x: -5, scale: 1.02 }}
-      className="glass-card px-4 py-3 rounded-xl flex items-center gap-3 bg-[#150D28]/90 border-[rgba(196,181,253,0.25)] shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-xl cursor-default"
-    >
-      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#C4B5FD]/20 to-transparent flex items-center justify-center text-[#DDD6FE] flex-shrink-0">
-        <Icon size={14} />
-      </div>
-      <div className="min-w-[80px]">
-        <p className="font-sora font-bold text-white text-xs whitespace-nowrap">
-          {label}
-        </p>
-        <p className="font-inter text-white/50 text-[10px] whitespace-nowrap mt-0.5">
-          {value}
-        </p>
-      </div>
-    </motion.div>
-  );
-});
+const FOCUS_AREAS = [
+  "Medical Clinics & Healthcare Centers",
+  "Beauty, Aesthetics & Laser Centers",
+  "Bloggers & Influencers",
+  "Lifestyle & Personal Brands",
+  "Businesses & Startups",
+];
 
 export default function About() {
-  const cards = [
-    { icon: Film, label: "~400 Reels", value: "Created" },
-    { icon: Camera, label: "Top Quality", value: "Production" },
-  ];
+  const allSkills = [...SKILLS.creative, ...SKILLS.production];
 
   return (
-    <section id="about" className="relative section-padding bg-[#0F0A19] overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 gradient-line" />
+    <section id="about" className="relative section-padding bg-[#141112] overflow-hidden border-t border-[#443337]">
       <div className="section-container relative z-10">
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
-          {/* Left visual column */}
-          <Parallax speed={0.3} className="w-full lg:w-1/2 relative">
-            <div className="overflow-visible">
-              <ScrollReveal animation="scaleUp">
-                <div className="relative rounded-[32px] p-1">
-                  <div className="absolute -inset-6 bg-gradient-to-br from-[#C4B5FD]/20 via-[#E9D5FF]/10 to-transparent rounded-[48px] blur-2xl opacity-60 pointer-events-none" />
-                  <div className="relative rounded-[28px] overflow-hidden bg-[#1A0A2E]">
-                    <div className="relative aspect-[4/5] overflow-hidden">
-                      <Image
-                        src="/assets/rewanphoto.jpeg"
-                        alt="Rewan Abdrabou — UGC Creator & Videographer"
-                        fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover object-top"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-[#0F0A19] via-[#0F0A19]/60 to-transparent" />
-                      <div className="absolute top-0 left-0 w-32 h-32 bg-[#C4B5FD] rounded-full blur-[60px] opacity-20 pointer-events-none" />
-                      <div className="absolute bottom-12 right-0 w-24 h-24 bg-[#E9D5FF] rounded-full blur-[50px] opacity-20 pointer-events-none" />
-                    </div>
+
+        {/* Main Grid: Portrait & Bio */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+
+          {/* Left: Portrait in Clean Editorial Framing with Preserved Stat Badge */}
+          <div className="lg:col-span-5 flex justify-center">
+            <ScrollReveal animation="fadeUp" className="w-full max-w-[420px]">
+              <div className="relative">
+                <div className="relative rounded-2xl overflow-hidden bg-[#1C1719] border border-[#443337] shadow-[0_20px_50px_rgba(0,0,0,0.65)]">
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    <Image
+                      src="/assets/rewanphoto.jpeg"
+                      alt="Rewan Abdrabou — UGC Creator & Videographer"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 420px"
+                      className="object-cover object-top"
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#141112]/80 via-transparent to-transparent pointer-events-none" />
                   </div>
-                  <div className="absolute -top-4 -right-4 w-20 h-20 rounded-2xl bg-gradient-to-br from-[#C4B5FD]/30 to-[#E9D5FF]/20 backdrop-blur-md border border-[rgba(196,181,253,0.3)] flex items-center justify-center z-20 shadow-[0_8px_32px_rgba(196,181,253,0.3)]">
-                    <Camera size={24} className="text-white/80" />
-                  </div>
-                  <div className="absolute -bottom-3 -left-3 w-14 h-14 rounded-full bg-gradient-to-br from-[#E9D5FF]/40 to-[#C4B5FD]/30 backdrop-blur-md border border-[rgba(233,213,255,0.3)] z-20 shadow-[0_4px_20px_rgba(233,213,255,0.3)]" />
-                  <div className="absolute top-1/4 -right-6 w-16 h-16 rounded-full border-2 border-[rgba(196,181,253,0.2)] z-10" />
-                  <div className="absolute bottom-1/3 -left-4 w-3 h-3 rounded-full bg-[#C4B5FD] opacity-40 z-10" />
                 </div>
-              </ScrollReveal>
-              <div className="absolute right-4 md:-right-6 top-[15%] md:top-1/4 flex flex-col gap-3 md:gap-4 z-20">
-                {cards.map((card, i) => (
-                  <StatCard key={card.label} {...card} index={i} />
-                ))}
-              </div>
-            </div>
-          </Parallax>
 
-          {/* Right text column */}
-          <div className="w-full lg:w-1/2">
-            <ScrollReveal animation="fadeRight" delay={0.2}>
-              <div className="section-label">
-                <Sparkles size={14} className="text-[#E9D5FF]" />
-                About Me
-              </div>
-
-              <h2 className="font-serif text-section mb-6 text-balance" style={{ fontWeight: 700 }}>
-                The{" "}
-                <span className="text-gradient-primary">creative force</span>{" "}
-                behind premium content.
-              </h2>
-
-              <p className="font-inter text-white/60 text-base sm:text-lg leading-relaxed">
-                I&apos;m Rewan — a UGC creator and videographer based in Shebeen El-Kom,
-                Egypt. I make{" "}
-                <strong className="text-white font-medium">
-                  short-form video content
-                </strong>{" "}
-                for medical clinics, healthcare centers, and lifestyle
-                brands. I also work with fellow content creators on the
-                full production pipeline — concept to final cut.
-              </p>
-
-              <p className="font-inter text-white/50 text-sm sm:text-base leading-relaxed mt-4">
-                Focused on video content for healthcare clinics, beauty brands,
-                tech startups, and personal brands.
-              </p>
-
-              {/* Thin divider */}
-              <div className="h-px w-full bg-gradient-to-r from-transparent via-[rgba(196,181,253,0.4)] to-transparent mt-8 mb-7" />
-
-              {/* Skills pill tags */}
-              <div className="flex flex-wrap gap-2">
-                {[...SKILLS.creative, ...SKILLS.production].map((skill) => (
-                  <span
-                    key={skill.name}
-                    className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-inter font-medium leading-none bg-[rgba(196,181,253,0.18)] border border-[rgba(196,181,253,0.35)] text-[#DDD6FE]"
-                  >
-                    {skill.name}
-                  </span>
-                ))}
+                {/* Preserved Stat Badge — Clean Editorial Style */}
+                <div className="absolute -bottom-4 -right-4 sm:-bottom-5 sm:-right-5 rounded-xl px-4 py-3 bg-[#1C1719] border border-[#443337] shadow-[0_12px_32px_rgba(0,0,0,0.7)] flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-lg bg-[#241D20] border border-[#443337] flex items-center justify-center text-[#B77D89] flex-shrink-0">
+                    <Film size={16} />
+                  </div>
+                  <div>
+                    <p className="font-sora font-semibold text-[#F4EDE8] text-sm whitespace-nowrap">
+                      ~400 Reels
+                    </p>
+                    <p className="font-inter text-[#B9ADAA] text-[11px] whitespace-nowrap mt-0.5">
+                      Created
+                    </p>
+                  </div>
+                </div>
               </div>
             </ScrollReveal>
           </div>
+
+          {/* Right: Thoughtful Editorial Narrative */}
+          <div className="lg:col-span-7 flex flex-col">
+            <ScrollReveal animation="fadeRight" delay={0.1}>
+              <div className="section-label">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#B77D89]" />
+                About Me
+              </div>
+
+              <h1 className="font-serif text-3xl sm:text-4xl lg:text-[44px] text-[#F4EDE8] font-normal mb-6 text-balance leading-tight">
+                Creating Visual Stories That Connect Brands With People.
+              </h1>
+
+              {/* Main Description */}
+              <div className="space-y-4 text-[#B9ADAA] font-inter text-base sm:text-lg leading-relaxed">
+                <p>
+                  I&apos;m Rewan — a UGC creator, videographer, and video editor based in Shebeen El-Kom, Egypt.
+                </p>
+                <p>
+                  I specialize in creating engaging short-form video content for medical clinics, healthcare centers, beauty and laser centers, bloggers, influencers, lifestyle brands, and businesses.
+                </p>
+                <p>
+                  From creative concepts and scripting to filming and final editing, I work across the entire content production process to turn ideas into compelling visual stories.
+                </p>
+              </div>
+
+              {/* Focus Areas */}
+              <div className="mt-8">
+                <p className="font-inter text-sm sm:text-base text-[#F4EDE8]/90 font-medium mb-3.5">
+                  Working across different industries and creative projects, including:
+                </p>
+                <div className="flex flex-wrap gap-2.5">
+                  {FOCUS_AREAS.map((area) => (
+                    <span
+                      key={area}
+                      className="inline-flex items-center rounded-full px-4 py-2 text-xs sm:text-[13px] font-inter font-medium bg-[#1C1719] border border-[#443337] text-[#F4EDE8] hover:border-[#87535F] transition-colors"
+                    >
+                      {area}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Core Disciplines */}
+              <div className="mt-8 pt-8 border-t border-[#443337]">
+                <p className="font-inter text-xs font-semibold tracking-wider uppercase text-[#B9ADAA]/60 mb-3.5">
+                  Core Disciplines
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {allSkills.map((skill) => (
+                    <span
+                      key={skill.name}
+                      className="inline-flex items-center rounded-full px-3.5 py-1.5 text-xs font-inter font-medium bg-[#141112] border border-[#443337] text-[#B9ADAA]"
+                    >
+                      {skill.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+
         </div>
 
-        {/* ─── Execution Stack ─── */}
+        {/* ─── Creative Suite / Tools ─── */}
         <ScrollReveal animation="fadeUp" delay={0.1}>
-          <div className="mt-24 lg:mt-32">
-            <h2 className="font-serif text-section text-center mb-16 text-balance" style={{ fontWeight: 700 }}>
-              Execution Stack
-            </h2>
+          <div className="mt-20 lg:mt-28 pt-16 border-t border-[#443337]">
+            <div className="text-center max-w-xl mx-auto mb-12">
+              <span className="section-label justify-center">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#B77D89]" />
+                Production Software
+              </span>
+              <h3 className="font-serif text-2xl sm:text-3xl text-[#F4EDE8] font-normal text-balance">
+                Post-Production Tools
+              </h3>
+            </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-y-12 gap-x-12 sm:gap-x-16 lg:gap-x-20">
+            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8">
               {TOOLS.map((tool, index) => (
                 <motion.div
                   key={tool}
-                  initial={{ opacity: 0, y: 24 }}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="flex flex-col items-center gap-5"
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="flex items-center gap-4 px-6 py-4 rounded-xl bg-[#1C1719] border border-[#443337] hover:border-[#87535F] transition-all duration-200 shadow-sm"
                 >
-                  <div className="w-[90px] h-[90px] sm:w-[100px] sm:h-[100px] lg:w-[110px] lg:h-[110px] rounded-[22px] sm:rounded-[26px] lg:rounded-[28px] overflow-hidden bg-[#150D28] border border-[rgba(196,181,253,0.12)] flex items-center justify-center shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+                  <div className="w-12 h-12 rounded-lg overflow-hidden bg-black/40 p-2 flex items-center justify-center border border-[#443337]">
                     {TOOL_LOGOS[tool] && (
                       <Image
                         src={TOOL_LOGOS[tool]}
                         alt={`${tool} logo`}
-                        width={110}
-                        height={110}
+                        width={48}
+                        height={48}
                         className="w-full h-full object-contain"
                       />
                     )}
                   </div>
-                  <span className="font-inter text-white font-medium text-[15px] sm:text-[16px] lg:text-[17px] text-center whitespace-nowrap">
+                  <span className="font-inter text-[#F4EDE8] font-medium text-sm sm:text-base">
                     {tool}
                   </span>
                 </motion.div>
@@ -178,6 +170,7 @@ export default function About() {
             </div>
           </div>
         </ScrollReveal>
+
       </div>
     </section>
   );

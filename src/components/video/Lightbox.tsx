@@ -12,8 +12,8 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
-  ExternalLink,
-  Sparkles,
+  RotateCcw,
+  Film,
 } from "lucide-react";
 import type { PortfolioVideo } from "@/lib/constants";
 
@@ -111,7 +111,7 @@ export default function Lightbox({
       onClick={onClose}
     >
       {/* ── Backdrop ── */}
-      <div className="absolute inset-0 bg-[#07040D]/90 backdrop-blur-xl" />
+      <div className="absolute inset-0 bg-[#141112]/95 backdrop-blur-xl" />
 
       {/* ── Top Header Controls Bar ── */}
       <div
@@ -120,14 +120,22 @@ export default function Lightbox({
       >
         {/* Project Info Pill */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
-            <Sparkles size={13} className="text-[#C4B5FD]" />
-            <span className="font-sora text-xs sm:text-sm font-semibold text-white tracking-tight">
+          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1C1719] backdrop-blur-md border border-[#443337] shadow-sm">
+            <Film size={13} className="text-[#B77D89]" />
+            <span className="font-sora text-xs sm:text-sm font-semibold text-[#F4EDE8] tracking-tight">
               {item.title}
             </span>
-            <span className="text-white/30 text-xs">|</span>
-            <span className="font-mono text-[11px] text-[#C4B5FD] font-medium">
-              {item.id} / 0{items.length}
+            {item.personOrBrand && (
+              <>
+                <span className="text-[#443337] text-xs">·</span>
+                <span className="text-xs text-[#B9ADAA] font-inter">
+                  {item.personOrBrand}
+                </span>
+              </>
+            )}
+            <span className="text-[#443337] text-xs">|</span>
+            <span className="font-mono text-[11px] text-[#B9ADAA] font-medium">
+              {item.id} / {items.length < 10 ? `0${items.length}` : items.length}
             </span>
           </div>
         </div>
@@ -136,7 +144,7 @@ export default function Lightbox({
         <button
           type="button"
           onClick={onClose}
-          className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 border border-white/20 flex items-center justify-center text-white/90 hover:text-white transition-all duration-200 shadow-lg cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C4B5FD]"
+          className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#1C1719] hover:bg-[#241D20] active:scale-95 border border-[#443337] hover:border-[#B77D89] flex items-center justify-center text-[#F4EDE8] transition-all duration-200 shadow-lg cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B77D89]"
           aria-label="Close video player"
         >
           <X size={19} />
@@ -154,7 +162,7 @@ export default function Lightbox({
         <button
           type="button"
           onClick={goPrev}
-          className="hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 active:scale-90 border border-white/15 text-white/80 hover:text-white transition-all duration-200 mr-4 lg:mr-8 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C4B5FD] shadow-xl"
+          className="hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-[#1C1719] hover:bg-[#241D20] active:scale-90 border border-[#443337] text-[#F4EDE8] hover:border-[#B77D89] transition-all duration-200 mr-4 lg:mr-8 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B77D89] shadow-xl"
           aria-label="Previous video"
         >
           <ChevronLeft size={22} />
@@ -167,39 +175,42 @@ export default function Lightbox({
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.96, opacity: 0 }}
           transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[410px] aspect-[9/16] max-h-[76vh] sm:max-h-[78vh] rounded-[20px] sm:rounded-[24px] overflow-hidden bg-black shadow-[0_25px_80px_rgba(0,0,0,0.85),0_0_40px_rgba(196,181,253,0.18)] border border-[rgba(196,181,253,0.2)]"
+          className="relative w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[410px] aspect-[9/16] max-h-[76vh] sm:max-h-[78vh] rounded-[16px] sm:rounded-[20px] overflow-hidden bg-black shadow-[0_25px_80px_rgba(0,0,0,0.95)] border border-[#443337]"
         >
           {/* Loading Spinner */}
           {isLoading && (
             <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm pointer-events-none">
               <div className="relative w-12 h-12 mb-3">
-                <div className="absolute inset-0 rounded-full border-2 border-white/15" />
-                <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-[#C4B5FD] animate-spin" />
+                <div className="absolute inset-0 rounded-full border-2 border-[#443337]" />
+                <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-[#B77D89] animate-spin" />
               </div>
-              <span className="text-xs font-inter text-white/60">Loading Mux stream...</span>
+              <span className="text-xs font-inter text-[#B9ADAA]">Loading video...</span>
             </div>
           )}
 
           {/* Error Message */}
           {hasError && (
             <div className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 text-center bg-black/90">
-              <p className="text-sm font-inter text-white/80 mb-4">
+              <p className="text-sm font-inter text-[#F4EDE8] mb-4">
                 Video playback could not load directly.
               </p>
-              <a
-                href={item.videoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C4B5FD] text-[#0F0A19] text-xs font-semibold hover:bg-white transition-colors"
+              <button
+                type="button"
+                onClick={() => {
+                  setHasError(false);
+                  setIsLoading(true);
+                }}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#F4EDE8] text-[#141112] text-xs font-semibold hover:bg-white transition-colors shadow-sm cursor-pointer"
               >
-                Watch on Mux <ExternalLink size={13} />
-              </a>
+                <RotateCcw size={13} />
+                <span>Retry Playback</span>
+              </button>
             </div>
           )}
 
-          {/* Mux Hosted Player Embed */}
+          {/* Clean Embedded Video Player */}
           <iframe
-            src={`${item.videoUrl}?autoplay=muted`}
+            src={`${item.videoUrl}${item.videoUrl.includes("?") ? "&" : "?"}autoplay=muted`}
             title={`Video: ${item.title}`}
             allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
             allowFullScreen
@@ -216,7 +227,7 @@ export default function Lightbox({
         <button
           type="button"
           onClick={goNext}
-          className="hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 active:scale-90 border border-white/15 text-white/80 hover:text-white transition-all duration-200 ml-4 lg:ml-8 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C4B5FD] shadow-xl"
+          className="hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-[#1C1719] hover:bg-[#241D20] active:scale-90 border border-[#443337] text-[#F4EDE8] hover:border-[#B77D89] transition-all duration-200 ml-4 lg:ml-8 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B77D89] shadow-xl"
           aria-label="Next video"
         >
           <ChevronRight size={22} />
@@ -233,24 +244,24 @@ export default function Lightbox({
           <button
             type="button"
             onClick={goPrev}
-            className="flex-1 py-2.5 px-4 rounded-full bg-white/10 active:bg-white/20 border border-white/15 text-white text-xs font-inter font-medium flex items-center justify-center gap-1.5 shadow"
+            className="flex-1 py-2.5 px-4 rounded-full bg-[#1C1719] active:bg-[#241D20] border border-[#443337] text-[#F4EDE8] text-xs font-inter font-medium flex items-center justify-center gap-1.5 shadow"
           >
             <ChevronLeft size={16} /> Prev Video
           </button>
           <button
             type="button"
             onClick={goNext}
-            className="flex-1 py-2.5 px-4 rounded-full bg-white/10 active:bg-white/20 border border-white/15 text-white text-xs font-inter font-medium flex items-center justify-center gap-1.5 shadow"
+            className="flex-1 py-2.5 px-4 rounded-full bg-[#1C1719] active:bg-[#241D20] border border-[#443337] text-[#F4EDE8] text-xs font-inter font-medium flex items-center justify-center gap-1.5 shadow"
           >
             Next Video <ChevronRight size={16} />
           </button>
         </div>
 
         {/* Keyboard / Swipe tip */}
-        <p className="font-inter text-white/30 text-[11px] text-center hidden md:block">
-          Use <kbd className="px-1.5 py-0.5 rounded bg-white/10 font-mono text-[10px] text-white/60">←</kbd>{" "}
-          <kbd className="px-1.5 py-0.5 rounded bg-white/10 font-mono text-[10px] text-white/60">→</kbd> to navigate ·{" "}
-          <kbd className="px-1.5 py-0.5 rounded bg-white/10 font-mono text-[10px] text-white/60">Esc</kbd> to close
+        <p className="font-inter text-[#B9ADAA]/60 text-[11px] text-center hidden md:block">
+          Use <kbd className="px-1.5 py-0.5 rounded bg-[#1C1719] border border-[#443337] font-mono text-[10px] text-[#F4EDE8]">←</kbd>{" "}
+          <kbd className="px-1.5 py-0.5 rounded bg-[#1C1719] border border-[#443337] font-mono text-[10px] text-[#F4EDE8]">→</kbd> to navigate ·{" "}
+          <kbd className="px-1.5 py-0.5 rounded bg-[#1C1719] border border-[#443337] font-mono text-[10px] text-[#F4EDE8]">Esc</kbd> to close
         </p>
       </div>
     </motion.div>,

@@ -1,388 +1,232 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown, Play, MapPin, Star } from "lucide-react";
-import { HERO_TITLES } from "@/lib/constants";
+import { useCallback } from "react";
+import { motion } from "framer-motion";
+import { ArrowDown, Play, MapPin } from "lucide-react";
+import { SITE_META } from "@/lib/constants";
 import Image from "next/image";
 
-const FLOATING_BADGES = [
-  { icon: MapPin, text: "Shebeen El-Kom, Egypt", color: "#C4B5FD" },
-  { icon: Star, text: "Premium UGC", color: "#E9D5FF" },
-  { icon: Play, text: "~400 Reels", color: "#F59E0B" },
-];
-
-interface StarData {
-  left: string;
-  top: string;
-  animationDelay: string;
-  animationDuration: string;
-  opacity: number;
-  size: string;
-}
-
-function generateStars(): StarData[] {
-  return Array.from({ length: 24 }, (_, i) => {
-    const seed = i * 9301 + 49297;
-    const r1 = (seed % 100) / 100;
-    const r2 = ((seed * 7) % 100) / 100;
-    const r3 = ((seed * 13) % 100) / 100;
-    const r4 = ((seed * 17) % 100) / 100;
-    const r5 = ((seed * 23) % 100) / 100;
-    const r6 = ((seed * 29) % 100) / 100;
-
-    return {
-      left: `${r1 * 100}%`,
-      top: `${r2 * 100}%`,
-      animationDelay: `${r3 * 4}s`,
-      animationDuration: `${2 + r4 * 3}s`,
-      opacity: r5 * 0.4 + 0.1,
-      size: r6 > 0.8 ? "3px" : "2px",
-    };
-  });
-}
-
-const STARS: StarData[] = generateStars();
-
 const InstagramIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px]">
-    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="w-4 h-4 flex-shrink-0 text-[#B77D89]"
+  >
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
   </svg>
 );
 
 export default function Hero() {
-  const [titleIndex, setTitleIndex] = useState(0);
-  const ref = useRef<HTMLElement>(null);
-  const starsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTitleIndex((prev) => (prev + 1) % HERO_TITLES.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Pause star animations when Hero is off-screen to save GPU compositor work
-  useEffect(() => {
-    const section = ref.current;
-    const stars = starsRef.current;
-    if (!section || !stars) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        stars.dataset.paused = entry.isIntersecting ? "0" : "1";
-      },
-      { rootMargin: "100px 0px" }
-    );
-    io.observe(section);
-    return () => io.disconnect();
-  }, []);
-
   const scrollToAbout = useCallback(() => {
-    window.location.href = "/about";
+    const el = document.querySelector("#about");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.location.href = "/about";
+    }
   }, []);
 
   const scrollToWork = useCallback(() => {
     document.querySelector("#portfolio")?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
-  const starsHtml = useMemo(
-    () =>
-      STARS.map(
-        (s) =>
-          `left:${s.left};top:${s.top};animationDelay:${s.animationDelay};animationDuration:${s.animationDuration};opacity:${s.opacity};width:${s.size};height:${s.size}`
-      ),
-    []
-  );
-
   return (
     <section
       id="home"
-      ref={ref}
-      className="relative min-h-screen flex items-center overflow-hidden bg-[#0F0A19]"
-      style={{ contain: "layout style" }}
+      className="relative min-h-screen flex flex-col justify-between bg-[#141112] overflow-hidden pt-24 pb-12 lg:pt-0 lg:pb-0"
     >
-      {/* Background layers — shared across split */}
-      <div
-        className="absolute inset-0 z-0 pointer-events-none bg-cover bg-center opacity-30 mix-blend-luminosity"
-        style={{ backgroundImage: "url('/assets/hero-poster.jpg')" }}
-      />
-      <div
-        className="absolute inset-0 z-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle at center, rgba(15,10,25,0.45) 0%, rgba(15,10,25,0.85) 100%)",
-        }}
-      />
-        <div
-          className="absolute inset-0 z-0 pointer-events-none mix-blend-overlay"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(196,181,253,0.3) 0%, transparent 50%, rgba(233,213,255,0.25) 100%)",
-          }}
+      {/* ── Desktop Left Photography Layer (Full-Bleed Editorial Composition) ── */}
+      <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-[53%] xl:w-[50%] z-0 overflow-hidden pointer-events-none select-none">
+        <Image
+          src="/assets/hero-rewan-clean@2x.jpg"
+          alt="Rewan Abdrabou — Videographer & Visual Storyteller"
+          fill
+          priority
+          sizes="55vw"
+          className="object-cover object-left-top"
         />
-      <div className="absolute inset-0 grid-pattern opacity-30 z-0 pointer-events-none mix-blend-overlay" />
-
-      {/* Glow orb — pure CSS radial gradient, no expensive filter:blur */}
-      <div
-        className="absolute pointer-events-none rounded-full"
-        style={{
-          width: 500,
-          height: 500,
-          top: "-10%",
-          left: "-10%",
-          background: "radial-gradient(circle, rgba(196,181,253,0.12) 0%, transparent 70%)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Stars */}
-      <div ref={starsRef} className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{ contain: "strict" }}>
-        {starsHtml.map((style, i) => (
-          <div
-            key={i}
-            className="star absolute rounded-full"
-            style={parseStyleString(style)}
-          />
-        ))}
+        {/* Soft edge feathering into dark background */}
+        <div className="absolute inset-y-0 right-0 w-32 xl:w-44 bg-gradient-to-r from-transparent to-[#141112]" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#141112] to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#141112]/60 to-transparent" />
       </div>
 
-      {/* Split-screen container */}
-      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center py-28 md:py-20">
+      {/* ── Cinematic Atmosphere Textures on Right Side ── */}
+      {/* Right camera lens detail */}
+      <div className="absolute right-0 top-[18%] w-[260px] sm:w-[340px] lg:w-[420px] h-[480px] pointer-events-none opacity-20 lg:opacity-30 z-0">
+        <Image
+          src="/assets/hero-camera-lens.png"
+          alt=""
+          fill
+          className="object-contain object-right"
+          priority
+        />
+      </div>
 
-        {/* LEFT — Visual Area */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative flex justify-center lg:justify-end order-2 lg:order-1"
-        >
-          <div className="relative w-full max-w-[480px]">
-            {/* Main portrait frame */}
-            <div className="relative rounded-[28px] overflow-hidden bg-[#1A0A2E] border border-[rgba(196,181,253,0.15)]">
-              <div className="relative aspect-[3/4] overflow-hidden">
-                <Image
-                  src="/assets/rewanphoto.jpeg"
-                  alt="Rewan Abdrabou — UGC Creator & Videographer"
-                  fill
-                  sizes="(max-width: 1024px) 80vw, 40vw"
-                  className="object-cover object-top"
-                  priority
-                />
-                {/* Bottom gradient fade */}
-                <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-[#0F0A19] via-[#0F0A19]/60 to-transparent" />
-                {/* Top-left glow */}
-                <div className="absolute top-0 left-0 w-40 h-40 bg-[#C4B5FD] rounded-full blur-[70px] opacity-20 pointer-events-none" />
-                {/* Bottom-right glow */}
-                <div className="absolute bottom-12 right-0 w-28 h-28 bg-[#E9D5FF] rounded-full blur-[55px] opacity-20 pointer-events-none" />
-              </div>
-            </div>
+      {/* Bottom right burgundy drapery */}
+      <div className="absolute right-0 bottom-0 w-[280px] sm:w-[380px] lg:w-[480px] h-[220px] sm:h-[280px] pointer-events-none opacity-45 lg:opacity-55 z-0">
+        <Image
+          src="/assets/hero-burgundy-corner.png"
+          alt=""
+          fill
+          className="object-contain object-right-bottom"
+          priority
+        />
+      </div>
 
-            {/* Floating accent — camera icon */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute -top-4 -right-4 w-16 h-16 rounded-2xl bg-gradient-to-br from-[#C4B5FD]/30 to-[#E9D5FF]/20 backdrop-blur-md border border-[rgba(196,181,253,0.3)] flex items-center justify-center z-20 shadow-[0_8px_32px_rgba(196,181,253,0.3)]"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-white/80">
-                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
-                <circle cx="12" cy="13" r="3"/>
-              </svg>
-            </motion.div>
+      {/* ── Main Content Grid ── */}
+      <div className="section-container relative z-10 w-full max-w-[1400px] mx-auto my-auto py-8 lg:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center min-h-[600px] lg:min-h-[700px]">
 
-            {/* Floating accent — decorative circle */}
-            <div className="absolute -bottom-3 -left-3 w-12 h-12 rounded-full bg-gradient-to-br from-[#E9D5FF]/40 to-[#C4B5FD]/30 backdrop-blur-md border border-[rgba(233,213,255,0.3)] z-20 shadow-[0_4px_20px_rgba(233,213,255,0.3)]" />
-
-            {/* Thin ring accent */}
-            <div className="absolute top-1/4 -right-5 w-14 h-14 rounded-full border-2 border-[rgba(196,181,253,0.15)] z-10" />
-
-            {/* Small dot accent */}
-            <div className="absolute bottom-1/3 -left-3 w-2.5 h-2.5 rounded-full bg-[#C4B5FD] opacity-40 z-10" />
-
-            {/* Film-strip inspired decorative element */}
-            <div className="absolute -left-6 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-1.5 opacity-30">
-              {[...Array(5)].map((_, i) => (
-                <div key={i} className="w-3 h-2 rounded-[2px] border border-[rgba(196,181,253,0.4)]" />
-              ))}
-            </div>
-
-            {/* Timeline-inspired decorative element at bottom */}
-            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex items-center gap-1 opacity-25">
-              <div className="w-8 h-px bg-[rgba(196,181,253,0.5)]" />
-              <div className="w-1.5 h-1.5 rounded-full bg-[#C4B5FD]" />
-              <div className="w-16 h-px bg-[rgba(196,181,253,0.5)]" />
-              <div className="w-1 h-1 rounded-full bg-[#E9D5FF]" />
-              <div className="w-12 h-px bg-[rgba(196,181,253,0.5)]" />
-              <div className="w-1.5 h-1.5 rounded-full bg-[#C4B5FD]" />
-              <div className="w-6 h-px bg-[rgba(196,181,253,0.5)]" />
-            </div>
-          </div>
-        </motion.div>
-
-        {/* RIGHT — Information / Copy Area */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col order-1 lg:order-2 text-center lg:text-left"
-        >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="badge mb-6 self-center lg:self-start"
-          >
-            <span className="w-2 h-2 rounded-full bg-[#C4B5FD] animate-pulse" />
-            Available for new projects
-          </motion.div>
-
-          {/* Name */}
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.5 }}
-            className="font-inter text-white/50 text-base md:text-lg tracking-[0.18em] uppercase mb-4 font-medium"
-          >
-            Rewan Abdrabou
-          </motion.p>
-
-          {/* Headline — Serif, editorial, animated titles */}
-          <div
-            className="w-full mb-6"
-            style={{ minHeight: "clamp(60px, 10vw, 120px)" }}
-          >
-            <AnimatePresence mode="wait">
-              <motion.h1
-                key={titleIndex}
-                initial={{ y: 20, opacity: 0.9 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -20, opacity: 0 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="font-serif text-balance"
-                style={{
-                  fontSize: "clamp(40px, 7vw, 96px)",
-                  lineHeight: 1.05,
-                  letterSpacing: "-0.02em",
-                  fontWeight: 700,
-                  color: "#FFFFFF",
-                  willChange: "transform, opacity",
-                }}
-              >
-                {HERO_TITLES[titleIndex]}
-              </motion.h1>
-            </AnimatePresence>
+          {/* ── Mobile / Tablet Photography (Visible on < lg screens) ── */}
+          <div className="lg:hidden w-full max-w-[480px] mx-auto relative rounded-2xl overflow-hidden bg-[#1C1719] border border-[#443337] shadow-[0_20px_50px_rgba(0,0,0,0.8)] aspect-[4/3] sm:aspect-[16/11]">
+            <Image
+              src="/assets/hero-rewan-clean@2x.jpg"
+              alt="Rewan Abdrabou — Videographer & Visual Storyteller"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 480px"
+              className="object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#141112]/80 via-transparent to-transparent pointer-events-none" />
           </div>
 
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.5 }}
-            className="font-inter text-white/55 text-base sm:text-lg md:text-xl max-w-lg leading-relaxed mb-8 text-pretty self-center lg:self-start"
-          >
-            Video content for{" "}
-            <span className="text-white/80 font-medium">
-              medical clinics, healthcare centers,{" "}
-            </span>
-            and brands across Egypt.
-          </motion.p>
+          {/* Spacer on Desktop so Content aligns on Right half */}
+          <div className="hidden lg:block lg:col-span-6 xl:col-span-6 pointer-events-none" aria-hidden="true" />
 
-          {/* CTA — Learn more pill button */}
+          {/* ── Right Column — Typography & Editorial Content ── */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.55, duration: 0.5 }}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 w-full sm:w-auto self-center lg:self-start"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-6 xl:col-span-6 flex flex-col text-left lg:pl-6 xl:pl-10"
           >
-            <button
-              onClick={scrollToAbout}
-              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-white/[0.08] border border-white/[0.12] text-white/90 font-inter text-[15px] font-medium transition-all duration-300 hover:bg-[rgba(245,158,11,0.08)] hover:border-[rgba(245,158,11,0.35)] hover:shadow-[0_0_24px_rgba(245,158,11,0.12)] cursor-pointer"
-            >
-              Learn more
-              <ArrowDown size={14} className="transition-transform duration-300 group-hover:translate-y-0.5" />
-            </button>
-          </motion.div>
-
-          {/* Original CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 w-full sm:w-auto self-center lg:self-start"
-          >
-            <a
-              href="#portfolio"
-              onClick={(e) => { e.preventDefault(); scrollToWork(); }}
-              className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-[rgba(10,6,20,0.85)] border border-[rgba(196,181,253,0.35)] text-white font-inter text-base font-medium w-full sm:w-auto justify-center shadow-[0_0_16px_rgba(196,181,253,0.1)] transition-all duration-300 hover:bg-[rgba(15,10,30,0.95)] hover:border-[rgba(196,181,253,0.55)] hover:shadow-[0_0_28px_rgba(196,181,253,0.2)] cursor-pointer"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px] flex-shrink-0">
-                <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
-                <circle cx="9" cy="9" r="2"/>
-                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
-              </svg>
-              View My Work
-            </a>
-            <a
-              href="https://www.instagram.com/rewan__reel__ugc_creator/?hl=en"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-[rgba(10,6,20,0.85)] border border-[rgba(196,181,253,0.35)] text-white font-inter text-base font-medium w-full sm:w-auto justify-center shadow-[0_0_16px_rgba(196,181,253,0.1)] transition-all duration-300 hover:bg-[rgba(15,10,30,0.95)] hover:border-[rgba(196,181,253,0.55)] hover:shadow-[0_0_28px_rgba(196,181,253,0.2)] cursor-pointer"
-            >
-              <InstagramIcon />
-              DM on Instagram
-            </a>
-          </motion.div>
-
-          {/* Stats Badges */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.65, duration: 0.5 }}
-            className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3"
-          >
-            {FLOATING_BADGES.map(({ icon: Icon, text, color }) => (
-              <div
-                key={text}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[rgba(27,18,48,0.75)] border border-[rgba(196,181,253,0.18)]"
-              >
-                <Icon size={14} style={{ color }} />
-                <span className="font-inter text-white/70 text-sm font-medium whitespace-nowrap">
-                  {text}
+            {/* Meta Row: Availability badge with extending fine line */}
+            <div className="flex items-center gap-3.5 mb-5 sm:mb-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1C1719]/90 border border-[#443337] shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-[#B77D89] animate-pulse" />
+                <span className="font-inter text-xs font-medium text-[#F4EDE8]/90">
+                  Available for new projects
                 </span>
               </div>
-            ))}
+              <div className="hidden sm:block flex-1 h-px bg-[#443337] max-w-[150px]" />
+            </div>
+
+            {/* Subtitle Name with fine line */}
+            <div className="flex items-center gap-3.5 mb-3 sm:mb-4">
+              <p className="font-inter text-[#B9ADAA] text-xs sm:text-[13px] font-semibold tracking-[0.24em] uppercase">
+                REWAN ABDRABOU
+              </p>
+              <div className="hidden sm:block flex-1 h-px bg-[#443337] max-w-[100px]" />
+            </div>
+
+            {/* Main Editorial Headline */}
+            <div className="relative mb-2 sm:mb-3">
+              <h1 className="font-serif text-[#F4EDE8] font-normal tracking-tight text-[52px] sm:text-[72px] lg:text-[86px] xl:text-[96px] leading-[1.02]">
+                Videographer
+              </h1>
+              {/* Delicate Rose Stroke Underline matching reference */}
+              <svg
+                viewBox="0 0 240 12"
+                fill="none"
+                className="w-[180px] sm:w-[230px] lg:w-[270px] h-auto mt-0.5 mb-5 sm:mb-6 text-[#B77D89]"
+                aria-hidden="true"
+              >
+                <path
+                  d="M2 9C55 3 150 2 238 8C175 4 80 5 2 11"
+                  fill="currentColor"
+                  opacity="0.9"
+                />
+              </svg>
+            </div>
+
+            {/* Description */}
+            <p className="font-inter text-[#B9ADAA] text-base sm:text-[17px] leading-relaxed max-w-xl mb-8 sm:mb-10 text-pretty">
+              Creating engaging visual content for medical clinics, beauty and laser centers, bloggers, influencers, and brands across Egypt.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-3.5 w-full sm:w-auto">
+              {/* Primary CTA — Learn More */}
+              <button
+                type="button"
+                onClick={scrollToAbout}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#F4EDE8] text-[#141112] font-inter text-sm font-semibold hover:bg-white transition-all duration-200 cursor-pointer shadow-md hover:shadow-lg active:scale-98"
+              >
+                <span>Learn more</span>
+                <ArrowDown size={14} className="stroke-[2.5]" />
+              </button>
+
+              {/* Secondary CTA — View My Work */}
+              <button
+                type="button"
+                onClick={scrollToWork}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#1C1719]/70 hover:bg-[#241D20] border border-[#443337] hover:border-[#B77D89]/60 text-[#F4EDE8] font-inter text-sm font-medium transition-all duration-200 cursor-pointer active:scale-98"
+              >
+                <Play size={13} className="fill-[#F4EDE8] text-[#F4EDE8]" />
+                <span>View My Work</span>
+              </button>
+
+              {/* Tertiary CTA — DM on Instagram */}
+              <a
+                href={SITE_META.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#1C1719]/70 hover:bg-[#241D20] border border-[#443337] hover:border-[#B77D89]/60 text-[#F4EDE8] font-inter text-sm font-medium transition-all duration-200 active:scale-98"
+              >
+                <InstagramIcon />
+                <span>DM on Instagram</span>
+              </a>
+            </div>
           </motion.div>
-        </motion.div>
+
+        </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <button
-        onClick={scrollToAbout}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-white/30 hover:text-white/60 transition-colors cursor-pointer group"
-        aria-label="Scroll down"
-      >
-        <span className="font-inter text-[11px] tracking-widest uppercase">
-          Scroll
-        </span>
-        <span
-          className="inline-block p-2 rounded-full border border-white/15 group-hover:border-[rgba(196,181,253,0.4)] transition-colors"
-          style={{ animation: "float 1.8s ease-in-out infinite" }}
+      {/* ── Bottom Bar: Supporting Stats (Left) & Scroll Prompt (Center) ── */}
+      <div className="section-container relative z-10 w-full max-w-[1400px] mx-auto pb-6 sm:pb-8 flex items-center justify-between">
+        {/* Left: Location & Stats */}
+        <div className="flex items-center gap-3.5 sm:gap-5 text-xs font-inter text-[#B9ADAA]">
+          <div className="flex items-center gap-1.5">
+            <MapPin size={13} className="text-[#B77D89] flex-shrink-0" />
+            <span>Shebeen El-Kom, Egypt</span>
+          </div>
+          <span className="w-px h-3.5 bg-[#443337]" />
+          <div className="flex items-center gap-1.5">
+            <Play size={11} className="fill-[#B77D89] text-[#B77D89] flex-shrink-0" />
+            <span className="font-medium text-[#F4EDE8]">~400 Reels</span>
+          </div>
+        </div>
+
+        {/* Center: Scroll Mouse Pill (Desktop only) */}
+        <button
+          type="button"
+          onClick={scrollToWork}
+          className="hidden lg:flex flex-col items-center gap-1.5 absolute left-1/2 -translate-x-1/2 text-[#B9ADAA]/60 hover:text-[#B9ADAA] transition-colors cursor-pointer group"
+          aria-label="Scroll to portfolio"
         >
-          <ArrowDown size={13} />
-        </span>
-      </button>
+          <span className="text-[10px] font-inter uppercase tracking-[0.24em] text-[#B9ADAA]/75 group-hover:text-[#F4EDE8]">
+            Scroll
+          </span>
+          <div className="w-5 h-8 rounded-full border border-[#443337] group-hover:border-[#B77D89] flex justify-center pt-1.5 transition-colors">
+            <motion.span
+              animate={{ y: [0, 8, 0], opacity: [1, 0.4, 1] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+              className="w-1 h-1.5 rounded-full bg-[#B77D89]"
+            />
+          </div>
+          <div className="w-px h-4 bg-gradient-to-b from-[#443337] to-transparent" />
+        </button>
+
+        {/* Empty right placeholder for balance */}
+        <div className="hidden sm:block w-24" aria-hidden="true" />
+      </div>
     </section>
   );
-}
-
-function parseStyleString(styleStr: string): React.CSSProperties {
-  const result: Record<string, string> = {};
-  styleStr.split(";").forEach((part) => {
-    const [key, val] = part.split(":");
-    if (key && val) result[key.trim()] = val.trim();
-  });
-  return result as React.CSSProperties;
 }

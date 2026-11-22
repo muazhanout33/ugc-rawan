@@ -92,9 +92,9 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           scrolled
-            ? "py-3 bg-[rgba(12,8,22,0.92)] backdrop-blur-md border-b border-[rgba(196,181,253,0.1)] shadow-[0_4px_30px_rgba(0,0,0,0.4)]"
+            ? "py-3 bg-[#141112]/92 backdrop-blur-md border-b border-[#443337] shadow-[0_4px_30px_rgba(0,0,0,0.65)]"
             : "py-5 bg-transparent"
         )}
       >
@@ -106,22 +106,24 @@ export default function Navbar() {
               e.preventDefault();
               handleNavClick("#home");
             }}
-            className="shrink-0"
-            whileHover={{ scale: 1.02 }}
+            className="shrink-0 flex items-center"
+            whileHover={{ scale: 1.01 }}
           >
-            <span className="font-sora font-bold text-white tracking-tight">
-              <span className="text-[13px] md:text-[15px]">Rewan Abdrabou</span>
-              <span className="text-[11px] md:text-[15px] text-white/40 font-medium">{" "} | UGC Creator</span>
-              <span className="hidden md:inline text-[15px] text-white/40 font-medium"> &amp; Visual Storyteller</span>
+            <span className="font-serif text-[17px] sm:text-[19px] font-medium text-[#F4EDE8] tracking-wide">
+              Rewan Abdrabou
+            </span>
+            <span className="text-[#443337] mx-2 sm:mx-2.5 font-light">|</span>
+            <span className="text-[11.5px] sm:text-[13px] text-[#B9ADAA] font-inter font-normal">
+              <span className="hidden xs:inline">UGC Creator &amp; </span>Visual Storyteller
             </span>
           </motion.a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-10 xl:gap-12 ml-auto mr-4 xl:mr-6">
+          <nav className="hidden lg:flex items-center gap-7 ml-auto mr-6 xl:mr-8">
             {NAV_LINKS.map((link) => {
               const isActive = activeSection === link.href;
               return (
-                <motion.a
+                <a
                   key={link.href}
                   href={link.href}
                   onClick={(e) => {
@@ -129,58 +131,36 @@ export default function Navbar() {
                     handleNavClick(link.href);
                   }}
                   className={cn(
-                    "relative px-3 py-2 font-inter text-[13.5px] font-medium rounded-lg transition-all duration-300 group",
+                    "relative py-1 font-inter text-[13.5px] font-medium transition-colors duration-200",
                     isActive
-                      ? "text-white"
-                      : "text-white/50 hover:text-white/90"
+                      ? "text-[#F4EDE8]"
+                      : "text-[#B9ADAA] hover:text-[#F4EDE8]"
                   )}
                 >
-                  {/* Hover background */}
-                  <span
-                    className={cn(
-                      "absolute inset-0 rounded-lg transition-all duration-300",
-                      isActive
-                        ? "bg-[rgba(196,181,253,0.12)]"
-                        : "bg-transparent group-hover:bg-[rgba(196,181,253,0.08)]"
-                    )}
-                  />
-                  {/* Active indicator dot */}
-                  <span
-                    className={cn(
-                      "absolute top-1 right-1.5 w-1 h-1 rounded-full transition-all duration-300",
-                      isActive
-                        ? "bg-[#C4B5FD] opacity-100 scale-100"
-                        : "opacity-0 scale-0"
-                    )}
-                  />
-                  {/* Bottom underline */}
-                  <span
-                    className={cn(
-                      "absolute bottom-0 left-5 right-5 h-[2px] rounded-full origin-left transition-all duration-400",
-                      isActive
-                        ? "bg-gradient-to-r from-[#C4B5FD] to-[#DDD6FE] scale-x-100"
-                        : "bg-gradient-to-r from-[#C4B5FD] to-[#DDD6FE] scale-x-0 group-hover:scale-x-100"
-                    )}
-                  />
-                  <span className="relative z-10">{link.label}</span>
-                </motion.a>
+                  {link.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="activeNavIndicator"
+                      className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#B77D89] rounded-full"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </a>
               );
             })}
           </nav>
 
           {/* CTA Button */}
-          <div className="hidden lg:flex items-center ml-4 xl:ml-6">
+          <div className="hidden lg:flex items-center">
             <motion.a
               href="https://www.instagram.com/rewan__reel__ugc_creator/?hl=en"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-transparent border border-[rgba(196,181,253,0.4)] text-white text-[13px] font-medium font-inter shadow-[0_0_20px_rgba(196,181,253,0.15)] transition-all duration-300 hover:border-[rgba(196,181,253,0.6)] hover:shadow-[0_0_28px_rgba(196,181,253,0.25)]"
-              whileHover={{
-                scale: 1.03,
-              }}
-              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1C1719]/70 hover:bg-[#241D20] border border-[#443337] hover:border-[#B77D89]/60 text-[#F4EDE8] text-[13px] font-medium font-inter transition-all duration-200 shadow-sm"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-[#B77D89]">
                 <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
                 <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
@@ -191,7 +171,7 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <motion.button
-            className="lg:hidden p-2.5 rounded-xl border border-[rgba(196,181,253,0.2)] text-white/70 hover:text-white hover:border-[rgba(196,181,253,0.4)] hover:bg-[rgba(196,181,253,0.08)] transition-all duration-300"
+            className="lg:hidden p-2.5 rounded-xl border border-[#443337] bg-[#1C1719] text-[#F4EDE8] hover:border-[#B77D89] transition-all duration-300"
             onClick={() => setMobileOpen(!mobileOpen)}
             whileTap={{ scale: 0.95 }}
             aria-label="Toggle mobile menu"
@@ -212,10 +192,10 @@ export default function Navbar() {
             className="fixed inset-0 z-40 lg:hidden"
           >
             <div
-              className="absolute inset-0 bg-[#0F0A19]/95 backdrop-blur-md"
+              className="absolute inset-0 bg-[#141112]/98 backdrop-blur-xl"
               onClick={() => setMobileOpen(false)}
             />
-            <nav className="relative z-10 flex flex-col items-center justify-center h-full gap-1 pb-24">
+            <nav className="relative z-10 flex flex-col items-center justify-center h-full gap-2 pb-24">
               {NAV_LINKS.map((link, i) => {
                 const isActive = activeSection === link.href;
                 return (
@@ -226,19 +206,19 @@ export default function Navbar() {
                       e.preventDefault();
                       handleNavClick(link.href);
                     }}
-                    initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
                     transition={{
-                      delay: i * 0.06,
-                      duration: 0.4,
+                      delay: i * 0.05,
+                      duration: 0.35,
                       ease: [0.22, 1, 0.36, 1],
                     }}
                     className={cn(
-                      "text-2xl font-sora font-semibold transition-all duration-300 py-3.5 px-8 rounded-xl w-[260px] text-center",
+                      "text-2xl font-serif font-normal transition-colors duration-200 py-3 px-8 rounded-full w-[260px] text-center",
                       isActive
-                        ? "text-white bg-[rgba(196,181,253,0.15)]"
-                        : "text-white/50 hover:text-white hover:bg-[rgba(196,181,253,0.08)]"
+                        ? "text-[#F4EDE8] bg-[#1C1719] border border-[#443337]"
+                        : "text-[#B9ADAA] hover:text-[#F4EDE8]"
                     )}
                   >
                     {link.label}
@@ -251,10 +231,10 @@ export default function Navbar() {
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.4 }}
-                className="inline-flex items-center gap-2 px-5 py-2.5 mt-8 rounded-full bg-transparent border border-[rgba(196,181,253,0.4)] text-white text-[13px] font-medium font-inter shadow-[0_0_20px_rgba(196,181,253,0.15)]"
+                transition={{ delay: 0.3, duration: 0.35 }}
+                className="inline-flex items-center gap-2 px-6 py-3 mt-8 rounded-full bg-[#F4EDE8] text-[#141112] text-sm font-semibold font-inter shadow-md hover:bg-white"
               >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-[#87535F]">
                   <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
                   <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
                   <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>

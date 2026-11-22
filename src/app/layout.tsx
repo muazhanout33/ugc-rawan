@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Sora, Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { SITE_META } from "@/lib/constants";
-import { CustomCursor } from "@/components/animations";
 import { VideoProvider } from "@/components/video/VideoContext";
 import StructuredData from "@/components/seo/StructuredData";
 
@@ -22,6 +21,8 @@ const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-cormorant",
   display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -77,12 +78,9 @@ export default function RootLayout({
       className={`${sora.variable} ${inter.variable} ${cormorant.variable}`}
       suppressHydrationWarning
     >
-      <body className="bg-[#0F0A19] text-white overflow-x-hidden">
+      <body className="bg-[#141112] text-[#F4EDE8] overflow-x-hidden selection:bg-[#87535F]/40 selection:text-[#F4EDE8]">
         <VideoProvider>
           <StructuredData />
-          <CustomCursor />
-          {/* Noise texture overlay */}
-          <div className="noise-overlay" aria-hidden="true" />
           {children}
         </VideoProvider>
       </body>
